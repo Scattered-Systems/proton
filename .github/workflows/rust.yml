@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  CARGO_PACKAGE: protonic
+  CARGO_PACKAGE: proton-core
   CARGO_TERM_COLOR: always
 
 jobs:
@@ -18,6 +18,6 @@ jobs:
       - name: Login
         run: cargo login ${{ secrets.CARGO_REGISTRY_TOKEN }}
       - name: Test
-        run: cargo test --package $CARGO_PACKAGE --verbose
+        run: cargo test --workspace
       - name: Build and Push
         run: cargo publish --package $CARGO_PACKAGE --verbose

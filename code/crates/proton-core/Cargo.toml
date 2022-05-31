@@ -3,14 +3,14 @@ authors = ["FL03 <jo3mccain@icloud.com>"]
 description = "A complete decentralized cloud storage solution"
 edition = "2021"
 license = "MIT"
-name = "protonic"
+name = "proton-core"
 repository = "https://github.com/scattered-systems/proton.git"
 version = "0.1.0"
 
 [lib]
 bench = false
 crate-type = ["cdylib", "rlib"]
-name = "protonic"
+name = "proton_core"
 path = "src/lib.rs"
 test = true
 
@@ -20,3 +20,5 @@ path = "tests/simple.rs"
 
 [dependencies]
 
+[dependencies.acme]
+version = "0.1.5"
