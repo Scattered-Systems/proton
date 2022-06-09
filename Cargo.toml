@@ -1,5 +1,5 @@
 [workspace]
 members = [
-    "code/crates/proton",
-    "code/crates/proton-core"
+    "proton",
+    "proton-core"
 ]

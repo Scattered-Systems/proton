@@ -18,6 +18,6 @@ jobs:
       - name: Login
         run: cargo login ${{ secrets.CARGO_REGISTRY_TOKEN }}
       - name: Test
-        run: cargo test --workspace
+        run: cargo test --package $CARGO_PACKAGE
       - name: Build and Push
         run: cargo publish --package $CARGO_PACKAGE --verbose

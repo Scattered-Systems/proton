@@ -1,4 +1,4 @@
-name: Docker
+name: Docker - Build and Push (Proton)
 
 on:
   push:
@@ -24,6 +24,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: code/crates/proton
+          context: proton
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/proton:latest
