@@ -18,6 +18,7 @@ RUN apt-get install -y libcairo2-dev libffi-dev libglib2.0-dev libpcre2-dev
 RUN rustup toolchain install nightly && \
     rustup toolchain install stable-gnu && \
     rustup target add wasm32-unknown-unknown --toolchain nightly && \
+    rustup defualt nightly && \
     apt-get update
 
 FROM builderspace as builder
