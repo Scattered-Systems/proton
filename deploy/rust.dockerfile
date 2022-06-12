@@ -3,7 +3,6 @@ FROM ubuntu as base
 RUN apt-get update -y
 RUN apt-get install -y build-essential curl
 RUN apt-get update -y
-
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 ENV PATH="/root/.cargo/bin:${PATH}"
@@ -16,20 +15,4 @@ RUN rustup toolchain install stable-gnu
 RUN rustup default nightly
 RUN apt-get update -y
 
-FROM builder-base as builder
-
-ADD . /app
-WORKDIR /app
-
-COPY . .
-RUN cargo build --release --package proton --bin proton
-
-FROM debian:buster-slim
-
-COPY --from=builder /app/target/release/proton /proton
-
-ENV DEV_MODE=false \
-    PORT=9999
-
-EXPOSE ${PORT}
-CMD ["./proton"]
+ENTRYPOINT ["$PATH"]
