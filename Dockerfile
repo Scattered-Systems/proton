@@ -2,20 +2,18 @@ FROM ubuntu as workspace
 
 RUN apt-get install -y \
     build-essential \
-    curl && \
-    apt-get update
+    curl \
+    cmake
 
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y && \
-    apt-get install -y nodejs npm yarn
+RUN apt-get update -y && apt-get install -y nodejs npm yarn
+
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 ENV PATH="/root/.cargo/bin:${PATH}"
 
 FROM workspace as builderspace
 
-RUN apt-get install -y \
-    cmake \
-    libcairo2-dev libffi-dev libglib2.0-dev libpcre2-dev
-
+RUN apt-get install -y libcairo2-dev libffi-dev libglib2.0-dev libpcre2-dev
 
 RUN rustup toolchain install nightly && \
     rustup toolchain install stable-gnu && \
