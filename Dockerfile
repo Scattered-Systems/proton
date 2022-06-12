@@ -14,7 +14,9 @@ FROM workspace as builderspace
 
 RUN apt-get install -y \
     cmake \
-    libcairo2-dev libffi-dev libglib2.0-dev libpcre2-dev \
+    libcairo2-dev libffi-dev libglib2.0-dev libpcre2-dev
+
+
 RUN rustup toolchain install nightly && \
     rustup toolchain install stable-gnu && \
     rustup target add wasm32-unknown-unknown --toolchain nightly && \
