@@ -26,7 +26,7 @@ ADD . /app
 WORKDIR /app
 
 COPY . .
-RUN cargo build --release
+RUN cargo build --release --package proton --bin proton
 
 FROM debian:buster-slim
 
