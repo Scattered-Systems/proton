@@ -2,14 +2,14 @@ version: "3.9"
 services:
   application:
     build:
-      context: ..
+      context: ../code/crates/bin
       dockerfile: Dockerfile
-    container_name: proton
+    container_name: application
     ports:
-      - "9999:9999"
+      - "8000:8080"
     restart: always
     volumes:
-      - /data/bin:/data
+      - ../artifacts/docker/data/bin:/data
 
   cache:
     container_name: cache
@@ -18,11 +18,11 @@ services:
       - "6379:6379"
     restart: always
 
-  cluster-master:
-    container_name: cluster-master
+  cluster:
+    container_name: cluster
     image: ipfs/ipfs-cluster
     depends_on:
-      - ipfs-master
+      - datastore
     environment:
       CLUSTER_PEERNAME: cluster
       CLUSTER_SECRET: ${CLUSTER_SECRET}
@@ -34,17 +34,17 @@ services:
       - "9094:9094"
       - "9096:9096"
     volumes:
-      - /data/cluster/master:/data/ipfs-cluster
+      - ../artifacts/docker/data/cluster/0:/data/ipfs-cluster
 
-  ipfs-master:
-    container_name: ipfs-master
+  datastore:
+    container_name: datastore
     image: ipfs/go-ipfs
     ports:
       - "4001:4001"
       - "5001:5001"
       - "8080:8080"
     volumes:
-      - /data/ipfs/master:/data/ipfs
+      - ../artifacts/docker/data/ipfs/0:/data/ipfs
 
 volumes:
   data:
