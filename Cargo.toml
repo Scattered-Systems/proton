@@ -5,6 +5,7 @@ description = "Proton "
 edition = "2021"
 homepage = "https://scattered-systems.github.io/proton/"
 keywords = []
+license = "MIT"
 name = "proton"
 readme = "README.md"
 repository = "https://github.com/scattered-systems/proton"
