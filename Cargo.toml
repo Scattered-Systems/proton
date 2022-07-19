@@ -9,7 +9,7 @@ license = "MIT"
 name = "proton"
 readme = "README.md"
 repository = "https://github.com/scattered-systems/proton"
-version = "0.1.0"
+version = "0.1.1"
 
 [[bin]]
 bench = false
@@ -18,7 +18,7 @@ name = "proton"
 [build-dependencies]
 
 [dependencies]
-druid = { features = [], version = "0.7.0" }
-scsys = { features = ["full"], path = "../../crates/scsys", version = "0.1.1" }
+druid = { features = ["image-all", "webp"], version = "0.7.0" }
+scsys = { features = ["full"], path = "../../crates/scsys", version = ">=0.1.3" }
 
 [dev-dependencies]

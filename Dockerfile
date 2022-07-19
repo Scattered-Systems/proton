@@ -1,13 +1,19 @@
-FROM jo3mccain/rusty as builder
+FROM jo3mccain/rusty as builder-base
 
-ADD bin/proton /app
+RUN yum install -y \
+    glib2-devel \
+    gtk3-devel
+
+FROM builder-base as builder
+
+ADD . /app
 WORKDIR /app
 
-COPY bin/proton .
+COPY . .
 RUN cargo build --release --verbose --color always
 
-FROM debian:buster-slim as application
+FROM photon as application
 
-COPY --from=builder /app/target/release/aether /aether
+COPY --from=builder /app/target/release/proton /proton
 
-ENTRYPOINT ["./aether"]
+ENTRYPOINT ["./proton"]
