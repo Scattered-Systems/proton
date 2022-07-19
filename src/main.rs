@@ -4,20 +4,18 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Welcome to Proton");
 
     let proton = Proton::new();
-    &application.run();
+    &proton.run();
     Ok(())
 }
 
 mod app {
     use crate::{TEXT_BOX_WIDTH, VERTICAL_WIDGET_SPACING, WINDOW_TITLE};
-    use druid::{Widget, WidgetExt, self};
-
+    use druid::{self, Widget, WidgetExt};
 
     pub struct Face {
         pub height: f64,
         pub width: f64,
     }
-
 
     #[derive(Clone, druid::Data, druid::Lens)]
     pub struct Store {
@@ -31,14 +29,16 @@ mod app {
 
     impl Proton {
         pub fn new() -> Self {
-            Self { name: "Proton".to_string() }
+            Self {
+                name: "Proton".to_string(),
+            }
         }
 
         /// Create the main window
         fn constructor() -> impl Widget<Store> {
-            let label = druid::widget::Label::new(
-                |data: &Store, _env: &druid::Env| format!("Hello {}!", data.name)
-            );
+            let label = druid::widget::Label::new(|data: &Store, _env: &druid::Env| {
+                format!("Hello {}!", data.name)
+            });
 
             let textbox = druid::widget::TextBox::new()
                 .with_placeholder("Who are we greeting?")
@@ -77,9 +77,7 @@ mod core {
     pub const WINDOW_TITLE: LocalizedString<crate::Store> = LocalizedString::new("Proton");
 
     pub enum WindowParams {
-        Appellation {
-            name: String
-        }
+        Appellation { name: String },
     }
 
     #[derive(Clone, Debug, Hash, PartialEq)]
