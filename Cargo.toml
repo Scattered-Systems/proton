@@ -15,10 +15,10 @@ version = "0.1.0"
 bench = false
 name = "proton"
 
-[dependencies]
-druid = { features = [], version = "0.7.0" }
-
-[dev-dependencies]
-
 [build-dependencies]
 
+[dependencies]
+druid = { features = [], version = "0.7.0" }
+scsys = { features = ["full"], path = "../../crates/scsys", version = "0.1.1" }
+
+[dev-dependencies]
