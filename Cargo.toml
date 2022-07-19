@@ -16,6 +16,7 @@ bench = false
 name = "proton"
 
 [dependencies]
+druid = { features = [], version = "0.7.0" }
 
 [dev-dependencies]
 

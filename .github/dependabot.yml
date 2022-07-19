@@ -8,7 +8,4 @@ updates:
     directory: /
     schedule:
       interval: daily
-  - package-ecosystem: cargo
-    directory: /bin/aether
-    schedule:
-      interval: daily
+
