@@ -10,7 +10,9 @@ pub mod calc;
 mod home;
 
 pub trait Face<Cmp: druid::Data> {
-    fn appellation(&self) -> String where Self: Sized;
+    fn appellation(&self) -> String
+        where
+            Self: Sized;
     fn display(&self);
     fn layout(&self);
 }

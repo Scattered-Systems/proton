@@ -21,7 +21,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Welcome to Proton");
 
     let mut proton = Proton::new();
-    &proton.run();
+    proton.run();
 
     Ok(())
 }

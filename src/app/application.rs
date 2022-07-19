@@ -8,6 +8,7 @@ use crate::{AppStore, TEXT_BOX_WIDTH, VERTICAL_WIDGET_SPACING, WINDOW_TITLE};
 use druid::{self, WidgetExt};
 
 #[derive(Clone, Debug)]
+/// Designed to store the different face states
 pub enum Pages {
     Default(AppStore),
 }

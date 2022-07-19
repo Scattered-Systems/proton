@@ -1,19 +1,9 @@
 /*
-    Appellation: mod <module>
+    Appellation: core <module>
     Creator: FL03 <jo3mccain@icloud.com>
     Description:
         ... Summary ...
 */
+pub use primitives::*;
 
-use druid::LocalizedString;
-
-pub const VERTICAL_WIDGET_SPACING: f64 = 20.0;
-pub const TEXT_BOX_WIDTH: f64 = 200.0;
-pub const WINDOW_TITLE: LocalizedString<crate::AppStore> = LocalizedString::new("Proton");
-
-pub enum WindowParams {
-    Appellation { name: String },
-}
-
-#[derive(Clone, Debug, Hash, PartialEq)]
-pub struct Constants;
+mod primitives;
