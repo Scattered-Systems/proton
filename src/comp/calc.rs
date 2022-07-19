@@ -248,7 +248,6 @@ pub fn run_calc() {
         in_num: false,
     };
     druid::AppLauncher::with_window(window)
-        .log_to_console()
         .launch(calc_state)
         .expect("launch failed");
 }
