@@ -7,7 +7,7 @@
 
 pub const VERTICAL_WIDGET_SPACING: f64 = 20.0;
 pub const TEXT_BOX_WIDTH: f64 = 200.0;
-pub const WINDOW_TITLE: LString<crate::AppStore> = LString::new("Proton");
+pub const WINDOW_TITLE: LString<crate::DefaultStore> = LString::new("Proton");
 
 pub type LString<S> = druid::LocalizedString<S>;
 

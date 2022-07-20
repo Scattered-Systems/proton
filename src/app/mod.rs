@@ -13,11 +13,11 @@ pub mod components;
 pub mod faces;
 
 #[derive(Clone, Debug, druid::Data, druid::Lens)]
-pub struct AppStore {
+pub struct DefaultStore {
     name: String,
 }
 
-impl AppStore {
+impl DefaultStore {
     fn constructor(name: String) -> Result<Self, scsys::BoxError> {
         Ok(Self { name })
     }
