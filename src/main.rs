@@ -9,7 +9,7 @@
 */
 
 #![windows_subsystem = "windows"]
-
+#[doc(inline)]
 pub use crate::{app::*, core::*, cyber::*, data::*};
 
 mod app;
@@ -20,8 +20,7 @@ mod data;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Welcome to Proton");
 
-    let mut proton = Proton::new();
-    proton.run();
+    Proton::new().application();
 
     Ok(())
 }

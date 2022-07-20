@@ -5,10 +5,7 @@
         ... Summary ...
 */
 
-use druid::{
-    theme, AppLauncher, Color, Data, Lens, LocalizedString, RenderContext, Widget, WidgetExt,
-    WindowDesc,
-};
+use druid::{theme, Color, Data, Lens, RenderContext, WidgetExt};
 
 use druid::widget::{CrossAxisAlignment, Flex, Label, Painter};
 
@@ -106,7 +103,7 @@ impl CalcState {
     }
 }
 
-fn op_button_label(op: char, label: String) -> impl Widget<CalcState> {
+fn op_button_label(op: char, label: String) -> impl druid::Widget<CalcState> {
     let painter = Painter::new(|ctx, _, env| {
         let bounds = ctx.size().to_rect();
 
@@ -129,11 +126,11 @@ fn op_button_label(op: char, label: String) -> impl Widget<CalcState> {
         .on_click(move |_ctx, data: &mut CalcState, _env| data.op(op))
 }
 
-fn op_button(op: char) -> impl Widget<CalcState> {
+fn op_button(op: char) -> impl druid::Widget<CalcState> {
     op_button_label(op, op.to_string())
 }
 
-fn digit_button(digit: u8) -> impl Widget<CalcState> {
+fn digit_button(digit: u8) -> impl druid::Widget<CalcState> {
     let painter = Painter::new(|ctx, _, env| {
         let bounds = ctx.size().to_rect();
 
@@ -157,11 +154,11 @@ fn digit_button(digit: u8) -> impl Widget<CalcState> {
 }
 
 fn flex_row<T: Data>(
-    w1: impl Widget<T> + 'static,
-    w2: impl Widget<T> + 'static,
-    w3: impl Widget<T> + 'static,
-    w4: impl Widget<T> + 'static,
-) -> impl Widget<T> {
+    w1: impl druid::Widget<T> + 'static,
+    w2: impl druid::Widget<T> + 'static,
+    w3: impl druid::Widget<T> + 'static,
+    w4: impl druid::Widget<T> + 'static,
+) -> impl druid::Widget<T> {
     Flex::row()
         .with_flex_child(w1, 1.0)
         .with_spacer(1.0)
@@ -172,7 +169,7 @@ fn flex_row<T: Data>(
         .with_flex_child(w4, 1.0)
 }
 
-fn build_calc() -> impl Widget<CalcState> {
+fn build_calc() -> impl druid::Widget<CalcState> {
     let display = Label::new(|data: &String, _env: &_| data.clone())
         .with_text_size(32.0)
         .lens(CalcState::value)
