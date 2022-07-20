@@ -4,12 +4,15 @@
     Description:
         ... Summary ...
 */
+use druid::WidgetExt;
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn test() {
-        let f = |x: usize, y: usize| x + y;
-        assert_eq!(f(4, 2), 6)
-    }
+#[derive(Clone, Debug, druid::Data, druid::Lens)]
+pub struct HomeSpace {
+    user: String,
+}
+
+#[derive(Clone, Debug)]
+pub struct HomePage {
+    pub default: bool,
+    pub space: HomeSpace,
 }

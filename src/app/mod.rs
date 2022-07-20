@@ -4,13 +4,15 @@
     Description:
         ... Summary ...
 */
-use crate::{TEXT_BOX_WIDTH, VERTICAL_WIDGET_SPACING};
 pub use application::*;
+pub use components::*;
+pub use faces::*;
+
 use druid::WidgetExt;
 
 mod application;
-pub mod components;
-pub mod faces;
+mod components;
+mod faces;
 
 #[derive(Clone, Debug, druid::Data, druid::Lens)]
 pub struct DefaultStore {
@@ -37,12 +39,12 @@ impl DefaultStore {
 
         let input_name = druid::widget::TextBox::new()
             .with_placeholder("Who are we greeting?")
-            .fix_width(TEXT_BOX_WIDTH)
+            .fix_width(crate::TEXT_BOX_WIDTH)
             .lens(Self::name);
 
         let layout = druid::widget::Flex::column()
             .with_child(label)
-            .with_spacer(VERTICAL_WIDGET_SPACING)
+            .with_spacer(crate::VERTICAL_WIDGET_SPACING)
             .with_child(input_name);
 
         layout
