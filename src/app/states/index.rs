@@ -63,10 +63,8 @@ pub fn create_navbar() -> Result<Flex<ApplicationState>, scsys::BoxError> {
     Ok(component)
 }
 
-pub fn create_application_canvas() -> Flex<ApplicationState> {
-    let navbar = create_navbar().ok().unwrap();
-
-    let view_switcher = ViewSwitcher::new(
+pub fn views() -> ViewSwitcher<ApplicationState, u32> {
+    ViewSwitcher::new(
         |data: &ApplicationState, _env| data.current_view,
         |selector, _data, _env| match selector {
             0 => Box::new(Flex::column().with_flex_child(
@@ -108,9 +106,11 @@ pub fn create_application_canvas() -> Flex<ApplicationState> {
             ),
             _ => Box::new(Label::new("Unknown").center()),
         },
-    );
+    )
+}
 
+pub fn create_application_canvas() -> Flex<ApplicationState> {
     Flex::column()
-        .with_child(navbar)
-        .with_flex_child(view_switcher, 1.0)
+        .with_child(create_navbar().ok().unwrap())
+        .with_flex_child(views(), 1.0)
 }
