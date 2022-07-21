@@ -1,13 +1,12 @@
 /*
-    Appellation: states <module>
+    Appellation: stores <module>
     Creator: FL03 <jo3mccain@icloud.com>
     Description:
         A face is equivalent to a webpage, route, etc
 */
-use druid::WidgetExt;
-pub use index::*;
+pub use state::*;
 
-mod index;
+mod state;
 
 /// Outline the standard implementations of a druid widget (W) with data (d)
 pub trait StateSpec<Cont: druid::Widget<Self>, Data: Clone + druid::Data>: Sized {

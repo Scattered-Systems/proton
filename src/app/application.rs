@@ -4,33 +4,37 @@
     Description:
         ... Summary ...
 */
-use druid::{LocalizedString, WidgetExt, WindowDesc};
-use scsys::BoxError;
+use druid::WidgetExt;
 
 #[derive(Clone, Debug)]
 pub struct App {
-    pub shape: (f64, f64),
+    pub controller: crate::Controller,
     pub state: crate::ApplicationState,
 }
 
 impl App {
     pub fn application(&mut self) {
-        let display = WindowDesc::new(crate::ApplicationState::display)
-            .title(LocalizedString::new("Proton"))
-            .window_size(self.shape.clone());
+        let display = druid::WindowDesc::new(crate::ApplicationState::display)
+            .title(druid::LocalizedString::new("Proton"))
+            .window_size(self.controller.window.shape.clone());
 
         druid::AppLauncher::with_window(display)
             .launch(self.state.clone())
-            .expect("Failed to launch application");
+            .expect("Application Error: Application failed to launch");
     }
-    pub fn new(shape: (f64, f64), state: crate::ApplicationState) -> Result<Self, scsys::BoxError> {
-        Ok(Self { shape, state })
+    pub fn new(
+        controller: crate::Controller,
+        state: crate::ApplicationState,
+    ) -> Result<Self, scsys::BoxError> {
+        Ok(Self { controller, state })
     }
     pub fn init() -> Self {
-        let controller = crate::Controller::default();
-
-        Self::new(controller.window.shape, crate::ApplicationState::init())
-            .ok()
-            .unwrap()
+        match Self::new(
+            crate::Controller::default(),
+            crate::ApplicationState::init(),
+        ) {
+            Ok(v) => v,
+            Err(e) => panic!("Application Error: {}", e),
+        }
     }
 }
