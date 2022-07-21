@@ -7,10 +7,10 @@
 pub use application::*;
 pub use components::*;
 pub use controllers::*;
-pub use states::*;
+pub use stores::*;
 
 mod application;
-mod states;
+mod stores;
 
 mod components {}
 

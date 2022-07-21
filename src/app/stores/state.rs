@@ -1,5 +1,5 @@
 /*
-    Appellation: index <module>
+    Appellation: state <module>
     Creator: FL03 <jo3mccain@icloud.com>
     Description:
         ... Summary ...
@@ -11,21 +11,6 @@ use druid::{
 };
 
 #[derive(Clone, Debug, druid::Data, druid::Lens)]
-pub struct CurrentState {
-    pub angle: String,
-    pub message: String,
-    pub query: String,
-    pub view: String,
-}
-
-#[derive(Clone, Debug, druid::Data, druid::Lens)]
-pub struct EditorState {
-    pub message_id: String,
-    pub guest: String,
-    pub data: String,
-}
-
-#[derive(Clone, Debug, druid::Data, druid::Lens)]
 pub struct ApplicationState {
     pub message: String,
     pub query: String,
@@ -33,8 +18,15 @@ pub struct ApplicationState {
 }
 
 impl ApplicationState {
+    pub fn canvas() -> Result<Flex<ApplicationState>, scsys::BoxError> {
+        let controller = crate::Controller::default();
+        let canvas = Flex::column()
+            .with_child(Navbar::new(controller.clone()).ok().unwrap())
+            .with_flex_child(Views::constructor(), 1.0);
+        Ok(canvas)
+    }
     pub fn display() -> impl druid::Widget<Self> {
-        druid::widget::Align::centered(create_application_canvas())
+        druid::widget::Align::centered(Self::canvas().ok().unwrap())
     }
     pub fn init() -> Self {
         Self::new(String::from(""), String::from(""), 0u32)
@@ -50,37 +42,11 @@ impl ApplicationState {
     }
 }
 
-pub fn create_navbar(
-    controller: crate::Controller,
-) -> Result<Flex<ApplicationState>, scsys::BoxError> {
-    let pages: [&str; 6] = [
-        "Dashboard",
-        "Artifacts",
-        "Connect",
-        "Discover",
-        "Create",
-        "Settings",
-    ];
-    let mut component = Flex::row();
-    component.add_child(Label::new(&*controller.name).center());
-    for i in 0..6 {
-        component.add_spacer(25.0);
-        component.add_child(
-            Button::new(format!("{}", pages[i]))
-                .on_click(move |_event, data: &mut u32, _env| {
-                    *data = i.try_into().ok().unwrap();
-                })
-                .lens(ApplicationState::view),
-        );
-    }
-    Ok(component)
-}
-
 #[derive(Clone, Debug, Hash, PartialEq)]
 pub struct Navbar;
 
 impl Navbar {
-    pub fn component(controller: crate::Controller) -> Flex<ApplicationState> {
+    pub fn new(controller: crate::Controller) -> Result<Flex<ApplicationState>, scsys::BoxError> {
         let mut component = Flex::row();
         component.add_child(Label::new(&*controller.name).center());
         for i in 0..6 {
@@ -93,10 +59,7 @@ impl Navbar {
                     .lens(ApplicationState::view),
             );
         }
-        component
-    }
-    pub fn constructor() -> crate::Controller {
-        crate::Controller::default()
+        Ok(component)
     }
 }
 
@@ -110,8 +73,8 @@ impl Views {
             |selector, _data, _env| match selector {
                 0 => Box::new(Self::default_page()),
                 1 => Box::new(Self::account_page()),
-                2 => Box::new(Self::connection_board()),
-                3 => Box::new(Self::discovery_page()),
+                2 => Box::new(Self::communication_center()),
+                3 => Box::new(Self::discover()),
                 4 => Box::new(Self::creation_hub()),
                 _ => Box::new(Self::control_panel()),
             },
@@ -138,7 +101,7 @@ impl Views {
     }
 
     /// Describes
-    pub fn connection_board() -> Split<ApplicationState> {
+    pub fn communication_center() -> Split<ApplicationState> {
         let stream: Vec<&str> = vec!["AppFeed", "Person"];
         println!("{:#?}", stream.clone());
         let feed = Flex::column().with_flex_child(Label::new("Feed").center().expand(), 1.0);
@@ -150,7 +113,7 @@ impl Views {
     }
 
     /// Combining a block explorer, global marketplace, and search engine into a single portal
-    pub fn discovery_page() -> Flex<ApplicationState> {
+    pub fn discover() -> Flex<ApplicationState> {
         Flex::column()
             .with_flex_child(Label::new("Here is a label").center(), 1.0)
             .with_flex_child(
@@ -167,7 +130,7 @@ impl Views {
             )
     }
 
-    ///
+    /// Equipped with all the tools needed to create content on the decentralized web
     pub fn creation_hub() -> Flex<ApplicationState> {
         Flex::column()
             .with_flex_child(Label::new("Here is a label").center(), 1.0)
@@ -185,28 +148,28 @@ impl Views {
             )
     }
 
-    ///
+    /// A mashup of account, application, and device settings
     pub fn control_panel() -> Flex<ApplicationState> {
         Flex::column()
             .with_flex_child(
-                Flex::row().with_flex_child(Label::new("Account").center().expand(), 1.0),
+                Flex::column()
+                    .with_flex_child(Label::new("Account Settings").center(), 1.0)
+                    .with_flex_child(
+                        Flex::row()
+                            .with_flex_child(Label::new("Name"), 1.0)
+                            .with_flex_child(TextBox::new().lens(ApplicationState::query), 1.0),
+                        1.0,
+                    ),
                 1.0,
             )
-            .with_flex_spacer(1.0)
             .with_flex_child(
-                Flex::row().with_flex_child(Label::new("Contacts").center().expand(), 1.0),
+                Flex::row()
+                    .with_flex_child(Label::new("Application Settings").center().expand(), 1.0),
                 1.0,
             )
             .with_flex_child(
-                Flex::row().with_flex_child(Label::new("Devices").center().expand(), 1.0),
+                Flex::row().with_flex_child(Label::new("Device Settings").center().expand(), 1.0),
                 1.0,
             )
     }
-}
-
-pub fn create_application_canvas() -> Flex<ApplicationState> {
-    let controller = crate::Controller::default();
-    Flex::column()
-        .with_child(create_navbar(controller).ok().unwrap())
-        .with_flex_child(Views::constructor(), 1.0)
 }
