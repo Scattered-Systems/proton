@@ -1,5 +1,5 @@
 /*
-    Appellation: home <module>
+    Appellation: index <module>
     Creator: FL03 <jo3mccain@icloud.com>
     Description:
         ... Summary ...
@@ -11,13 +11,13 @@ use druid::{
 };
 
 #[derive(Clone, Debug, druid::Data, druid::Lens)]
-pub struct HomeSpace {
+pub struct ApplicationState {
     pub authenticated: bool,
     pub current_view: u32,
     pub current_text: String,
 }
 
-impl HomeSpace {
+impl ApplicationState {
     fn constructor(
         authenticated: bool,
         current_view: u32,
@@ -30,7 +30,7 @@ impl HomeSpace {
         })
     }
     pub fn display() -> impl druid::Widget<Self> {
-        druid::widget::Align::centered(create_container_homepage())
+        druid::widget::Align::centered(create_application_canvas())
     }
 
     pub fn init() -> Self {
@@ -44,27 +44,35 @@ impl HomeSpace {
     }
 }
 
-pub fn create_container_homepage() -> Flex<HomeSpace> {
-    let mut controller = Flex::column();
-    controller.add_child(
+pub fn create_navbar() -> Result<Flex<ApplicationState>, scsys::BoxError> {
+    let mut component = Flex::row();
+    component.add_child(
         Label::new(|data: &u32, _env: &Env| format!("Current view: {}", data))
-            .lens(HomeSpace::current_view),
+            .lens(ApplicationState::current_view),
     );
     for i in 0..6 {
-        controller.add_spacer(80.);
-        controller.add_child(
+        component.add_spacer(25.0);
+        component.add_child(
             Button::new(format!("View {}", i))
                 .on_click(move |_event, data: &mut u32, _env| {
                     *data = i;
                 })
-                .lens(HomeSpace::current_view),
+                .lens(ApplicationState::current_view),
         );
     }
+    Ok(component)
+}
+
+pub fn create_application_canvas() -> Flex<ApplicationState> {
+    let navbar = create_navbar().ok().unwrap();
 
     let view_switcher = ViewSwitcher::new(
-        |data: &HomeSpace, _env| data.current_view,
+        |data: &ApplicationState, _env| data.current_view,
         |selector, _data, _env| match selector {
-            0 => Box::new(Label::new("Simple Label").center()),
+            0 => Box::new(Flex::column().with_flex_child(
+                Flex::row().with_flex_child(Label::new("Homepage").center(), 1.0),
+                1.0,
+            )),
             1 => Box::new(
                 Button::new("Simple Button").on_click(|_event, _data, _env| {
                     println!("Simple button clicked!");
@@ -84,10 +92,10 @@ pub fn create_container_homepage() -> Flex<HomeSpace> {
                         }),
                         1.0,
                     )
-                    .with_flex_child(TextBox::new().lens(HomeSpace::current_text), 1.0)
+                    .with_flex_child(TextBox::new().lens(ApplicationState::current_text), 1.0)
                     .with_flex_child(
                         Label::new(|data: &String, _env: &Env| format!("Value entered: {}", data))
-                            .lens(HomeSpace::current_text),
+                            .lens(ApplicationState::current_text),
                         1.0,
                     ),
             ),
@@ -102,7 +110,7 @@ pub fn create_container_homepage() -> Flex<HomeSpace> {
         },
     );
 
-    Flex::row()
-        .with_child(controller)
+    Flex::column()
+        .with_child(navbar)
         .with_flex_child(view_switcher, 1.0)
 }
