@@ -37,10 +37,16 @@ impl ApplicationState {
         druid::widget::Align::centered(create_application_canvas())
     }
     pub fn init() -> Self {
-        Self::new(String::from(""), String::from(""), 0u32).ok().unwrap()
+        Self::new(String::from(""), String::from(""), 0u32)
+            .ok()
+            .unwrap()
     }
     pub fn new(message: String, query: String, view: u32) -> Result<Self, scsys::BoxError> {
-        Ok(Self { message, query, view })
+        Ok(Self {
+            message,
+            query,
+            view,
+        })
     }
 }
 
@@ -182,10 +188,19 @@ impl Views {
     ///
     pub fn control_panel() -> Flex<ApplicationState> {
         Flex::column()
-            .with_flex_child(Flex::row().with_flex_child(Label::new("Account").center().expand(), 1.0), 1.0)
+            .with_flex_child(
+                Flex::row().with_flex_child(Label::new("Account").center().expand(), 1.0),
+                1.0,
+            )
             .with_flex_spacer(1.0)
-            .with_flex_child(Flex::row().with_flex_child(Label::new("Contacts").center().expand(), 1.0), 1.0)
-            .with_flex_child(Flex::row().with_flex_child(Label::new("Devices").center().expand(), 1.0), 1.0)
+            .with_flex_child(
+                Flex::row().with_flex_child(Label::new("Contacts").center().expand(), 1.0),
+                1.0,
+            )
+            .with_flex_child(
+                Flex::row().with_flex_child(Label::new("Devices").center().expand(), 1.0),
+                1.0,
+            )
     }
 }
 

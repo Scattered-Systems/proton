@@ -37,8 +37,16 @@ mod controllers {
     }
 
     impl Controller {
-        pub fn new(name: String, pages: Vec<String>, window: WindowParams) -> Result<Self, scsys::BoxError> {
-            Ok(Self { name, pages, window })
+        pub fn new(
+            name: String,
+            pages: Vec<String>,
+            window: WindowParams,
+        ) -> Result<Self, scsys::BoxError> {
+            Ok(Self {
+                name,
+                pages,
+                window,
+            })
         }
         pub fn default() -> Self {
             let pages: Vec<String> = vec![
@@ -48,11 +56,13 @@ mod controllers {
                 "Discover",
                 "Create",
                 "Settings",
-            ].iter().map(|i| i.to_string()).collect::<Vec<_>>();
+            ]
+                .iter()
+                .map(|i| i.to_string())
+                .collect::<Vec<_>>();
             Self::new("Proton".to_string(), pages.clone(), WindowParams::default())
                 .ok()
                 .unwrap()
         }
     }
 }
-

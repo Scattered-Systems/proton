@@ -5,7 +5,6 @@
         ... Summary ...
 */
 use druid::{LocalizedString, WidgetExt, WindowDesc};
-use scsys::BoxError;
 
 #[derive(Clone, Debug)]
 pub struct App {
