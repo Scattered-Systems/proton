@@ -20,7 +20,7 @@ mod data;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Welcome to Proton");
 
-    Proton::init().application();
+    App::init().application();
 
     Ok(())
 }

@@ -4,38 +4,42 @@
     Description:
         ... Summary ...
 */
-use crate::{DefaultStore, WINDOW_TITLE};
-use druid::{self, WidgetExt, WindowDesc};
+use druid::{
+    LocalizedString,
+    WindowDesc,
+    WidgetExt,
+};
+use scsys::BoxError;
 
 #[derive(Clone, Debug)]
-/// Designed to store the different face states
-pub enum Pages {
-    Default(DefaultStore),
+pub struct App {
+    pub shape: (f64, f64),
+    pub state: crate::HomeSpace,
 }
 
-#[derive(Clone, Debug)]
-pub struct Proton {
-    pub dimensions: (f64, f64),
-    pub state: DefaultStore,
-    pub title: druid::LocalizedString<DefaultStore>,
-}
-
-impl Proton {
+impl App {
     pub fn application(&mut self) {
-        druid::AppLauncher::with_window(self.display())
+        /// Initialize a WindowDesc<T>
+        let display = WindowDesc::new(crate::HomeSpace::display)
+            .title(LocalizedString::new("Proton"))
+            .window_size(self.shape.clone());
+
+        /// Call the built-in launcher with display (d)
+        druid::AppLauncher::with_window(display)
             .launch(self.state.clone())
             .expect("Failed to launch application");
     }
-    pub fn display(&mut self) -> WindowDesc<DefaultStore> {
-        druid::WindowDesc::new(DefaultStore::display)
-            .title(self.title.clone())
-            .window_size(self.dimensions.clone())
+    fn constructor(shape: (f64, f64), state: crate::HomeSpace) -> Result<Self, BoxError> {
+        Ok(Self { shape, state })
     }
-    pub fn new() -> Self {
-        Self {
-            dimensions: (1200.0f64, 800.0f64),
-            state: DefaultStore::empty(),
-            title: WINDOW_TITLE,
+    pub fn new(shape: (f64, f64), state: crate::HomeSpace) -> Self {
+        match Self::constructor(shape, state) {
+            Ok(v) => v,
+            Err(e) => panic!("Application Error: {}", e),
         }
     }
+    pub fn init() -> Self {
+        Self::new((1200f64, 800f64), crate::HomeSpace::init())
+    }
 }
+

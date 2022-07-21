@@ -10,7 +10,6 @@ pub use types::*;
 mod constants {
     pub const VERTICAL_WIDGET_SPACING: f64 = 20.0;
     pub const TEXT_BOX_WIDTH: f64 = 200.0;
-    pub const WINDOW_TITLE: crate::LString<crate::DefaultStore> = crate::LString::new("Proton");
 
     pub mod theme {
         pub const DARK_GREY: druid::Color = druid::Color::grey8(0x3a);

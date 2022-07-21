@@ -8,49 +8,6 @@ pub use application::*;
 pub use components::*;
 pub use faces::*;
 
-use druid::WidgetExt;
-
 mod application;
 mod components;
 mod faces;
-
-#[derive(Clone, Debug, druid::Data, druid::Lens)]
-pub struct DefaultStore {
-    name: String,
-}
-
-impl DefaultStore {
-    fn constructor(name: String) -> Result<Self, scsys::BoxError> {
-        Ok(Self { name })
-    }
-
-    pub fn empty() -> Self {
-        Self::constructor("".to_string()).ok().unwrap()
-    }
-
-    pub fn new(name: String) -> Self {
-        Self::constructor(name).ok().unwrap()
-    }
-
-    pub fn canvas() -> druid::widget::Flex<Self> {
-        let label = druid::widget::Label::new(|data: &Self, _env: &druid::Env| {
-            format!("Hello {}!", data.name)
-        });
-
-        let input_name = druid::widget::TextBox::new()
-            .with_placeholder("Who are we greeting?")
-            .fix_width(crate::TEXT_BOX_WIDTH)
-            .lens(Self::name);
-
-        let layout = druid::widget::Flex::column()
-            .with_child(label)
-            .with_spacer(crate::VERTICAL_WIDGET_SPACING)
-            .with_child(input_name);
-
-        layout
-    }
-
-    pub fn display() -> impl druid::Widget<Self> {
-        druid::widget::Align::centered(Self::canvas())
-    }
-}
