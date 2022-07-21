@@ -21,11 +21,4 @@ mod constants {
 mod types {
     pub type WindowShape = (f64, f64);
     pub type LString<S> = druid::LocalizedString<S>;
-
-    pub enum WindowParams {
-        Appellation { name: String },
-    }
 }
-
-#[derive(Clone, Debug, Hash, PartialEq)]
-pub struct Constants;

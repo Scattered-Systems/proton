@@ -15,6 +15,10 @@ version = "0.1.1"
 bench = false
 name = "proton"
 
+[features]
+default = []
+full = []
+
 [build-dependencies]
 
 [dependencies]
