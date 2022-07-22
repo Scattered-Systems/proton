@@ -9,24 +9,48 @@ use druid::{
     widget::{Button, Flex, Label},
     WidgetExt,
 };
+use scsys::BoxError;
 
-#[derive(Clone, Debug, Hash, PartialEq)]
-pub struct Navbar;
+#[derive(Clone, Debug)]
+pub struct Navbar {
+    pub controller: crate::Controller,
+}
 
 impl Navbar {
-    pub fn new(controller: crate::Controller) -> Result<Flex<ApplicationState>, scsys::BoxError> {
-        let mut component = Flex::row();
-        component.add_child(Label::new(&*controller.name).center());
+    pub fn brand(&mut self) -> Flex<ApplicationState> {
+        Flex::row().with_flex_child(Label::new(&*self.controller.name), 1.0)
+    }
+
+    pub fn content(&mut self) -> Flex<ApplicationState> {
+        let mut content = Flex::row();
         for i in 0..6 {
-            component.add_spacer(25.0);
-            component.add_child(
-                Button::new(format!("{}", controller.pages.clone()[i]))
+            content.add_flex_child(
+                Button::new(format!("{}", self.controller.pages.clone()[i]))
                     .on_click(move |_event, data: &mut u32, _env| {
                         *data = i.try_into().ok().unwrap();
                     })
                     .lens(ApplicationState::view),
+                1.0,
             );
         }
-        Ok(component)
+        content
+    }
+
+    pub fn component(&mut self) -> Flex<ApplicationState> {
+        let mut navbar = Flex::row();
+        navbar.add_flex_child(self.brand(), 0.75);
+        navbar.add_flex_child(self.content(), 3.0);
+        navbar
+    }
+
+    fn constructor(controller: crate::Controller) -> Result<Self, BoxError> {
+        Ok(Self { controller })
+    }
+
+    pub fn new(controller: crate::Controller) -> Self {
+        match Self::constructor(controller) {
+            Ok(v) => v,
+            Err(e) => panic!("Component Error: {}", e)
+        }
     }
 }

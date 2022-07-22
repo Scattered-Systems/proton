@@ -18,10 +18,11 @@ pub struct ApplicationState {
 impl ApplicationState {
     pub fn canvas() -> Result<Flex<ApplicationState>, BoxError> {
         let controller = Controller::default();
-        let canvas = Flex::column()
-            .with_child(Navbar::new(controller.clone()).ok().unwrap())
-            .with_flex_child(Views::constructor(), 1.0);
-        Ok(canvas)
+        Ok(
+            Flex::column()
+                .with_flex_child(Navbar::new(controller.clone()).component(), 1.0)
+                .with_flex_child(Views::constructor(), 1.0)
+        )
     }
     pub fn display() -> impl druid::Widget<Self> {
         druid::widget::Align::centered(Self::canvas().ok().unwrap())

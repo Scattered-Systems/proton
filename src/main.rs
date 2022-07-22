@@ -10,11 +10,10 @@
 
 #![windows_subsystem = "windows"]
 #[doc(inline)]
-pub use crate::{app::*, core::*, cyber::*, data::*};
+pub use crate::{app::*, core::*, data::*};
 
 mod app;
 mod core;
-mod cyber;
 mod data;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {

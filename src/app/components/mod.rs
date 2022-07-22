@@ -5,7 +5,10 @@
         ... Summary ...
 */
 pub use navbar::*;
+pub use utils::*;
 pub use views::*;
 
 mod navbar;
 mod views;
+
+mod utils {}
