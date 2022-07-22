@@ -50,7 +50,7 @@ impl Navbar {
     pub fn new(controller: crate::Controller) -> Self {
         match Self::constructor(controller) {
             Ok(v) => v,
-            Err(e) => panic!("Component Error: {}", e)
+            Err(e) => panic!("Component Error: {}", e),
         }
     }
 }
