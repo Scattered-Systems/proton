@@ -1,14 +1,24 @@
 /*
-    Appellation: views <module>
+    Appellation: mod <module>
     Creator: FL03 <jo3mccain@icloud.com>
     Description:
         ... Summary ...
 */
+pub use dashboard::*;
+
+mod dashboard;
+
 use crate::ApplicationState;
 use druid::{
     widget::{Button, Flex, Label, Split, TextBox, ViewSwitcher},
     Env, WidgetExt,
 };
+use scsys::BoxError;
+
+pub trait PageSpec<As: druid::Data = ApplicationState> {
+    fn component() -> Flex<As> where Self: Sized;
+    fn constructor() -> Result<Flex<As>, scsys::BoxError> where Self: Sized;
+}
 
 #[derive(Clone, Debug, Hash, PartialEq)]
 pub struct Views;
@@ -18,24 +28,13 @@ impl Views {
         ViewSwitcher::new(
             |data: &ApplicationState, _env| data.view,
             |selector, _data, _env| match selector {
-                0 => Box::new(Self::dashboard()),
+                0 => Box::new(Dashboard::constructor().ok().unwrap()),
                 1 => Box::new(Self::account()),
                 2 => Box::new(Self::communication_center()),
                 3 => Box::new(Self::discover()),
                 4 => Box::new(Self::creation_hub()),
                 _ => Box::new(Self::control_panel()),
             },
-        )
-    }
-
-    /// Describes the default view for our application
-    pub fn dashboard() -> Flex<ApplicationState> {
-        Flex::column().with_flex_child(
-            Flex::row()
-                .with_flex_child(Label::new("Sidebar").center(), 0.75)
-                .with_flex_child(Label::new("Display").center(), 3.0)
-                .with_flex_child(Label::new("Feed").center(), 0.75),
-            1.0,
         )
     }
 

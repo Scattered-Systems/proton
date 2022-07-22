@@ -6,9 +6,13 @@
 */
 pub use navbar::*;
 pub use utils::*;
-pub use views::*;
 
 mod navbar;
-mod views;
+
+pub trait LayoutSpec<App, Cnf> {
+    fn canvas(&mut self) -> Result<druid::widget::Flex<App>, scsys::BoxError>
+        where
+            Self: Sized;
+}
 
 mod utils {}

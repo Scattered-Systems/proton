@@ -4,7 +4,7 @@
     Description:
         ... Summary ...
 */
-use crate::{Controller, Navbar, Views};
+use crate::{Context, Navbar, Views};
 use druid::{widget::Flex, WidgetExt};
 use scsys::BoxError;
 
@@ -17,7 +17,7 @@ pub struct ApplicationState {
 
 impl ApplicationState {
     pub fn canvas() -> Result<Flex<ApplicationState>, BoxError> {
-        let controller = Controller::default();
+        let controller = Context::default();
         Ok(Flex::column()
             .with_flex_child(Navbar::new(controller.clone()).component(), 1.0)
             .with_flex_child(Views::constructor(), 1.0))

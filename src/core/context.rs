@@ -19,22 +19,22 @@ impl WindowParams {
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Controller {
+pub struct Context {
     pub name: String,
     pub pages: Vec<String>,
-    pub window: WindowParams,
+    pub win: WindowParams,
 }
 
-impl Controller {
+impl Context {
     pub fn new(
         name: String,
         pages: Vec<String>,
-        window: WindowParams,
+        win: WindowParams,
     ) -> Result<Self, scsys::BoxError> {
         Ok(Self {
             name,
             pages,
-            window,
+            win,
         })
     }
     pub fn default() -> Self {

@@ -4,16 +4,23 @@
     Description:
         ... Summary ...
 */
-use crate::ApplicationState;
+use crate::{ApplicationState, Context};
 use druid::{
     widget::{Button, Flex, Label},
     WidgetExt,
 };
 use scsys::BoxError;
 
+pub trait ComponentSpec<App: druid::Data = ApplicationState, Cnt = Context> {
+    fn component(&mut self) -> Result<Flex<App>, BoxError>;
+    fn content(&mut self) -> Result<Flex<App>, BoxError> {
+        Ok(Flex::row())
+    }
+}
+
 #[derive(Clone, Debug)]
 pub struct Navbar {
-    pub controller: crate::Controller,
+    pub controller: Context,
 }
 
 impl Navbar {
@@ -43,11 +50,11 @@ impl Navbar {
         navbar
     }
 
-    fn constructor(controller: crate::Controller) -> Result<Self, BoxError> {
+    fn constructor(controller: Context) -> Result<Self, BoxError> {
         Ok(Self { controller })
     }
 
-    pub fn new(controller: crate::Controller) -> Self {
+    pub fn new(controller: Context) -> Self {
         match Self::constructor(controller) {
             Ok(v) => v,
             Err(e) => panic!("Component Error: {}", e),
