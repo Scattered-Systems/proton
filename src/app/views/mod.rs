@@ -20,16 +20,19 @@ mod discover;
 
 use crate::ApplicationState;
 use druid::{
-    widget::{Button, Flex, Label, Split, TextBox, ViewSwitcher},
-    Env, WidgetExt,
+    widget::{Flex, ViewSwitcher},
+    WidgetExt,
 };
 use scsys::BoxError;
 
 pub trait PageSpec<As: druid::Data = ApplicationState> {
-    fn component() -> Flex<As> where Self: Sized;
-    fn constructor() -> Result<Flex<As>, scsys::BoxError> where Self: Sized;
+    fn component() -> Result<Box<dyn druid::Widget<As>>, BoxError>
+        where
+            Self: Sized;
+    fn constructor() -> Result<Box<dyn druid::Widget<As>>, BoxError>
+        where
+            Self: Sized;
 }
-
 
 #[derive(Clone, Debug)]
 pub struct Views;

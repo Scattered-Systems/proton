@@ -5,7 +5,10 @@
         ... Summary ...
 */
 use crate::ApplicationState;
-use druid::{WidgetExt, Env, widget::{Button, Flex, Label, TextBox}};
+use druid::{
+    widget::{Button, Flex, Label, TextBox},
+    Env, WidgetExt,
+};
 use scsys::BoxError;
 
 #[derive(Clone, Debug)]
@@ -29,8 +32,6 @@ impl DiscoverPage {
             )
     }
     pub fn constructor() -> Result<Flex<ApplicationState>, BoxError> {
-        Ok(
-            Self::component()
-        )
+        Ok(Self::component())
     }
 }

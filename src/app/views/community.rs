@@ -5,14 +5,20 @@
         ... Summary ...
 */
 use crate::ApplicationState;
-use druid::{WidgetExt, widget::{Flex, Label, Split, TextBox}};
+use druid::{
+    widget::{Flex, Label, Split, TextBox},
+    WidgetExt,
+};
 use scsys::BoxError;
 
 #[derive(Clone, Debug)]
 pub struct CommunityCenter;
 
 impl CommunityCenter {
-    pub fn component() -> (Flex<ApplicationState>, Flex<ApplicationState>) where Self: Sized {
+    pub fn component() -> (Flex<ApplicationState>, Flex<ApplicationState>)
+        where
+            Self: Sized,
+    {
         let stream: Vec<&str> = vec!["AppFeed", "Person"];
         println!("{:#?}", stream.clone());
         let feed = Flex::column().with_flex_child(Label::new("Feed").center().expand(), 1.0);
@@ -23,10 +29,11 @@ impl CommunityCenter {
         (feed, editor)
     }
 
-    pub fn constructor() -> Result<Split<ApplicationState>, BoxError> where Self: Sized {
+    pub fn constructor() -> Result<Split<ApplicationState>, BoxError>
+        where
+            Self: Sized,
+    {
         let (feed, editor) = Self::component();
-        Ok(
-            Split::columns(feed, editor).draggable(true)
-        )
+        Ok(Split::columns(feed, editor).draggable(true))
     }
 }

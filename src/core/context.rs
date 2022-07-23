@@ -31,21 +31,10 @@ impl Context {
         pages: Vec<String>,
         win: WindowParams,
     ) -> Result<Self, scsys::BoxError> {
-        Ok(Self {
-            name,
-            pages,
-            win,
-        })
+        Ok(Self { name, pages, win })
     }
     pub fn default() -> Self {
-        let pages: Vec<String> = vec![
-            "Dashboard",
-            "Account",
-            "Connect",
-            "Discover",
-            "Create",
-            "Settings",
-        ]
+        let pages: Vec<String> = crate::VIEW_LABELS
             .iter()
             .map(|i| i.to_string())
             .collect::<Vec<_>>();

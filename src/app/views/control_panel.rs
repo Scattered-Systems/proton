@@ -5,9 +5,11 @@
         ... Summary ...
 */
 use crate::ApplicationState;
-use druid::{WidgetExt, widget::{Flex, Label, TextBox}};
+use druid::{
+    widget::{Flex, Label, TextBox},
+    WidgetExt,
+};
 use scsys::BoxError;
-
 
 #[derive(Clone, Debug)]
 pub struct ControlPanel;
@@ -37,8 +39,6 @@ impl ControlPanel {
             )
     }
     pub fn constructor() -> Result<Flex<ApplicationState>, BoxError> {
-        Ok(
-            Self::component()
-        )
+        Ok(Self::component())
     }
 }

@@ -8,6 +8,14 @@ pub use constants::*;
 pub use types::*;
 
 mod constants {
+    pub const VIEW_LABELS: [&str; 6] = [
+        "Dashboard",
+        "Account",
+        "Connect",
+        "Discover",
+        "Create",
+        "Settings",
+    ];
     pub const VERTICAL_WIDGET_SPACING: f64 = 20.0;
     pub const TEXT_BOX_WIDTH: f64 = 200.0;
 
