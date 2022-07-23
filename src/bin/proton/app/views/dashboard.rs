@@ -15,19 +15,22 @@ use scsys::BoxError;
 pub struct Dashboard;
 
 impl Dashboard {
-    pub fn component() -> Flex<ApplicationState>
-        where
-            Self: Sized,
-    {
-        Flex::row()
-            .with_flex_child(Label::new("Sidebar").center(), 0.75)
-            .with_flex_child(Label::new("Display").center(), 3.0)
-            .with_flex_child(Label::new("Feed").center(), 0.75)
+    fn sidebar() -> Flex<ApplicationState> {
+        Flex::column().with_flex_child(Label::new("Sidebar").center().expand(), 1.0)
     }
-    pub fn constructor() -> Result<Flex<ApplicationState>, BoxError>
-        where
-            Self: Sized,
-    {
-        Ok(Flex::column().with_flex_child(Self::component(), 1.0))
+    fn display() -> Flex<ApplicationState> {
+        Flex::column().with_flex_child(Label::new("Display").center().expand(), 1.0)
+    }
+    fn feed() -> Flex<ApplicationState> {
+        Flex::column().with_flex_child(Label::new("Feed").center().expand(), 1.0)
+    }
+    pub fn component() -> Flex<ApplicationState> {
+        Flex::row()
+            .with_flex_child(Self::sidebar(), 0.75)
+            .with_flex_child(Self::display(), 3.0)
+            .with_flex_child(Self::feed(), 0.75)
+    }
+    pub fn constructor() -> Result<Flex<ApplicationState>, BoxError> {
+        Ok(Flex::column().with_flex_child(Self::component().expand(), 1.0))
     }
 }

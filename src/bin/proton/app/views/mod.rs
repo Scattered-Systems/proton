@@ -47,7 +47,7 @@ impl Views {
                 2 => Box::new(CommunityCenter::constructor().ok().unwrap()),
                 3 => Box::new(DiscoverPage::constructor().ok().unwrap()),
                 4 => Box::new(CreatorPage::constructor().ok().unwrap()),
-                _ => Box::new(ControlPanel::constructor().ok().unwrap()),
+                _ => Box::new(SettingsPage::constructor().ok().unwrap()),
             },
         )
     }
