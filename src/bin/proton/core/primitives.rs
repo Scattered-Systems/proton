@@ -11,10 +11,10 @@ mod constants {
     pub const VIEW_LABELS: [&str; 6] = [
         "Dashboard",
         "Account",
-        "Connect",
+        "Community",
         "Discover",
         "Create",
-        "Settings",
+        "Control Panel",
     ];
     pub const VERTICAL_WIDGET_SPACING: f64 = 20.0;
     pub const TEXT_BOX_WIDTH: f64 = 200.0;
@@ -77,6 +77,8 @@ mod constants {
 }
 
 mod types {
+    pub use druid::LocalizedString;
+
+    pub type BoxedWidget<As> = Box<dyn druid::widget::Widget<As>>;
     pub type WindowShape = (f64, f64);
-    pub type LString<S> = druid::LocalizedString<S>;
 }

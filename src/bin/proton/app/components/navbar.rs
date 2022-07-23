@@ -11,13 +11,6 @@ use druid::{
 };
 use scsys::BoxError;
 
-pub trait ComponentSpec<App: druid::Data = ApplicationState, Cnt = Context> {
-    fn component(&mut self) -> Result<Flex<App>, BoxError>;
-    fn content(&mut self) -> Result<Flex<App>, BoxError> {
-        Ok(Flex::row())
-    }
-}
-
 #[derive(Clone, Debug)]
 pub struct Navbar {
     pub context: Context,

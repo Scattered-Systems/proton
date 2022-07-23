@@ -31,6 +31,6 @@ impl Dashboard {
             .with_flex_child(Self::feed(), 0.75)
     }
     pub fn constructor() -> Result<Flex<ApplicationState>, BoxError> {
-        Ok(Flex::column().with_flex_child(Self::component().expand(), 1.0))
+        Ok(Flex::column().with_flex_child(Self::component(), 1.0))
     }
 }
