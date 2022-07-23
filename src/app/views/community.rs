@@ -4,11 +4,11 @@
     Description:
         ... Summary ...
 */
-use crate::{ApplicationState, PageSpec};
+use crate::ApplicationState;
 use druid::{WidgetExt, widget::{Flex, Label, Split, TextBox}};
 use scsys::BoxError;
 
-#[derive(Clone, Debug, Hash, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct CommunityCenter;
 
 impl CommunityCenter {
