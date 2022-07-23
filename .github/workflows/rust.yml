@@ -15,7 +15,7 @@ on:
 jobs:
   crate:
     env:
-      CRATE: proton-sdk
+      CRATE: protonic
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
