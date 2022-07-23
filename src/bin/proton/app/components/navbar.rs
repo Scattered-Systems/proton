@@ -20,19 +20,19 @@ pub trait ComponentSpec<App: druid::Data = ApplicationState, Cnt = Context> {
 
 #[derive(Clone, Debug)]
 pub struct Navbar {
-    pub controller: Context,
+    pub context: Context,
 }
 
 impl Navbar {
     pub fn brand(&mut self) -> Flex<ApplicationState> {
-        Flex::row().with_flex_child(Label::new(&*self.controller.name), 1.0)
+        Flex::row().with_flex_child(Label::new(&*self.context.name), 1.0)
     }
 
     pub fn content(&mut self) -> Flex<ApplicationState> {
         let mut content = Flex::row();
         for i in 0..6 {
             content.add_flex_child(
-                Button::new(format!("{}", self.controller.pages.clone()[i]))
+                Button::new(format!("{}", self.context.pages.clone()[i]))
                     .on_click(move |_event, data: &mut u32, _env| {
                         *data = i.try_into().ok().unwrap();
                     })
@@ -51,7 +51,9 @@ impl Navbar {
     }
 
     fn constructor(controller: Context) -> Result<Self, BoxError> {
-        Ok(Self { controller })
+        Ok(Self {
+            context: controller,
+        })
     }
 
     pub fn new(controller: Context) -> Self {

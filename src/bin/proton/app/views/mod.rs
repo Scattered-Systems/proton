@@ -6,17 +6,17 @@
 */
 pub use account::*;
 pub use community::*;
-pub use control_panel::*;
 pub use creator::*;
 pub use dashboard::*;
 pub use discover::*;
+pub use settings::*;
 
 mod account;
 mod community;
-mod control_panel;
 mod creator;
 mod dashboard;
 mod discover;
+mod settings;
 
 use crate::ApplicationState;
 use druid::{
