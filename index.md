@@ -1,37 +1,48 @@
-## Welcome to GitHub Pages
+# Welcome to Proton
 
-You can use the [editor on GitHub](https://github.com/Scattered-Systems/proton/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+## Abstract
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Proton houses all of the visual experiences the Scattered-Systems Ecosystem has to offer, serving as a single access point for users to connect to the network and their personal, globally accessible micro-chains.
 
-### Markdown
+## Design
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Pages
 
-```markdown
-Syntax highlighted code block
+#### Dashboard (Default)
 
-# Header 1
-## Header 2
-### Header 3
+#### Account
 
-- Bulleted
-- List
+This view enables users to remain in complete control of their digital identity, leveraging Flow to scaffold their traditional ENS names. Upon setup, the application will automatically generate three aliases (community, private, work) and a DAO for the user to manage.
 
-1. Numbered
-2. List
+#### Community
 
-**Bold** and _Italic_ and `Code` text
+Directly connecting users to on another, allowing them to generate secure virtual spaces to communicate with their desired audience. In the future, this page is intended to serve as the users gateway into the metaverse.
 
-[Link](url) and ![Image](src)
-```
+#### Creator Portal
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+Enabling users to create decentralized content with ease, encouraging users to test out their designs under their private alias which automatically configures all transactions to be routed directly to their personal blockchain network. This allows us to have private, gasless blockchains with pre-verified transactions creating a unique digital space for users to safely explore the internet.
 
-### Jekyll Themes
+#### Discover
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Scattered-Systems/proton/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+The discover page is a blend of technologies, combining a multi-chain block explorer with a supercharged IPFS browser and gateway while supporting traditional http queries.
 
-### Support or Contact
+#### Control Panel
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+### Principals
+
+## References
+
+### Key Projects
+* [Ignite](https://ignite.com)
+* [IPFS](https://ipfs.io)
+* [Mina](https://minaprotocol.com)
+* [Polygon](https://polygon.technology)
+* [Storj](https://storj.io)
+* [Substrate](https://substrate.io)
+
+### Supporting Library
+
+ Protonic was created to abstract component designs, layouts, and store other critical structures or utilities while remaining independent of the end-product design intended for the Proton binary.
+
+* [Crate](https://crates.io/crates/protonic)
+* [Docs](https://docs.rs/protonic)
