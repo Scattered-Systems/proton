@@ -2,7 +2,9 @@
     Appellation: creator <module>
     Creator: FL03 <jo3mccain@icloud.com>
     Description:
-        ... Summary ...
+        All users will delight in the unique creator portal, which is designed to remove all the
+        barriers to entry when it comes to creating decentralized content while further supporting
+        a number of direct pipelines to centralized access points.
 */
 use crate::ApplicationState;
 use druid::{

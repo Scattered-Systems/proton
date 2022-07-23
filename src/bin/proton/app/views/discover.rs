@@ -2,7 +2,9 @@
     Appellation: discover <module>
     Creator: FL03 <jo3mccain@icloud.com>
     Description:
-        ... Summary ...
+        The discover page is intended to be a fluid cross between a multichain block-explorer,
+        traditional browser, and a supercharged ipfs gateway enabling users to swiftly find new
+        content on all their favorite channels.
 */
 use crate::ApplicationState;
 use druid::{
