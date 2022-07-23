@@ -4,9 +4,19 @@
     Description:
         ... Summary ...
 */
+pub use account::*;
+pub use community::*;
+pub use control_panel::*;
+pub use creator::*;
 pub use dashboard::*;
+pub use discover::*;
 
+mod account;
+mod community;
+mod control_panel;
+mod creator;
 mod dashboard;
+mod discover;
 
 use crate::ApplicationState;
 use druid::{
@@ -20,6 +30,7 @@ pub trait PageSpec<As: druid::Data = ApplicationState> {
     fn constructor() -> Result<Flex<As>, scsys::BoxError> where Self: Sized;
 }
 
+
 #[derive(Clone, Debug, Hash, PartialEq)]
 pub struct Views;
 
@@ -29,8 +40,8 @@ impl Views {
             |data: &ApplicationState, _env| data.view,
             |selector, _data, _env| match selector {
                 0 => Box::new(Dashboard::constructor().ok().unwrap()),
-                1 => Box::new(Self::account()),
-                2 => Box::new(Self::communication_center()),
+                1 => Box::new(AccountView::constructor().ok().unwrap()),
+                2 => Box::new(CommunityCenter::constructor().ok().unwrap()),
                 3 => Box::new(Self::discover()),
                 4 => Box::new(Self::creation_hub()),
                 _ => Box::new(Self::control_panel()),
@@ -38,25 +49,6 @@ impl Views {
         )
     }
 
-    /// Describes the account view (index: 1) for our application
-    pub fn account() -> Flex<ApplicationState> {
-        Flex::column().with_flex_child(
-            Flex::row().with_flex_child(Label::new("ENS").center(), 1.0),
-            1.0,
-        )
-    }
-
-    /// Describes
-    pub fn communication_center() -> Split<ApplicationState> {
-        let stream: Vec<&str> = vec!["AppFeed", "Person"];
-        println!("{:#?}", stream.clone());
-        let feed = Flex::column().with_flex_child(Label::new("Feed").center().expand(), 1.0);
-        let editor = Flex::column()
-            .with_flex_child(Label::new("Message").center().expand(), 0.25)
-            .with_flex_child(Label::new("History").center().expand(), 1.0)
-            .with_flex_child(TextBox::new().lens(ApplicationState::message), 0.25);
-        Split::columns(feed, editor).draggable(true)
-    }
 
     /// Combining a block explorer, global marketplace, and search engine into a single portal
     pub fn discover() -> Flex<ApplicationState> {

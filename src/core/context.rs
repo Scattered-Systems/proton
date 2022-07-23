@@ -40,7 +40,7 @@ impl Context {
     pub fn default() -> Self {
         let pages: Vec<String> = vec![
             "Dashboard",
-            "Artifacts",
+            "Account",
             "Connect",
             "Discover",
             "Create",
