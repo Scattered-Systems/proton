@@ -6,7 +6,7 @@
 */
 use crate::ApplicationState;
 use druid::{
-    widget::{Flex, Label},
+    widget::{CrossAxisAlignment, Flex, FlexParams, Label},
     WidgetExt,
 };
 use scsys::BoxError;
@@ -16,7 +16,9 @@ pub struct Dashboard;
 
 impl Dashboard {
     fn sidebar() -> Flex<ApplicationState> {
-        Flex::column().with_flex_child(Label::new("Sidebar").center().expand(), 1.0)
+        Flex::column()
+            .with_flex_child(Label::new("Sidebar").center(), 1f64)
+            .with_flex_child(Label::new("Account").center().expand(), 1.0)
     }
     fn display() -> Flex<ApplicationState> {
         Flex::column().with_flex_child(Label::new("Display").center().expand(), 1.0)
