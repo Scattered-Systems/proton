@@ -14,14 +14,14 @@ pub struct AccountState {
 }
 
 impl AccountState {
-    fn constructor(ens: String) -> Result<Self, BoxError> {
-        Ok(Self { ens })
+    fn constructor(ens: String) -> Self {
+        Self { ens }
     }
-    pub fn init() -> Self {
-        Self::new("".to_string())
+    pub fn default() -> Self {
+        Self::constructor("".to_string())
     }
     pub fn new(ens: String) -> Self {
-        Self::constructor(ens).ok().unwrap()
+        Self::constructor(ens)
     }
 }
 
@@ -34,31 +34,31 @@ pub struct ApplicationState {
 }
 
 impl ApplicationState {
-    pub fn canvas() -> Result<Flex<ApplicationState>, BoxError> {
+    fn header(controller: Context) -> Flex<Self> {
+        Flex::row().with_flex_child(Navbar::new(controller).component(), 1f64)
+    }
+    fn body() -> druid::widget::ViewSwitcher<Self, u32> {
+        Views::constructor()
+    }
+    fn footer() -> Flex<Self> {
+        Flex::row().with_flex_child(druid::widget::Label::new("Footer").center().expand(), 1f64)
+    }
+    pub fn canvas() -> Flex<ApplicationState> {
         let controller = Context::default();
-        Ok(Flex::column()
-            .with_flex_child(Navbar::new(controller.clone()).component(), 0.75)
-            .with_flex_child(Views::constructor(), 3f64)
-            .with_flex_child(
-                Flex::row()
-                    .with_flex_child(druid::widget::Label::new("Footer").center().expand(), 1f64),
-                0.75,
-            ))
+        Flex::column()
+            .with_flex_child(Self::header(controller.clone()), 0.75)
+            .with_flex_child(Self::body(), 3f64)
+            .with_flex_child(Self::footer(), 0.75)
     }
     pub fn display() -> impl druid::Widget<Self> {
-        druid::widget::Align::centered(Self::canvas().ok().unwrap())
+        druid::widget::Align::centered(Self::canvas())
     }
-    pub fn init() -> Self {
-        Self::new(String::from(""), String::from(""), 0u32)
-            .ok()
-            .unwrap()
-    }
-    pub fn new(message: String, query: String, view: u32) -> Result<Self, BoxError> {
-        Ok(Self {
-            account: AccountState::init(),
-            message,
-            query,
-            view,
-        })
+    pub fn new() -> Self {
+        Self {
+            account: AccountState::default(),
+            message: String::from(""),
+            query: String::from(""),
+            view: 0u32,
+        }
     }
 }

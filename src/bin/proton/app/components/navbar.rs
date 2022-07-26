@@ -11,16 +11,19 @@ use druid::{
 };
 use scsys::BoxError;
 
+
 #[derive(Clone, Debug)]
 pub struct Navbar {
     pub context: Context,
 }
 
 impl Navbar {
-    pub fn brand(&mut self) -> Flex<ApplicationState> {
+    fn constructor(context: Context) -> Self {
+        Self { context }
+    }
+    pub fn left_gutter(&mut self) -> Flex<ApplicationState> {
         Flex::row().with_flex_child(Label::new(&*self.context.name), 1.0)
     }
-
     pub fn content(&mut self) -> Flex<ApplicationState> {
         let mut content = Flex::row();
         for i in 0..6 {
@@ -35,24 +38,20 @@ impl Navbar {
         }
         content
     }
-
+    pub fn right_gutter(&mut self) -> Flex<ApplicationState> {
+        let mut gutter: Flex<ApplicationState> = Flex::row();
+        gutter.add_flex_child(Label::new("Settings"), 1f64);
+        gutter
+    }
     pub fn component(&mut self) -> Flex<ApplicationState> {
-        let mut navbar = Flex::row();
-        navbar.add_flex_child(self.brand(), 0.75);
-        navbar.add_flex_child(self.content(), 3.0);
-        navbar
+        Flex::row()
+            .with_flex_child(self.left_gutter(), 0.5)
+            .with_flex_spacer(0.5)
+            .with_flex_child(self.content().center(), 3.0)
+            .with_flex_spacer(0.5)
+            .with_flex_child(self.right_gutter(), 0.5)
     }
-
-    fn constructor(controller: Context) -> Result<Self, BoxError> {
-        Ok(Self {
-            context: controller,
-        })
-    }
-
-    pub fn new(controller: Context) -> Self {
-        match Self::constructor(controller) {
-            Ok(v) => v,
-            Err(e) => panic!("Component Error: {}", e),
-        }
+    pub fn new(context: Context) -> Self {
+        Self::constructor(context)
     }
 }
