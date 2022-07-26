@@ -4,6 +4,19 @@
     Description:
         ... Summary ...
 */
+#[derive(Clone, Debug, Hash, PartialEq, serde::Deserialize, serde::Serialize)]
+pub enum ProtonMode {
+    Development,
+    Production,
+    Staging,
+}
+
+#[derive(Clone, Debug, Hash, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ProtonInterface {
+    pub mode: ProtonMode,
+    pub name: String,
+    pub slug: String,
+}
 
 #[cfg(test)]
 mod tests {

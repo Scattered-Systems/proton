@@ -19,7 +19,7 @@ mod data;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Welcome to Proton");
 
-    let mut app = App::init();
+    let app = App::new();
     app.application();
 
     Ok(())

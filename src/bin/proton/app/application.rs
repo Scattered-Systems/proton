@@ -15,21 +15,18 @@ pub struct App {
 }
 
 impl App {
-    pub fn application(&mut self) {
+    fn constructor(controller: Context, state: ApplicationState) -> Self {
+        Self { controller, state }
+    }
+    pub fn application(self) {
         let win = create_window(self.controller.win.shape);
 
         druid::AppLauncher::with_window(win)
             .launch(self.state.clone())
             .expect("Application Error: Application failed to launch");
     }
-    pub fn new(controller: Context, state: ApplicationState) -> Result<Self, BoxError> {
-        Ok(Self { controller, state })
-    }
-    pub fn init() -> Self {
-        match Self::new(Context::default(), ApplicationState::init()) {
-            Ok(v) => v,
-            Err(e) => panic!("Application Error: {}", e),
-        }
+    pub fn new() -> Self {
+        Self::constructor(Context::default(), ApplicationState::init())
     }
 }
 
