@@ -15,7 +15,9 @@ pub trait ComponentSpec<App: druid::Data = crate::ApplicationState, Cnt = crate:
 }
 
 pub trait LayoutSpec<App: druid::Data> {
-    fn header() -> druid::widget::Flex<App> where Self: Sized;
+    fn header() -> druid::widget::Flex<App>
+        where
+            Self: Sized;
 }
 
 #[derive(Clone, Debug, Hash, PartialEq, serde::Deserialize, serde::Serialize)]

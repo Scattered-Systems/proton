@@ -11,7 +11,6 @@ use druid::{
 };
 use scsys::BoxError;
 
-
 #[derive(Clone, Debug)]
 pub struct Navbar {
     pub context: Context,
