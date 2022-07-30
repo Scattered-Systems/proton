@@ -16,9 +16,8 @@ mod app;
 mod core;
 mod data;
 
+/// Run the Proton application
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!("Welcome to Proton");
-
     let app = App::new();
     app.application();
 

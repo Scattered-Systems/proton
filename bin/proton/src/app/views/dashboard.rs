@@ -6,7 +6,7 @@
 */
 use crate::ApplicationState;
 use druid::{
-    widget::{CrossAxisAlignment, Flex, FlexParams, Label},
+    widget::{Flex, Label},
     WidgetExt,
 };
 use scsys::BoxError;

@@ -4,8 +4,8 @@
     Description:
         ... Summary ...
 */
-use crate::{ApplicationState, Context, Navbar, Views};
-use druid::{widget::Flex, WidgetExt};
+use crate::{ApplicationState, Context};
+use druid::WidgetExt;
 use scsys::BoxError;
 
 #[derive(Clone, Debug)]

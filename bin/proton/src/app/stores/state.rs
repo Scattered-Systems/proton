@@ -6,7 +6,6 @@
 */
 use crate::{Context, Navbar, Views};
 use druid::{widget::Flex, WidgetExt};
-use scsys::BoxError;
 
 #[derive(Clone, Debug, druid::Data, druid::Lens)]
 pub struct AccountState {
