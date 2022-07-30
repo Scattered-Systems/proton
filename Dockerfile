@@ -1,4 +1,4 @@
-FROM jo3mccain/rusty as builder-base
+FROM jo3mccain/rusty:latest as builder-base
 
 RUN yum install -y \
     glib2-devel \
@@ -6,14 +6,14 @@ RUN yum install -y \
 
 FROM builder-base as builder
 
-ADD . /app
-WORKDIR /app
+ADD . /workspace
+WORKDIR /workspace
 
 COPY . .
-RUN cargo build --release --verbose --color always
+RUN cargo build --color always --release --verbose --workspace
 
 FROM photon as application
 
-COPY --from=builder /app/target/release/proton /proton
+COPY --from=builder /workspace/target/release/proton /proton
 
 ENTRYPOINT ["./proton"]

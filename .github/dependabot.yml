@@ -8,4 +8,11 @@ updates:
     directory: /
     schedule:
       interval: daily
-
+  - package-ecosystem: cargo
+    directory: /bin/proton
+    schedule:
+      interval: daily
+  - package-ecosystem: cargo
+    directory: /lib/protonic
+    schedule:
+      interval: daily
