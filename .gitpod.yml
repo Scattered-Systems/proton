@@ -1,0 +1,17 @@
+tasks:
+  - init: |
+      rustup update && rustup install nightly && rustup target add wasm32-unknown-unknown --toolchain nightly && rustup default nightly
+      npm install -g npm@8.19.2 wasm-pack && npm install
+      sudo apt install -y \
+          libwebkit2gtk-4.0-dev \
+          build-essential \
+          curl \
+          wget \
+          libssl-dev \
+          libgtk-3-dev \
+          libayatana-appindicator3-dev \
+          librsvg2-dev
+      cargo install create-tauri-app
+    command: npm run build
+
+
