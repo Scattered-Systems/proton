@@ -2,14 +2,15 @@ version: "3.9"
 services:
   application:
     build:
-      context: ../code/crates/bin
+      context: ..
       dockerfile: Dockerfile
     container_name: application
     ports:
-      - "8000:8080"
+      - "8000:8000"
     restart: always
     volumes:
-      - ../artifacts/docker/data/bin:/data
+      - ../.config:/config
+      - /data:/data
 
   cache:
     container_name: cache
@@ -34,7 +35,7 @@ services:
       - "9094:9094"
       - "9096:9096"
     volumes:
-      - ../artifacts/docker/data/cluster/0:/data/ipfs-cluster
+      - /data/cluster/0:/data/ipfs-cluster
 
   datastore:
     container_name: datastore
@@ -44,8 +45,9 @@ services:
       - "5001:5001"
       - "8080:8080"
     volumes:
-      - ../artifacts/docker/data/ipfs/0:/data/ipfs
+      - /data/ipfs/0:/data/ipfs
 
 volumes:
+  config:
   data:
-    driver: local
+  

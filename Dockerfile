@@ -1,19 +1,20 @@
-FROM jo3mccain/rusty:latest as builder-base
+FROM rust:latest
 
-RUN yum install -y \
-    glib2-devel \
-    gtk3-devel
+# Install nodejs
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get update && apt-get install nodejs
 
-FROM builder-base as builder
+# Install wasm-pack
+RUN curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-ADD . /workspace
-WORKDIR /workspace
+WORKDIR /usr/src/conduit-wasm
 
-COPY . .
-RUN cargo build --color always --release --verbose --workspace
+COPY ./crates/conduit-wasm .
 
-FROM photon as application
+COPY .env.example .env
 
-COPY --from=builder /workspace/target/release/proton /proton
+RUN npm install
 
-ENTRYPOINT ["./proton"]
+EXPOSE 8000
+
+CMD [ "npm", "start" ]

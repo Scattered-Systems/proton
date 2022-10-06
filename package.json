@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "install": "cd app/wasm && npm install",
+    "build": "cd app/wasm && npm run build",
+    "start": "cd app/wasm && npm start",
+    "test": "cd app/wasm && npm run test"
+  }
+}
