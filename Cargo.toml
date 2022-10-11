@@ -4,6 +4,7 @@ default-members = [
 ]
 
 members = [
+    "app/backend",
     "app/desktop",
     "app/wasm",
 ]
