@@ -11,9 +11,9 @@
   "name": "@proton/web",
   "repository": "https://gitlab.com/scsys/bin/proton",
   "scripts": {
-    "build": "cross-env WASM_PACK_PROFILE=release parcel build app/public/index.html --public-url ./",
-    "dev": "cross-env WASM_PACK_PROFILE=dev parcel app/public/index.html -p 8000 --open",
-    "start": "cross-env WASM_PACK_PROFILE=release parcel app/public/index.html -p 8000 --open",
+    "build": "cross-env WASM_PACK_PROFILE=release parcel build public/index.html --public-url ./",
+    "dev": "cross-env WASM_PACK_PROFILE=dev parcel public/index.html -p 8000 --open",
+    "start": "cross-env WASM_PACK_PROFILE=release parcel public/index.html -p 8000 --open",
     "test": "wasm-pack test --chrome --firefox --headless"
   },
   "version": "0.1.0"

@@ -6,10 +6,28 @@ default-members = [
 
 members = [
     "backend/app",
-    "desktop",
+    "desktop/app",
     "frontend/app",
 ]
 
+[profile.dev]
+codegen-units = 256
+debug = true
+debug-assertions = true
+incremental = true
+lto = false
+panic = "unwind"
+rpath = false
+opt-level = 0
+overflow-checks = true
+
 [profile.release]
-lto = true
-opt-level = 'z'
+codegen-units = 16
+debug = false
+debug-assertions = false
+incremental = false
+lto = false
+panic = "unwind"
+rpath = false
+opt-level = "z"
+overflow-checks = false
