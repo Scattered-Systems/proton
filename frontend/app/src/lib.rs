@@ -18,6 +18,6 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 pub fn run_app() -> Result<(), JsError> {
     wasm_logger::init(wasm_logger::Config::default());
-    yew::start_app::<actors::docs::Docs>();
+    yew::start_app::<interface::App>();
     Ok(())
 }
