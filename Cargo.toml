@@ -1,12 +1,12 @@
 [workspace]
 default-members = [
-    "app/wasm"
+    "app/wasm/app"
 ]
 
 members = [
     "app/backend",
     "app/desktop",
-    "app/wasm",
+    "app/wasm/app",
 ]
 
 [profile.release]
