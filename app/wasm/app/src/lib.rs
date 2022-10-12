@@ -12,8 +12,11 @@ pub(crate) mod components;
 pub(crate) mod core;
 pub(crate) mod data;
 
+use wasm_bindgen::prelude::*;
+
 // This is the entry point for the web app
-pub fn main() {
+#[wasm_bindgen]
+pub fn run_app() {
     wasm_logger::init(wasm_logger::Config::default());
-    yew::start_app::<App>();
+    yew::start_app::<actors::docs::Docs>();
 }
