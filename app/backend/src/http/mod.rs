@@ -1,4 +1,4 @@
-use crate::config::Config;
+use crate::settings::Config;
 use anyhow::Context;
 use axum::{AddExtensionLayer, Router};
 use sqlx::PgPool;

@@ -7,7 +7,7 @@ use serde::{de::DeserializeOwned, Serialize};
 use crate::error::Error;
 use crate::types::ErrorInfo;
 
-const API_ROOT: &str = dotenv!("API_ROOT");
+
 const TOKEN_KEY: &str = "yew.token";
 
 lazy_static! {
@@ -45,7 +45,12 @@ where
     B: Serialize + std::fmt::Debug,
 {
     let allow_body = method == reqwest::Method::POST || method == reqwest::Method::PUT;
-    let url = format!("{}{}", API_ROOT, url);
+    let api_root = match std::env::var("API_ROOT") {
+        Ok(v) => v,
+        Err(_) => "https://api.realworld.io/api".to_string()
+    };
+
+    let url = format!("{}{}", api_root, url);
     let mut builder = reqwest::Client::new()
         .request(method, url)
         .header("Content-Type", "application/json");

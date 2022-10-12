@@ -1,6 +1,6 @@
 tasks:
   - init: |
-      rustup update && rustup install nightly && rustup target add wasm32-unknown-unknown --toolchain nightly && rustup default nightly
+      rustup uninstall stable && rustup default nightly && rustup install stable && rustup target add wasm32-unknown-unknown --toolchain nightly
       npm install -g npm@8.19.2 wasm-pack && npm install
       sudo apt install -y \
           libwebkit2gtk-4.0-dev \

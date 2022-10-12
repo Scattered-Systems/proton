@@ -4,7 +4,7 @@ categories = ["wasm"]
 description = "Exemplary real world app built with Rust + Yew + WebAssembly."
 edition = "2021"
 license = "MIT"
-name = "desktop"
+name = "proton-desktop"
 repository = "https://gitlab.com/scsys/bin/proton"
 version = "0.1.0"
 

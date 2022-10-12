@@ -1,9 +1,27 @@
 {
-  "private": true,
-  "scripts": {
-    "install": "cd app/wasm && npm install",
-    "build": "cd app/wasm && npm run build",
-    "start": "cd app/wasm && npm start",
-    "test": "cd app/wasm && npm run test"
-  }
+	"author": "FL03 <jo3mccain@icloud.com> (https://gitlab.com/FL03)",
+	"bugs": "https://gitlab.com/pzzld/app/frontend/-/issues",
+	"description": "A customizable portal into the future of internet-based experiences",
+	"keywords": [],
+	"license": "MIT",
+	"name": "@scsys/proton",
+	"private": false,
+	"readme": "https://gitlab.com/pzzld/app/frontend#README",
+	"repository": "https://gitlab.com/pzzld/app/frontend",
+	"scripts": {
+		"build": "npm run web:build",
+    "dev": "npm run web:dev",
+		"start": "npm run web:start",
+		"test": "npm run web:test",
+		"web:build": "npm run build --workspace=@proton/web",
+    "web:dev": "npm run dev --workspace=@proton/web",
+		"web:install": "npm install --workspace=@proton/web",
+		"web:start": "npm run start --workspace=@proton/web",
+		"web:test": "npm run test --workspace=@proton/web"
+	},
+	"type": "module",
+	"version": "0.1.0",
+	"workspaces": [
+		"app/wasm"
+	]
 }
