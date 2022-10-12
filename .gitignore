@@ -11,6 +11,7 @@
 
 **/.DS_STORE/
 **/.artifacts/data/
+**/.cache/
 **/.docker/data/
 **/.idea/
 **/.pytest_cache/
