@@ -16,7 +16,8 @@ use wasm_bindgen::prelude::*;
 
 // This is the entry point for the web app
 #[wasm_bindgen]
-pub fn run_app() {
+pub fn run_app() -> Result<(), JsError> {
     wasm_logger::init(wasm_logger::Config::default());
     yew::start_app::<actors::docs::Docs>();
+    Ok(())
 }

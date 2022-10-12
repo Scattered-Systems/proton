@@ -10,11 +10,11 @@
 	"repository": "https://gitlab.com/pzzld/app/frontend",
 	"scripts": {
 		"build": "npm run web:build",
-    "dev": "npm run web:dev",
+    	"dev": "npm run web:dev",
 		"start": "npm run web:start",
 		"test": "npm run web:test",
 		"web:build": "npm run build --workspace=@proton/web",
-    "web:dev": "npm run dev --workspace=@proton/web",
+    	"web:dev": "npm run dev --workspace=@proton/web",
 		"web:install": "npm install --workspace=@proton/web",
 		"web:start": "npm run start --workspace=@proton/web",
 		"web:test": "npm run test --workspace=@proton/web"
@@ -22,6 +22,6 @@
 	"type": "module",
 	"version": "0.1.0",
 	"workspaces": [
-		"app/wasm"
+		"frontend/app"
 	]
 }
