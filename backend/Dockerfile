@@ -8,8 +8,8 @@ ADD . /app
 WORKDIR /app
 
 COPY . .
-
-RUN cargo build --release
+COPY ../.config .
+RUN cargo build --color always --release -v
 
 FROM photon:latest
 
