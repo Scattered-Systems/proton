@@ -1,0 +1,18 @@
+[application]
+mode = "development"
+name = "template-restful-rust"
+
+[cache]
+name = "redis"
+uri = "redis://localhost:6379"
+
+[database]
+name = "postgres"
+uri = "postgres://postgres:example@localhost:5432/postgres"
+
+[logger]
+level = "debug"
+
+[server]
+host = "0.0.0.0"
+port = 8080

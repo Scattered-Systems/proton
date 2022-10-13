@@ -1,17 +1,9 @@
-# Config
-**/config.*
-**/*.config.*
-
-**/*.env
-**/*.env.*
-
 # Directories
 **/__pycache__/
 **/__sapper__/
 
 **/.DS_STORE/
 **/.artifacts/data/
-**/.cache/
 **/.docker/data/
 **/.idea/
 **/.pytest_cache/
@@ -23,7 +15,6 @@
 **/dist/
 **/env/
 **/node_modules/
-**/pkg/
 **/target/
 **/venv/
 

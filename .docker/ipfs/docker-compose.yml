@@ -1,0 +1,33 @@
+version: "4"
+services:
+  cluster:
+    container_name: cluster
+    image: ipfs/ipfs-cluster
+    depends_on:
+      - datastore
+    environment:
+      CLUSTER_PEERNAME: cluster
+      CLUSTER_SECRET: ${CLUSTER_SECRET}
+      CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/ipfs0/tcp/5001
+      CLUSTER_CRDT_TRUSTEDPEERS: '*'
+      CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS: /ip4/0.0.0.0/tcp/9094
+      CLUSTER_MONITORPINGINTERVAL: 2s
+    ports:
+      - "9094:9094"
+      - "9096:9096"
+    volumes:
+      - /data/cluster/0:/data/ipfs-cluster
+
+  datastore:
+    container_name: datastore
+    image: ipfs/go-ipfs
+    ports:
+      - "4001:4001"
+      - "5001:5001"
+      - "8080:8080"
+    volumes:
+      - /data/ipfs/0:/data/ipfs
+
+volumes:
+  config:
+  data:

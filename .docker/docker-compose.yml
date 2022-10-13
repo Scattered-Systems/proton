@@ -1,10 +1,26 @@
-version: "3.9"
+version: "4"
 services:
-  application:
+  backend:
     build:
-      context: ..
+      context: ../backend
       dockerfile: Dockerfile
-    container_name: application
+    container_name: backend
+    depends_on:
+      - database
+    ports:
+      - "8080:8080"
+    restart: always
+    volumes:
+      - ../.config:/config
+      - /data:/data
+  
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    depends_on:
+      - backend
     ports:
       - "8000:8000"
     restart: always
@@ -19,33 +35,17 @@ services:
       - "6379:6379"
     restart: always
 
-  cluster:
-    container_name: cluster
-    image: ipfs/ipfs-cluster
-    depends_on:
-      - datastore
-    environment:
-      CLUSTER_PEERNAME: cluster
-      CLUSTER_SECRET: ${CLUSTER_SECRET}
-      CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/ipfs0/tcp/5001
-      CLUSTER_CRDT_TRUSTEDPEERS: '*'
-      CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS: /ip4/0.0.0.0/tcp/9094
-      CLUSTER_MONITORPINGINTERVAL: 2s
-    ports:
-      - "9094:9094"
-      - "9096:9096"
-    volumes:
-      - /data/cluster/0:/data/ipfs-cluster
-
-  datastore:
-    container_name: datastore
-    image: ipfs/go-ipfs
-    ports:
-      - "4001:4001"
-      - "5001:5001"
-      - "8080:8080"
-    volumes:
-      - /data/ipfs/0:/data/ipfs
+  database:
+      container_name: postgres
+      environment:
+        POSTGRES_PASSWORD: example
+        POSTGRES_USER: postgres
+      image: postgres
+      ports:
+        - "5432:5432"
+      restart: always
+      volumes:
+        - /data/postgres:/var/lib/postgresql/data
 
 volumes:
   config:
