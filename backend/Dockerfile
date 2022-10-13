@@ -19,8 +19,8 @@ ENV DATABASE_URL="postgresql://postgres:example@localhost:5432/realworld" \
 
 RUN yum update -y && yum upgrade -y
 
-COPY --from=builder /app/target/release/proton-api /bin/proton-api
+COPY --from=builder /app/target/release/app /bin/app
 
 EXPOSE 8080
 
-CMD [ "proton-api" ]
+CMD [ "app" ]

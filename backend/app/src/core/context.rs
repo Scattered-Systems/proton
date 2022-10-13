@@ -5,8 +5,9 @@
         ... Summary ...
 */
 use crate::Settings;
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, Eq, Hash, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Eq, Hash, PartialEq, Serialize)]
 pub struct Context {
     pub settings: Settings,
 }
@@ -14,12 +15,6 @@ pub struct Context {
 impl Context {
     pub fn new(settings: Settings) -> Self {
         Self { settings }
-    }
-}
-
-impl Default for Context {
-    fn default() -> Self {
-        Self::new(Settings::default())
     }
 }
 

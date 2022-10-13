@@ -2,7 +2,7 @@ version: "4"
 services:
   backend:
     build:
-      context: backend
+      context: ../backend
       dockerfile: Dockerfile
     container_name: backend
     depends_on:
@@ -16,7 +16,7 @@ services:
   
   frontend:
     build:
-      context: wasm
+      context: ../frontend
       dockerfile: Dockerfile
     container_name: frontend
     depends_on:

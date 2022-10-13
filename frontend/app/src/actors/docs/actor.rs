@@ -7,9 +7,8 @@ use gloo::file::{callbacks::FileReader, File};
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use yew::{html, html::TargetCast, Component, Context, Html};
 use web_sys::{Event, HtmlInputElement};
-
+use yew::{html, html::TargetCast, Component, Context, Html};
 
 type Chunks = bool;
 

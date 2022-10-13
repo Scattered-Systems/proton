@@ -1,14 +1,14 @@
 [package]
 authors = ["FL03 <jo3mccain@icloud.com> (https://gitlab.com/FL03)"]
 categories = []
-description = "Maximus"
+description = "The application server securely connecting users to the mainnet"
 edition = "2021"
-homepage = "https://gitlab.com/FL03/template-restful-rust/-/wikis/home"
+homepage = "https://gitlab.com/scsys/bin/proton/-/wikis/home"
 keywords = ["application", "restful"]
 license = "MIT"
-name = "app"
-readme = "https://gitlab.com/FL03/template-restful-rust#README"
-repository = "https://gitlab.com/template-restful-rust"
+name = "proton-backend"
+readme = "../README.md"
+repository = "https://gitlab.com/scsys/bin/proton"
 version = "0.1.0"
 
 [[bin]]
@@ -19,17 +19,24 @@ name = "app"
 
 [dependencies]
 anyhow = "1.0.65"
-axum = { features = ["headers", "http2", "macros", "ws"], version = "0.5.16" }
+axum = { features = ["headers", "http2", "macros", "tower-log", "ws"], version = "0.5.16" }
 argon2 = "0.4.1"
+bollard = "0.13.0"
 futures = "0.3.24"
+hmac = "0.12.1"
 http = "0.2.8"
 hyper = { features = ["full"], version = "0.14.20" }
+jwt = "0.16.0"
+log = "0.4.17"
 redis = "0.21.6"
-reqwest = "0.11.12"
+reqwest = { features = ["json"], version = "0.11.12" }
 scsys = { features = ["full"], version = "0.1.19" }
-sea-orm = { features = ["runtime-tokio-rustls", "sqlx-all"], version = "0.9.3" }
+# sea-orm = { features = ["runtime-tokio-rustls", "sqlx-all"], version = "0.9.3" }
 serde = { features = ["derive"], version = "1.0.145" }
 serde_json = "1.0.85"
+sha2 = "0.10.6"
+sqlx = { features = ["all", "runtime-tokio-native-tls", "time", "uuid"], version = "0.6.2" }
+thiserror = "1.0.37"
 tokio = { features = ["full"], version = "1.21.1" }
 tower = "0.4.13"
 tower-cookies = "0.7.0"

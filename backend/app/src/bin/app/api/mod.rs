@@ -8,5 +8,5 @@ pub use self::interface::Api;
 
 pub mod endpoints;
 pub mod handlers;
-mod interface;
+pub(crate) mod interface;
 pub mod middleware;
