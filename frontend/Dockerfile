@@ -7,19 +7,23 @@ RUN apt-get update && apt-get install nodejs
 # Install wasm-pack
 RUN curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-FROM builder-base as builder
-ENV API_ROOT="http://localhost:8000"
-
 RUN rustup update && \
     rustup default nightly && \
     rustup target add wasm32-unknown-unknown --toolchain nightly 
 
+RUN cargo install --locked trunk && cargo install wasm-bindgen-cli
+
+FROM builder-base as builder
+
+ENV API_ROOT="http://localhost:8000"
+
+ADD app /app
 WORKDIR /proton
 
-COPY . .
+COPY app .
 
-RUN npm install
+RUN trunk build
 
 EXPOSE 8000
 
-CMD [ "npm", "start" ]
+CMD [ "trunk", "serve" ]

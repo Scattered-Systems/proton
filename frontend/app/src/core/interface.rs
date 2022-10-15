@@ -4,16 +4,26 @@
     Description: ... Summary ...
 */
 //! The root app contains initial authentication and url routes
-use crate::docs::Docs;
+use crate::{dashboard::Dashboard, docs::Docs};
 use yew::prelude::*;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
 
 #[derive(Clone, Routable, PartialEq)]
-enum Route {
+enum RootRoute {
     #[at("/")]
     Home,
+    #[at("/:s")]
+    Route,
+}
+
+#[derive(Clone, Routable, PartialEq)]
+enum Route {
+    #[at("/")]
+    Dashboard,
+    #[at("/docs")]
+    Docs,
     #[at("/secure")]
     Secure,
     #[not_found]
@@ -25,7 +35,9 @@ enum Route {
 fn secure() -> Html {
     let history = use_history().unwrap();
 
-    let onclick = Callback::once(move |_| history.push(Route::Home));
+    let onclick = Callback::once(
+        move |_| history.push(Route::Dashboard)
+    );
     html! {
         <div>
             <h1>{ "Secure" }</h1>
@@ -34,9 +46,19 @@ fn secure() -> Html {
     }
 }
 
+fn root_route(routes: &RootRoute) -> Html {
+    match routes {
+        RootRoute::Home => html! { <p class="text-4xl">{ "Yew Template. " }</p> },
+        RootRoute::Route => html! {
+            <Switch<Route> render={Switch::render(switch)} />
+        },
+    }
+}
+
 fn switch(routes: &Route) -> Html {
     match routes {
-        Route::Home => html! { <h1>{ "Home" }</h1> },
+        Route::Dashboard => html! { <Dashboard/> },
+        Route::Docs => html! { <Docs/> },
         Route::Secure => html! {
             <Secure />
         },

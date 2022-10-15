@@ -1,0 +1,17 @@
+[build]
+dist = "dist"
+filehash = true
+public_url = "/"
+release = true
+target = "index.html"
+
+[serve]
+address = "127.0.0.1"
+no_autoreload = false
+open = false
+port = 8080
+
+
+[[proxy]]
+backend = "http://localhost:9000"
+rewrite = "/api/"

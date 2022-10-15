@@ -3,6 +3,6 @@
     Contrib: FL03 <jo3mccain@icloud.com>
     Description: ... Summary ...
 */
-pub use self::agent::*;
+pub use self::actor::*;
 
-pub(crate) mod agent;
+pub(crate) mod actor;

@@ -4,4 +4,6 @@
     Description: ... Summary ...
 */
 
+pub mod dashboard;
 pub mod docs;
+pub mod home;
