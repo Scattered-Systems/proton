@@ -28,7 +28,7 @@ http = "0.2.8"
 hyper = { features = ["full"], version = "0.14.20" }
 jwt = "0.16.0"
 log = "0.4.17"
-redis = "0.21.6"
+redis = "0.22.1"
 reqwest = { features = ["json"], version = "0.11.12" }
 scsys = { features = ["full"], version = "0.1.19" }
 # sea-orm = { features = ["runtime-tokio-rustls", "sqlx-all"], version = "0.9.3" }
