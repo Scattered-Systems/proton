@@ -1,8 +1,17 @@
 version: "4"
 services:
+  reverse-proxy:
+    image: traefik
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
   backend:
     build:
-      context: ../backend
+      context: ../app/backend/restful
       dockerfile: Dockerfile
     container_name: backend
     depends_on:

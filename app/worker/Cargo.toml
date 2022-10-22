@@ -1,0 +1,31 @@
+[package]
+authors = ["FL03 <jo3mccain@scattered-systems.com> (https://gitlab.com/FL03)"]
+categories = []
+description = "a serverless application supporting the core functionalities of the Simplicity platform"
+edition = "2021"
+homepage = "https://github.com/scattered-systems/proton"
+keywords = []
+license = "MIT"
+name = "proton-worker"
+readme = "README.md"
+repository = "https://github.com/scattered-systems/proton"
+version = "0.1.0"
+
+[features]
+default = ["core"]
+full = ["core"]
+
+core = ["console_error_panic_hook"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+
+[dependencies]
+cfg-if = "1.0.0"
+console_error_panic_hook = { optional = true, version = "0.1.7" }
+pulldown-cmark = "0.9.2"
+serde = { features = ["derive"], version = "1.0.145" }  
+serde_json = "1.0.85"
+tokio = "1.21.1"
+worker = "0.0.11"
