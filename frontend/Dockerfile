@@ -17,6 +17,6 @@ COPY app .
 
 RUN trunk build
 
-EXPOSE 8000
+EXPOSE 8080
 
 CMD [ "trunk", "serve" ]

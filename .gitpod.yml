@@ -1,7 +1,11 @@
 tasks:
-  - init: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh &&\
-      rustup uninstall stable && rustup default nightly && rustup install stable && rustup target add wasm32-unknown-unknown --toolchain nightly && \
-      npm install -g npm@8.19.2 && npm install && cargo install create-tauri-app && \
+  - init: |
+      sudo apt update -y && sudo apt upgrade -y
+      rustup default nightly
+      rustup target add wasm32-unknown-unknown --toolchain nightly
+      cargo install --locked trunk
+      cargo install wasm-bindgen-cli
+      npm install -g npm@8.19.2 && npm install && cargo install create-tauri-app
       sudo apt install -y \
           libwebkit2gtk-4.0-dev \
           build-essential \
