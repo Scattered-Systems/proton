@@ -10,8 +10,8 @@ use yew_router::prelude::*;
 
 #[function_component(Navbar)]
 pub fn navbar() -> Html {
-    let user_ctx = use_user_context();
-    let brand = "Curiosity";
+    let ctx = use_user_context();
+    let brand = "Proton";
     html! {
         <nav class="navbar navbar-light">
             <div class="container">
@@ -19,8 +19,8 @@ pub fn navbar() -> Html {
                     { brand }
                 </Link<AppRoute>>
                 {
-                    if user_ctx.is_authenticated() {
-                        logged_in_view((*user_ctx).clone())
+                    if ctx.is_authenticated() {
+                        logged_in_view((*ctx).clone())
                     } else {
                         logged_out_view()
                     }
@@ -33,20 +33,10 @@ pub fn navbar() -> Html {
 
 fn logged_out_view() -> Html {
     html! {
-        <ul class="nav navbar-nav pull-xs-right">
+        <ul class="nav navbar-nav pull-xs-left">
             <li class="nav-item">
                 <Link<AppRoute> to={AppRoute::Home} classes="nav-link">
                     { "Home" }
-                </Link<AppRoute>>
-            </li>
-            <li class="nav-item">
-                <Link<AppRoute> to={AppRoute::Home} classes="nav-link">
-                    { "Sign in" }
-                </Link<AppRoute>>
-            </li>
-            <li class="nav-item">
-                <Link<AppRoute> to={AppRoute::Home} classes="nav-link">
-                    { "Sign up" }
                 </Link<AppRoute>>
             </li>
         </ul>
@@ -55,7 +45,7 @@ fn logged_out_view() -> Html {
 
 fn logged_in_view(user_info: UserInfo) -> Html {
     html! {
-        <ul class="nav navbar-nav pull-xs-right">
+        <ul class="nav navbar-nav pull-xs-left">
             <li class="nav-item">
                 <Link<AppRoute> to={AppRoute::Home} classes="nav-link">
                     { "Home" }

@@ -5,15 +5,15 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: cargo
+    directory: /app/backend
+    schedule:
+      interval: daily
+  - package-ecosystem: cargo
     directory: /app/desktop
     schedule:
       interval: daily
   - package-ecosystem: cargo
     directory: /app/frontend
-    schedule:
-      interval: daily
-  - package-ecosystem: cargo
-    directory: /app/restful
     schedule:
       interval: daily
   - package-ecosystem: cargo
