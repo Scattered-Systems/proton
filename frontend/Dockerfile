@@ -11,7 +11,7 @@ FROM builder-base as builder
 ENV API_ROOT="http://localhost:8000"
 
 ADD app /app
-WORKDIR /proton
+WORKDIR /app
 
 COPY app .
 
