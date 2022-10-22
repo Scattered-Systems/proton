@@ -5,13 +5,22 @@ public_url = "/"
 release = true
 target = "index.html"
 
+[watch]
+watch = []
+ignore = []
+
 [serve]
 address = "127.0.0.1"
 no_autoreload = false
 open = false
 port = 8080
 
+[clean]
+cargo = false
+dist = "dist"
 
-[[proxy]]
-backend = "http://localhost:9000"
-rewrite = "/api/"
+
+[tools]
+sass = "1.54.9"
+wasm_bindgen = "0.2.83"
+wasm_opt = "version_110"

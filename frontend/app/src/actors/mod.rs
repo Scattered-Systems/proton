@@ -1,9 +1,10 @@
 /*
     Appellation: actors <module>
     Contrib: FL03 <jo3mccain@icloud.com>
-    Description: ... Summary ...
+    Description: ... summary ...
 */
 
-pub mod dashboard;
-pub mod docs;
-pub mod home;
+pub mod auth;
+pub mod editor;
+pub mod files;
+pub mod tags;

@@ -1,9 +1,6 @@
-/*
-    Appellation: error <module>
-    Contrib: FL03 <jo3mccain@icloud.com>
-    Description: ... Summary ...
-*/
-use crate::models::errors::ErrorInfo;
+//! Error type for error handling
+
+use crate::data::meta::ErrorInfo;
 use thiserror::Error as ThisError;
 
 /// Define all possible errors

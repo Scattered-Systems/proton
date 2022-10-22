@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+  - package-ecosystem: cargo
+    directory: /backend/app
+    schedule:
+      interval: daily
+  - package-ecosystem: cargo
+    directory: /desktop/app
+    schedule:
+      interval: daily
+  - package-ecosystem: cargo
+    directory: /frontend/app
+    schedule:
+      interval: daily
