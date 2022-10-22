@@ -13,13 +13,11 @@ fn log_request(req: &Request) {
     );
 }
 
-pub async fn form_handler(req: &mut Request, ctx: RouteContext<()>,) -> Result<Response> {
+pub async fn form_handler(req: &mut Request, ctx: RouteContext<()>) -> Result<Response> {
     if let Some(name) = ctx.param("field") {
         let form = req.form_data().await?;
         match form.get(name) {
-            Some(FormEntry::Field(value)) => {
-                return Response::from_json(&json!({ name: value }))
-            }
+            Some(FormEntry::Field(value)) => return Response::from_json(&json!({ name: value })),
             Some(FormEntry::File(_)) => {
                 return Response::error("`field` param in form shouldn't be a File", 422);
             }
@@ -33,7 +31,7 @@ pub async fn form_handler(req: &mut Request, ctx: RouteContext<()>,) -> Result<R
 pub struct LandingPage {
     ctx: worker::Context,
     env: Env,
-    req: Request
+    req: Request,
 }
 
 impl LandingPage {
