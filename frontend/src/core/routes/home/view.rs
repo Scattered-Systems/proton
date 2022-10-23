@@ -67,7 +67,7 @@ pub fn main_view(props: &Props) -> Html {
     }
 
     html! {
-        <div class="col-md-9 col-xs-12">
+        <div class="flex ">
             <div class="feed-toggle">
                 <ul class="nav nav-pills outline-active">
                     {
@@ -90,7 +90,7 @@ fn your_feed_tab(tab: UseStateHandle<Tab>) -> Html {
     let (onclick, class) = get_tab_msg_class(tab, Tab::Feed);
 
     html! {
-        <li class="nav-item">
+        <li class="list-none inline">
             <a  href=""
                 {class}
                 {onclick}>

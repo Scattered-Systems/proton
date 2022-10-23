@@ -20,10 +20,10 @@ pub fn home() -> Html {
     };
 
     html! {
-        <div class="container-fluid m-0 p-3">
+        <div class="relative bg-zinc-900 text-white flex min-h-screen m-0 p-0">
             <Banner />
-            <div class="row page">
-                <div class="col-md-3 col-xs-12 min-h-screen">
+            <div class="flex">
+                <div class="relative flex">
                     <div class="sidebar">
                         <p>{ "Popular Tags" }</p>
                         <Tags {callback} />
@@ -32,7 +32,6 @@ pub fn home() -> Html {
                 <div class="container">
                     <FileModel/>
                     <MainView tag={(*tag).clone()} />
-
                 </div>
             </div>
         </div>

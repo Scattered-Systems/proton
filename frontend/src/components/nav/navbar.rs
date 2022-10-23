@@ -13,19 +13,19 @@ pub fn navbar() -> Html {
     let ctx = use_user_context();
     let brand = "Proton";
     html! {
-        <nav class="navbar navbar-light">
-            <div class="container">
-                <Link<AppRoute> to={AppRoute::Home} classes="navbar-brand">
+        <nav class="absolute z-50 w-full flex flex-wrap items-center justify-between py-3 bg-transparent shadow-lg navbar navbar-expand-lg navbar-light">
+            <div class="flex">
+                <Link<AppRoute> to={AppRoute::Home} classes="inline px-3">
                     { brand }
                 </Link<AppRoute>>
-                {
-                    if ctx.is_authenticated() {
-                        logged_in_view((*ctx).clone())
-                    } else {
-                        logged_out_view()
-                    }
-                }
-                <Sidebar/>
+                // {
+                //     if ctx.is_authenticated() {
+                //         logged_in_view((*ctx).clone())
+                //     } else {
+                //         logged_out_view()
+                //     }
+                // }
+                // <Sidebar/>
             </div>
         </nav>
     }
