@@ -14,44 +14,18 @@ pub fn sidebar() -> Html {
     let user_ctx = use_user_context();
     let toggle_label = "Control Panel";
     let title = "Sidebar";
+    let mut is_open = false;
     html! {
         <>
-            <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
-                {toggle_label}
+            <button id="btnSidebarToggler" class="rounded-full bg-indigo-200 px-3 py-2 text-black" type="button">
+                <svg id="navClosed" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+                <svg id="navOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden h-8 w-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
             </button>
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="sidebarLabel">{ title }</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div>
-                        {"Application"}
-                    </div>
-                    <div class="vstack gap-3">
-                        <div class="bg-light border">
-                            {"Automate"}
-                        </div>
-                        <div class="bg-light border">
-                            {"Control"}
-                        </div>
-                        <div class="bg-light border">
-                            {"Discover"}
-                        </div>
-                    </div>
-                    <div class="dropdown mt-3 relative bottom-0">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                            <i class="fa-regular fa-user px-1"></i>
-                            { "Account" }
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">{"Actions"}</a></li>
-                            <li><a class="dropdown-item" href="#">{"Content"}</a></li>
-                            <li><a class="dropdown-item" href="#">{"Schedule"}</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            
         </>
     }
 }

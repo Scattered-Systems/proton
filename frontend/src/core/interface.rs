@@ -17,8 +17,10 @@ pub fn app() -> Html {
     html! {
         <UserContextProvider>
             <BrowserRouter>
-                <Navbar/>
-                <Switch<AppRoute> render={Switch::render(switch)} />
+                <div class="bg-zinc-900 flex m-0 min-h-screen p-0 text-white z-0">
+                    <Navbar/>
+                    <Switch<AppRoute> render={Switch::render(switch)} />
+                </div>
             </BrowserRouter>
         </UserContextProvider>
     }

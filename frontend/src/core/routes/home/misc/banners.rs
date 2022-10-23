@@ -32,14 +32,14 @@ pub fn banner() -> Html {
     let user_ctx = use_user_context();
     let mut content = BannerContent::default();
     content.set_subtitle("A unified interface for your decentralized namespace");
-    content.set_title("Curiosity");
+    content.set_title("Welcome");
     if user_ctx.is_authenticated() {
         html! {}
     } else {
         html! {
-            <div class="banner">
-                <div class="container">
-                    <h1 class="logo-font">
+            <div class="flex grow rounded-lg bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900 p-3">
+                <div class="inline">
+                    <h1 class="text-2xl text-bold italics">
                         { content.title }
                     </h1>
                     <p>{ content.subtitle }</p>

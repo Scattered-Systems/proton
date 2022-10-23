@@ -20,16 +20,16 @@ pub fn home() -> Html {
     };
 
     html! {
-        <div class="relative bg-zinc-900 text-white flex min-h-screen m-0 p-0">
+        <div class="container mx-auto min-h-full relative my-16">
             <Banner />
-            <div class="flex">
-                <div class="relative flex">
-                    <div class="sidebar">
+            <div class="flex py-3">
+                <div class="bg-gradient-to-r from-neutral-100 via-neutral-200 to-neutral-100 text-black p-3 min-h-full rounded-lg">
+                    <div class="">
                         <p>{ "Popular Tags" }</p>
                         <Tags {callback} />
                     </div>
                 </div>
-                <div class="container">
+                <div class="container mx-auto">
                     <FileModel/>
                     <MainView tag={(*tag).clone()} />
                 </div>

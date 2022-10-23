@@ -67,14 +67,16 @@ pub fn main_view(props: &Props) -> Html {
     }
 
     html! {
-        <div class="flex ">
+        <div class="block">
             <div class="feed-toggle">
-                <ul class="nav nav-pills outline-active">
+                <ul class="inline list-none">
                     {
                         if user_ctx.is_authenticated() {
                             your_feed_tab(tab.clone())
                         } else {
-                            html! {}
+                            html! {
+
+                            }
                         }
                     }
                     { global_feed_tab(tab.clone()) }

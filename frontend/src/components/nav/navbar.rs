@@ -13,19 +13,26 @@ pub fn navbar() -> Html {
     let ctx = use_user_context();
     let brand = "Proton";
     html! {
-        <nav class="absolute z-50 w-full flex flex-wrap items-center justify-between py-3 bg-transparent shadow-lg navbar navbar-expand-lg navbar-light">
-            <div class="flex">
+        <nav class="absolute bg-transparent flex flex-nowrap items-center justify-between navbar navbar-expand-lg py-3 w-full">
+            <div class="inline-flex w-32 px-3">
                 <Link<AppRoute> to={AppRoute::Home} classes="inline px-3">
                     { brand }
                 </Link<AppRoute>>
-                // {
-                //     if ctx.is_authenticated() {
-                //         logged_in_view((*ctx).clone())
-                //     } else {
-                //         logged_out_view()
-                //     }
-                // }
-                // <Sidebar/>
+                
+            </div>
+            <div class="flex grow justify-start text-indigo-100 hover:text-indigo-300">
+                {
+                    if ctx.is_authenticated() {
+                        logged_in_view((*ctx).clone())
+                    } else {
+                        logged_out_view()
+                    }
+                }
+            </div>
+            <div class="mx-3">
+                <button class="bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900 px-3 py-1 rounded-full">
+                    {"Settings"}
+                </button>
             </div>
         </nav>
     }
@@ -33,10 +40,10 @@ pub fn navbar() -> Html {
 
 fn logged_out_view() -> Html {
     html! {
-        <ul class="nav navbar-nav pull-xs-left">
+        <ul class="inline-flex list-none">
             <li class="nav-item">
-                <Link<AppRoute> to={AppRoute::Home} classes="nav-link">
-                    { "Home" }
+                <Link<AppRoute> to={AppRoute::Home} classes="nav-link hover:underline">
+                    { "Dashboard" }
                 </Link<AppRoute>>
             </li>
         </ul>
@@ -45,10 +52,10 @@ fn logged_out_view() -> Html {
 
 fn logged_in_view(user_info: UserInfo) -> Html {
     html! {
-        <ul class="nav navbar-nav pull-xs-left">
+        <ul class="list-none inline-flex">
             <li class="nav-item">
                 <Link<AppRoute> to={AppRoute::Home} classes="nav-link">
-                    { "Home" }
+                    { "Dashboard" }
                 </Link<AppRoute>>
             </li>
         </ul>
