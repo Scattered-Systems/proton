@@ -2,8 +2,7 @@
 members = [
     "backend",
     "desktop",
-    "frontend",
-    "worker"
+    "frontend"
 ]
 
 [profile.dev]
