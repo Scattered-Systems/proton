@@ -4,3 +4,7 @@
     Description:
         ... Summary ...
 */
+
+pub enum Errors {
+    Generic
+}

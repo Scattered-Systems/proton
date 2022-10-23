@@ -4,16 +4,21 @@
     Description:
         ... Summary ...
 */
-pub use self::application::Backend;
+#[doc(inline)]
+pub use self::{context::Context, interface::RESTBackend, settings::Settings};
 
 pub mod api;
-mod application;
+
+pub(crate) mod context;
+pub(crate) mod interface;
+pub(crate) mod settings;
+
+use scsys::BoxResult;
 
 #[tokio::main]
-async fn main() -> scsys::BoxResult {
-    let app = Backend::new();
-    // app.with_logging().run().await?;
-    sample::docker_sample().await?;
+async fn main() -> BoxResult {
+    let app = RESTBackend::new();
+    app.with_logging().run().await?;
     Ok(())
 }
 

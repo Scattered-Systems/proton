@@ -4,44 +4,41 @@
     Description:
         ... Summary ...
 */
-use super::api::Api;
-use proton_backend::{Context, Settings};
+use crate::{api::Api, Context, Settings};
 use scsys::BoxResult;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
-pub struct Backend {
-    pub context: Context,
+pub struct RESTBackend {
+    pub ctx: Context,
 }
 
-impl Backend {
+impl RESTBackend {
     pub fn new() -> Self {
-        println!("Configuring the application...");
         let settings = Settings::default();
-        println!("{}", settings.clone());
         let context = Context::new(settings.clone());
-        Self { context }
+        Self { ctx: context }
     }
     pub fn from(settings: Settings) -> Self {
         Self {
-            context: Context::new(settings),
+            ctx: Context::new(settings),
         }
     }
     pub fn api(&self) -> Api {
-        Api::new(self.context.clone())
+        Api::new(self.ctx.clone())
     }
     pub fn with_logging(&self) -> &Self {
-        self.context.settings.logger.setup();
+        self.ctx.settings.logger.setup();
         self
     }
     pub async fn run(&self) -> BoxResult {
-        println!("{}", self.context.settings.server.clone());
+        println!("{}", self.ctx.settings.server.clone());
         self.api().run().await.expect("Interface Error");
         Ok(())
     }
 }
 
-impl Default for Backend {
+impl Default for RESTBackend {
     fn default() -> Self {
         Self::from(Settings::default())
     }

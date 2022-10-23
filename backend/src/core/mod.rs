@@ -4,14 +4,10 @@
    Description:
        ... Summary ...
 */
-pub use self::{
-    context::Context, errors::*, primitives::*, settings::Settings, state::*, utils::*,
-};
+pub use self::{errors::*, primitives::*,  state::*, utils::*};
 
-mod context;
 pub(crate) mod errors;
 mod primitives;
-mod settings;
 mod state;
 
 mod utils {}

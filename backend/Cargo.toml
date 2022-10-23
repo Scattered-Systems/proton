@@ -3,17 +3,15 @@ authors = ["FL03 <jo3mccain@icloud.com> (https://gitlab.com/FL03)"]
 categories = []
 description = "The application server securely connecting users to the mainnet"
 edition = "2021"
-homepage = "https://gitlab.com/scsys/bin/proton/-/wikis/home"
+homepage = "https://github.com/scattered-systems/proton/-/wiki"
 keywords = ["application", "restful"]
 license = "MIT"
 name = "proton-backend"
-readme = "../README.md"
-repository = "https://gitlab.com/scsys/bin/proton"
+repository = "https://github.com/scattered-systems/proton"
 version = "0.1.0"
 
-[[bin]]
-bench = false
-name = "app"
+[lib]
+crate-type = ["cdylib", "rlib"]
 
 [build-dependencies]
 
