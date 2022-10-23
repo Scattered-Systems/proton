@@ -5,7 +5,7 @@
         ... Summary ...
 */
 use scsys::{
-    core::collect_config_files,
+    collect_config_files,
     prelude::{
         config::{Config, ConfigError, Environment},
         Cache, Database, Logger, Server,

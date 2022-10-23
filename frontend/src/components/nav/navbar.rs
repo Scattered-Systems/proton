@@ -18,7 +18,7 @@ pub fn navbar() -> Html {
                 <Link<AppRoute> to={AppRoute::Home} classes="inline px-3">
                     { brand }
                 </Link<AppRoute>>
-                
+
             </div>
             <div class="flex grow justify-start text-indigo-100 hover:text-indigo-300">
                 {

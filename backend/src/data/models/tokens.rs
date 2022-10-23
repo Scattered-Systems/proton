@@ -4,7 +4,7 @@
     Description:
         ... Summary ...
 */
-use scsys::core::generate::StringGenerator;
+use scsys::prelude::StringGenerator;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]

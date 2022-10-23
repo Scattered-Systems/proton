@@ -4,7 +4,7 @@
     Description:
         ... Summary ...
 */
-use scsys::core::BsonOid;
+use scsys::BsonOid;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
