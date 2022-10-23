@@ -1,5 +1,10 @@
 [workspace]
-members = ["app/*"]
+members = [
+    "backend",
+    "desktop",
+    "frontend",
+    "worker"
+]
 
 [profile.dev]
 codegen-units = 256
