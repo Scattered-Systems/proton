@@ -5,7 +5,7 @@
         ... Summary ...
 */
 use axum::{extract::Path, routing::get, Json, Router};
-use scsys::core::Timestamp;
+use scsys::Timestamp;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 

@@ -14,9 +14,9 @@ FROM photon
 
 ENV POST=8080
 
-COPY --from=builder /app/target/release/proton-api /bin/proton-api
+COPY --from=builder /app/target/release/app /bin/app
 
 EXPOSE ${PORT}/tcp
 EXPOSE ${PORT}/udp
 
-CMD [ "proton-api" ]
+CMD [ "app" ]

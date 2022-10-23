@@ -10,7 +10,7 @@ pub mod api;
 mod application;
 
 #[tokio::main]
-async fn main() -> scsys::core::BoxResult {
+async fn main() -> scsys::BoxResult {
     let app = Backend::new();
     // app.with_logging().run().await?;
     sample::docker_sample().await?;
@@ -21,7 +21,7 @@ pub(crate) mod sample {
     use bollard::Docker;
     use futures::FutureExt;
 
-    pub async fn docker_sample() -> scsys::core::BoxResult {
+    pub async fn docker_sample() -> scsys::BoxResult {
         let docker = Docker::connect_with_local_defaults()?;
         let version = docker.version().await.unwrap();
         println!("{:?}", version);

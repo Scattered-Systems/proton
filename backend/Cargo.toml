@@ -6,7 +6,7 @@ edition = "2021"
 homepage = "https://gitlab.com/scsys/bin/proton/-/wikis/home"
 keywords = ["application", "restful"]
 license = "MIT"
-name = "proton-api"
+name = "proton-backend"
 readme = "../README.md"
 repository = "https://gitlab.com/scsys/bin/proton"
 version = "0.1.0"
@@ -18,31 +18,27 @@ name = "app"
 [build-dependencies]
 
 [dependencies]
-anyhow = "1.0.65"
-axum = { features = ["headers", "http2", "macros", "tower-log", "ws"], version = "0.5.16" }
+axum = { features = ["headers", "http2", "ws"], version = "0.5.17" }
 argon2 = "0.4.1"
 bollard = "0.13.0"
+ethers = "0.17.0"
 futures = "0.3.24"
-hmac = "0.12.1"
 http = "0.2.8"
 hyper = { features = ["full"], version = "0.14.20" }
-jwt = "0.16.0"
 log = "0.4.17"
-redis = "0.21.6"
+redis = "0.22.1"
 reqwest = { features = ["json"], version = "0.11.12" }
-scsys = { features = ["full"], version = "0.1.19" }
-# sea-orm = { features = ["runtime-tokio-rustls", "sqlx-all"], version = "0.9.3" }
-serde = { features = ["derive"], version = "1.0.145" }
-serde_json = "1.0.85"
+scsys = { features = ["full"], version = "0.1.21" }
+serde = { features = ["derive"], version = "1.0.147" }
+serde_json = "1.0.87"
 sha2 = "0.10.6"
-sqlx = { features = ["all", "runtime-tokio-native-tls", "time", "uuid"], version = "0.6.2" }
 thiserror = "1.0.37"
-tokio = { features = ["full"], version = "1.21.1" }
+tokio = { features = ["full"], version = "1.21.2" }
 tower = "0.4.13"
 tower-cookies = "0.7.0"
 tower-http = { features = ["full"], version = "0.3.4" }
 tracing = "0.1.35"
-tracing-subscriber = { features = ["env-filter"], version = "0.3.14" }
+tracing-subscriber = { features = ["env-filter"], version = "0.3.16" }
 
 [dev-dependencies]
 

@@ -8,7 +8,7 @@ use super::endpoints;
 use proton_backend::Context;
 
 use http::header::{HeaderName, AUTHORIZATION};
-use scsys::core::BoxResult;
+use scsys::BoxResult;
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
 use tower_http::{
