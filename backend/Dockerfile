@@ -12,7 +12,7 @@ RUN cargo build --release
 
 FROM photon
 
-ENV POST=8080
+ENV PORT=8080
 
 COPY --from=builder /app/target/release/app /bin/app
 

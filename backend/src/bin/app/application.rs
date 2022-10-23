@@ -6,7 +6,7 @@
 */
 use super::api::Api;
 use proton_backend::{Context, Settings};
-use scsys::core::BoxResult;
+use scsys::BoxResult;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
