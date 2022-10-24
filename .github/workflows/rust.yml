@@ -1,16 +1,10 @@
 name: Rust
 
 on:
-  push:
-    branches:
-      - master
-    tags:
-      - v*.*.*
   pull_request:
-    branches:
-      - master
-    tags:
-      - v*.*.*
+    tags: [ "v*.*.*" ]
+  workflow_dispatch:
+  
 
 env:
   CARGO_TERM_COLOR: always

@@ -1,6 +1,9 @@
 [workspace]
+default-members = [
+    "frontend"
+]
+
 members = [
-    "backend",
     "desktop",
     "frontend"
 ]
