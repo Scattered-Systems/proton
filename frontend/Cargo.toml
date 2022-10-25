@@ -19,6 +19,7 @@ test = true
 name = "proton"
 
 [build-dependencies]
+substrate-wasm-builder = "4.0.0"
 yew = "0.19.3"
 
 [dependencies]

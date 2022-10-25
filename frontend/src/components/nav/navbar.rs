@@ -13,14 +13,14 @@ pub fn navbar() -> Html {
     let ctx = use_user_context();
     let brand = "Proton";
     html! {
-        <nav class="absolute bg-transparent flex flex-nowrap items-center justify-between navbar navbar-expand-lg py-3 w-full">
+        <nav class="absolute bg-transparent text-white flex flex-nowrap items-center justify-between navbar navbar-expand-lg py-3 w-full">
             <div class="inline-flex w-32 px-3">
                 <Link<AppRoute> to={AppRoute::Home} classes="inline px-3">
                     { brand }
                 </Link<AppRoute>>
 
             </div>
-            <div class="flex grow justify-start text-indigo-100 hover:text-indigo-300">
+            <div class="flex grow justify-start hover:text-underline hover:italic">
                 {
                     if ctx.is_authenticated() {
                         logged_in_view((*ctx).clone())

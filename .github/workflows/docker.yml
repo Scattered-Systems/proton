@@ -2,13 +2,10 @@ name: Docker
 
 on:
   push:
-    branches:
-      - latest
-    tags:
-      - v*.*.*
+    branches: ["main", "master", "prod*"]
   pull_request:
-    tags:
-      - v*.*.*
+    tags: [ "v*.*.*" ]
+  workflow_dispatch:
 
 jobs:
   login:
@@ -21,7 +18,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-  latest:
+  frontend:
     needs: [ login ]
     runs-on: ubuntu-latest
     steps:
@@ -40,7 +37,7 @@ jobs:
             --build-arg VERSION=${VERSION} \
             --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
             --build-arg VCS_REF=${GITHUB_SHA::8} \
-            ${TAGS} --file ./app/frontend/Dockerfile .
+            ${TAGS} --file ./frontend/Dockerfile .
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Docker Buildx (build)

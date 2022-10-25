@@ -1,6 +1,12 @@
-FROM rust:latest as builder-base
+FROM scsys/rust:debian-lts as builder-base
 
 RUN apt-get update -y && spt-get upgrade -y && rustup update
+
+RUN apt-get apt install -y \
+        libwebkit2gtk-4.0-dev \
+        libgtk-3-dev \
+        libayatana-appindicator3-dev \
+        librsvg2-dev
 
 FROM builder-base as builder
 

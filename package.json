@@ -11,6 +11,5 @@
 	"scripts": {
 		"dev": "trunk --config frontend/Trunk.toml serve"
 	},
-	"type": "module",
 	"version": "0.1.0"
 }
