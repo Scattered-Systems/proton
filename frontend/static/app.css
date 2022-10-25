@@ -7,7 +7,7 @@
 }
 
 body {
-    background: none;
+    background: inherit;
     display: flex;
     flex-direction: column;
     margin: 0 0;
