@@ -78,45 +78,43 @@ impl Component for Model {
 
     fn view(&self, ctx: &Context<Self>) -> Html {
         let flag = self.read_bytes;
+        let bg = "bg-transparent";
         html! {
-            <div class="container">
-                <div class="card my-3 p-3">
-                    <div class="card-body items-center">
-                        <form class="mb-3">
-                            <div class="form-control">
-                                <label for="fileInputBtn">{ "Choose a file to upload to see the uploaded bytes" }</label>
-                                <input class="btn" id="fileInputBtn" type="file" multiple=true onchange={ctx.link().callback(move |e: Event| {
-                                        let mut result = Vec::new();
-                                        let input: HtmlInputElement = e.target_unchecked_into();
+            <div class="bg-transparent flex flex-auto min-h-full items-center justify-center">
+                <div class="flex flex-initial">
+                    <form class="">
+                        <div class="form-control">
+                            <label class="ml-3 text-base" for="fileInputBtn">{ "Choose a file to upload to see the uploaded bytes" }</label>
+                            <input class="rounded-full" id="fileInputBtn" type="file" multiple=true onchange={ctx.link().callback(move |e: Event| {
+                                    let mut result = Vec::new();
+                                    let input: HtmlInputElement = e.target_unchecked_into();
 
-                                        if let Some(files) = input.files() {
-                                            let files = js_sys::try_iter(&files)
-                                                .unwrap()
-                                                .unwrap()
-                                                .map(|v| web_sys::File::from(v.unwrap()))
-                                                .map(File::from);
-                                            result.extend(files);
-                                        }
-                                        Msg::Files(result, flag)
-                                    })}
-                                />
-                            </div>
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    id="flexCheckChecked"
-                                    type="checkbox"
-                                    checked={flag}
-                                    onclick={ctx.link().callback(|_| Msg::ToggleReadBytes)}
-                                    value=""
-                                />
-                                <label class="form-check-label" for="flexCheckChecked">
-                                    {"Read Bytes"}
-                                </label>
-                            </div>
-
-                        </form>
-                    </div>
+                                    if let Some(files) = input.files() {
+                                        let files = js_sys::try_iter(&files)
+                                            .unwrap()
+                                            .unwrap()
+                                            .map(|v| web_sys::File::from(v.unwrap()))
+                                            .map(File::from);
+                                        result.extend(files);
+                                    }
+                                    Msg::Files(result, flag)
+                                })}
+                            />
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="rounded"
+                                id="flexCheckChecked"
+                                type="checkbox"
+                                checked={flag}
+                                onclick={ctx.link().callback(|_| Msg::ToggleReadBytes)}
+                                value=""
+                            />
+                            <label class="form-check-label" for="flexCheckChecked">
+                                {"Read Bytes"}
+                            </label>
+                        </div>
+                    </form>
                 </div>
                 // Display the uploaded files
                 <div class="card my-3 p-3">

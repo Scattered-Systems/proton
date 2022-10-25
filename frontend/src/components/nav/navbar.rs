@@ -8,6 +8,14 @@ use crate::{data::meta::UserInfo, hooks::use_user_context, routes::AppRoute};
 use yew::prelude::*;
 use yew_router::prelude::*;
 
+fn navbar_button() -> Html {
+    html! {
+        <button class="bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900 px-3 py-1 rounded-full">
+            {"Control"}
+        </button>
+    }
+}
+
 #[function_component(Navbar)]
 pub fn navbar() -> Html {
     let ctx = use_user_context();
@@ -30,9 +38,7 @@ pub fn navbar() -> Html {
                 }
             </div>
             <div class="mx-3">
-                <button class="bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900 px-3 py-1 rounded-full">
-                    {"Settings"}
-                </button>
+                { navbar_button() }
             </div>
         </nav>
     }

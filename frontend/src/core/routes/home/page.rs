@@ -30,7 +30,7 @@ pub fn home() -> Html {
                             // <p>{ "Popular Tags" }</p>
                             // <Tags {callback}/>
                         </div>
-                        <div class="flex items-center text-base">
+                        <div class="flex items-center text-base py-3">
                             <ul class="hover:opacity-75">
                                 <li>{"Assets"}</li>
                                 <li>{"Create"}</li>
