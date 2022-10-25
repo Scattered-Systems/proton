@@ -7,6 +7,6 @@ tasks:
       cargo install --locked trunk
       cargo install create-tauri-app wasm-bindgen-cli
       npm install -g npm@8.19.2
-    command: cargo build --workspace
+    command: trunk --config fronend/Trunk.toml serve
 
 
