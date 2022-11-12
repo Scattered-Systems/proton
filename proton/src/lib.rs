@@ -11,7 +11,6 @@ pub fn add_one(data: usize) -> usize {
     data + 1
 }
 
-
 #[wasm_bindgen]
 pub fn timestamp() -> i64 {
     scsys::prelude::Timestamp::default().into()

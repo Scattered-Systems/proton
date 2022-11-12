@@ -1,4 +1,4 @@
-job("Docker: Build and publish") {
+job("(Proton) Docker: Build and publish") {
     startOn {
         gitPush { 
             branchFilter {
@@ -30,7 +30,7 @@ job("Docker: Build and publish") {
     }
 }
 
-job("(Disarray) Rust: Build and test workspace") {
+job("(Proton) Rust: Build and test workspace") {
     startOn {
         gitPush { 
             branchFilter {
