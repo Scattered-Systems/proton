@@ -23,14 +23,14 @@ job("Docker: Build and publish") {
             file = "Dockerfile"
             labels["vendor"] = "Scattered-Systems, LLC"
             tags {
-                +"scsys/conduit:latest"
-                +"scsys/conduit:0.1.${"$"}JB_SPACE_EXECUTION_NUMBER"
+                +"scsys/proton:backend"
+                +"scsys/proton:backend_v0.1.${"$"}JB_SPACE_EXECUTION_NUMBER"
             }
         }
     }
 }
 
-job("Test (crates)") {
+job("(Disarray) Rust: Build and test workspace") {
     startOn {
         gitPush { 
             branchFilter {
@@ -41,6 +41,7 @@ job("Test (crates)") {
         schedule { cron("0 8 * * *") }
     }
     container(displayName = "Rust", image = "rust") {
+        env["CARGO_REGISTRY_TOKEN"] = Secrets("cargo_registry_token")
         shellScript {
             interpreter = "/bin/bash"
             content = """
@@ -48,28 +49,7 @@ job("Test (crates)") {
                 apt-get install -y protobuf-compiler
                 rustup default nightly && rustup target add wasm32-unknown-unknown --toolchain nightly
                 cargo login ${'$'}CARGO_REGISTRY_TOKEN
-                cargo test --all-features
-            """
-        }
-    }
-}
-
-job("Publish (crates)") {
-    startOn {
-        gitPush { 
-            branchFilter {
-                +"refs/tags/v*.*.*"
-            }
-        }
-    }
-    container(displayName = "Rust", image = "rust") {
-        shellScript {
-            interpreter = "/bin/bash"
-            content = """
-                apt-get update -y && apt-get upgrade -y
-                apt-get install -y protobuf-compiler
-                rustup default nightly && rustup target add wasm32-unknown-unknown --toolchain nightly
-                cargo publish --all-features --color always --jobs 1 --token ${'$'}CARGO_REGISTRY_TOKEN --verbose -p aqueduct
+                cargo test --all --all-features
             """
         }
     }

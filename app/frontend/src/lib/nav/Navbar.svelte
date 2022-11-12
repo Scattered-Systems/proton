@@ -9,6 +9,8 @@
         defaultEvmStores.setProvider();
         console.log(connected)
     }
+
+    $: data = info;
 </script>
 
 <nav class="bg-transparent text-white flex grow flex-nowrap items-center justify-between navbar navbar-expand-lg py-3 relative w-full">
@@ -17,7 +19,7 @@
     </div>
     <div class="flex grow justify-start hover:text-underline hover:italic">
         <ul class="flex flex-col lg:flex-row list-none mr-auto">
-            {#each info.pages as view}
+            {#each data.pages as view}
                 <li class="list-none" class:active={$page.url.pathname === view.href}>
                     <a class="block px-3 py-2 hover:opacity-75 dark:text-white" sveltekit:prefetch href="{view.endpoint}">
                         {view.label}
