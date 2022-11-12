@@ -1,13 +1,25 @@
 <script>
-	import { connected, defaultEvmStores, chainId, selectedAccount } from 'svelte-web3';
+	/** @type {import('./$types').PageData} */
+    export let data;
+	import { connected, chainId, selectedAccount } from 'svelte-web3';
 	import Text from '$lib/misc/Text.svelte';
-	function handle_connection() {
-		if (connected) {
-			return chainId
-		} else {
-			return false
+    import Login from '$lib/login/Login.svelte';
+
+	function load_chain_info() {
+		if ($connected) {
+			return {
+				account: {
+					address: $selectedAccount
+				},
+				chain: {
+					id: $chainId
+				}
+			}
 		}
 	}
+	
+	$: props = data;
+	$: eth = load_chain_info();
 </script>
 
 <svelte:head>
@@ -15,18 +27,13 @@
 	<meta name="description" content="A powerful, cloud-native application" />
 </svelte:head>
 
-<section class="rounded ">
+<section class="rounded bg-zinc-800 p-3">
 	{#if $connected}
 		<div class="flex flex-wrap items-center">
-			<Text>Chain Id: {$chainId}</Text>
-			<Text>Selected Account: {$selectedAccount}</Text>
+			<Text>{$eth.account.address}</Text>
 		</div>
 	{:else}
-		<div class="flex grow items-center w-full">
-			<Text>
-				Login to continue...
-			</Text>
-		</div>
+		<Login/>
 	{/if}
 	
 </section>
