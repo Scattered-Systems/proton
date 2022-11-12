@@ -6,4 +6,3 @@ rustup target add wasm32-unknown-unknown --toolchain nightly
 cargo install create-tauri-app wasm-bindgen-cli
 cargo install --locked trunk
 sudo apt -y update && sudo apt -y upgrade && sudo apt -y autoremove
-sudo apt install -y libwebkit2gtk-4.0-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
