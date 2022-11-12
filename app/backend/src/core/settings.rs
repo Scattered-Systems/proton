@@ -13,6 +13,7 @@ use scsys::{
 };
 use serde::{Deserialize, Serialize};
 
+
 #[derive(Clone, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
 pub struct Settings {
     pub mode: Option<String>,
@@ -25,7 +26,7 @@ impl Settings {
     pub fn build() -> ConfigResult<Self> {
         let builder = Config::builder()
             .add_source(collect_config_files("**/Backend.toml", true))
-            .add_source(Environment::default().separator("__"));
+            .add_source(Environment::default().with_prefix("APP").separator("__"));
 
         builder.build()?.try_deserialize()
     }
@@ -52,4 +53,15 @@ impl std::fmt::Display for Settings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", serde_json::to_string_pretty(&self).unwrap())
     }
+}
+
+
+
+lazy_static::lazy_static! {
+    static ref SETTINGS: RwLock<Config> = RwLock::new({
+        let mut settings = Config::default();
+        settings.merge(File::with_name("app/backend/Backend.toml")).unwrap();
+
+        settings
+    });
 }
