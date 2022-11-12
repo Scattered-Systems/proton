@@ -1,0 +1,38 @@
+{
+	"author": "FL03 <jo3mccain@icloud.com> (https://github.com/FL03)",
+	"bugs": "https://github.com/scattered-systems/proton/issues",
+	"dependencies": {
+		"@fontsource/fira-mono": "^4.5.0",
+		"cookie": "^0.4.1",
+		"svelte-web3": "latest"
+	},
+	"devDependencies": {
+		"@fontsource/fira-mono": "^4.5.0",
+		"@neoconfetti/svelte": "^1.0.0",
+		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/kit": "next",
+		"autoprefixer": "^10.4.8",
+		"svelte": "^3.46.0",
+		"svelte-check": "^2.7.1",
+		"svelte-preprocess": "^4.10.7",
+		"tailwindcss": "^3.1.8",
+		"vite": "^3.1.0",
+		"vite-plugin-top-level-await": "^1.2.1",
+		"vite-plugin-wasm": "^3.1.0"
+	},
+	"keywords": [],
+	"license": "MIT",
+	"name": "@proton/frontend",
+	"private": false,
+	"readme": "https://github.com/scattered-systems/proton/blob/main/app/frontend/#README",
+	"repository": "https://github.com/scattered-systems/proton",
+	"scripts": {
+		"build": "vite build",
+		"check": "svelte-kit sync && svelte-check",
+		"check:watch": "svelte-kit sync && svelte-check --watch",
+		"dev": "vite dev",
+		"preview": "vite preview"
+	},
+	"type": "module",
+	"version": "0.0.1"
+}
