@@ -1,5 +1,5 @@
 tasks:
   - init: sh scripts/setup.sh
-    command: trunk --config fronend/Trunk.toml serve
+    command: npm run dev
 
 
