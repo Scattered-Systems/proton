@@ -1,0 +1,60 @@
+version: "4"
+services:
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    container_name: backend
+    depends_on:
+      - database
+    ports:
+      - "9090:9090"
+    restart: always
+    volumes:
+      - /data:/data
+  
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    depends_on:
+      - backend
+    ports:
+      - "4173:4173"
+    restart: always
+    volumes:
+      - /data:/data
+
+  cache:
+    container_name: cache
+    image: redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+  database:
+      container_name: postgres
+      environment:
+        POSTGRES_PASSWORD: example
+        POSTGRES_USER: postgres
+      image: postgres
+      ports:
+        - "5432:5432"
+      restart: always
+      volumes:
+        - /data/postgres:/var/lib/postgresql/data
+  
+  reverse-proxy:
+    image: traefik
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  config:
+  data:
+  

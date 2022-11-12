@@ -4,7 +4,7 @@
     Description: ... summary ...
 */
 use scsys::{
-    components::networking::Server,
+    components::{logging::Logger, networking::Server},
     prelude::{
         collect_config_files,
         config::{Config, Environment},
@@ -18,12 +18,13 @@ pub struct Settings {
     pub mode: Option<String>,
     pub name: Option<String>,
     pub server: Server,
+    pub tracing: Option<Logger>,
 }
 
 impl Settings {
     pub fn build() -> ConfigResult<Self> {
         let builder = Config::builder()
-            .add_source(collect_config_files("**/Conduit.toml", true))
+            .add_source(collect_config_files("**/Backend.toml", true))
             .add_source(Environment::default().separator("__"));
 
         builder.build()?.try_deserialize()
@@ -34,7 +35,15 @@ impl Default for Settings {
     fn default() -> Self {
         match Self::build() {
             Ok(v) => v,
-            Err(e) => panic!("Configuration Error: {}", e),
+            Err(e) => {
+                println!("Please check your configuration file: {}", e);
+                Self {
+                    mode: Some("prod".to_string()),
+                    name: Some("backend".to_string()),
+                    server: Default::default(),
+                    tracing: Some(Default::default()),
+                }
+            }
         }
     }
 }

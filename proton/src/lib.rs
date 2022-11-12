@@ -10,5 +10,3 @@ use wasm_bindgen::prelude::*;
 pub fn add_one(data: usize) -> usize {
     data + 1
 }
-
-

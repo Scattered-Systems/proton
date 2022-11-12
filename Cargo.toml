@@ -2,7 +2,9 @@
 default-members = [
     "proton"
 ]
-exclude-members = ["examples/*"]
+exclude = [
+    "examples/*"
+]
 members = [
     "app/desktop",
     "app/backend",

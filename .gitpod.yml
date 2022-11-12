@@ -1,12 +1,5 @@
 tasks:
-  - init: |
-      sudo apt update -y && sudo apt upgrade -y
-      rustup default nightly
-      rustup component add clippy rustfmt --toolchain nightly
-      rustup target add wasm32-unknown-unknown --toolchain nightly
-      cargo install --locked trunk
-      cargo install create-tauri-app wasm-bindgen-cli
-      npm install -g npm@8.19.2
+  - init: sh scripts/setup.sh
     command: trunk --config fronend/Trunk.toml serve
 
 

@@ -13,11 +13,11 @@ pub(crate) mod data;
 
 #[tokio::main]
 async fn main() -> scsys::prelude::BoxResult {
-    println!("Hello, world!");
+    println!("{}", scsys::prelude::Timestamp::now());
 
     let app = Application::<contexts::Context>::default();
     println!("{}", &app);
-    app.run().await?;
+    app.with_tracing().run().await?;
 
     Ok(())
 }
