@@ -1,6 +1,10 @@
 use substrate_wasm_builder::WasmBuilder;
 
 fn main() {
+    println!("Building Proton...");
+}
+
+fn build_wasm_binary() {
     WasmBuilder::new()
         // Tell the builder to build the project (crate) this `build.rs` is part of.
         .with_current_project()

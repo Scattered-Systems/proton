@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+read CMD
 cargo fmt --all
-cargo test --all --all-features --color always --verbose
+cargo CMD --color always --verbose
  

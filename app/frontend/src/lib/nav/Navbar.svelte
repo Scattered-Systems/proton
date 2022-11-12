@@ -3,38 +3,52 @@
     import { info } from '$lib/constants';
     import { connected, defaultEvmStores } from 'svelte-web3';
 
-    export let brand = "Portal";
+    let is_hidden = false;
+
+    function setNavbarView() {
+      is_hidden != is_hidden
+    }
     
     async function handle_auth() {
+      if ($connected) {
+        defaultEvmStores.disconnect();
+      } else {
         defaultEvmStores.setProvider();
-        console.log(connected)
+      }
+      console.log($connected)
     }
 
     $: data = info;
 </script>
 
-<nav class="bg-transparent text-white flex grow flex-nowrap items-center justify-between navbar navbar-expand-lg py-3 relative w-full">
-    <div class="inline-flex w-32 px-3">
-            { brand }
+<nav class="absolute bg-transparent flex flex-nowrap items-center justify-between inset-x-0 mt-3 p-3 text-white top-0 w-full z-50">
+  <div class="flex flex-initial w-1/6">
+    <div class="">
+      <a href="{data.homepage}" class="flex items-center">
+        <img src="https://pzzld.eth.limo/media/img/Scattered-Systems-Logo.png" class="mr-3 h-6 sm:h-9 rounded-full" alt="#">
+        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">{data.name}</span>
+      </a>
     </div>
-    <div class="flex grow justify-start hover:text-underline hover:italic">
-        <ul class="flex flex-col lg:flex-row list-none mr-auto">
-            {#each data.pages as view}
-                <li class="list-none" class:active={$page.url.pathname === view.href}>
-                    <a class="block px-3 py-2 hover:opacity-75 dark:text-white" sveltekit:prefetch href="{view.endpoint}">
-                        {view.label}
-                    </a>
-                </li>
-              {/each}
-          </ul>
-    </div>
-    <div class="mx-3">
-        <button class="bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900 px-3 py-1 rounded-full hover:opacity-75" on:click={defaultEvmStores.setProvider}>
-            {#if connected == true}
-                {"Logout"}
-            {:else}
-                {"Connect"}
-            {/if}
-        </button>
-    </div>
+  </div>
+  <div class="lg:flex grow items-center sm:hidden xs:hidden" id="main-menu">
+    <ul class="flex flex-col lg:flex-row list-none mr-auto">
+      {#each data.pages as view}
+          <li class:active={$page.url.pathname === view.endpoint}>
+              <a class="block px-3 py-2 hover:opacity-75 dark:text-white" sveltekit:prefetch href="{view.endpoint}">
+                  {view.label}
+              </a>
+          </li>
+        {/each}
+    </ul>
+  </div>
+  <div class="flex justify-end w-1/6">
+    <button class="bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900 px-3 py-1 rounded-full hover:opacity-75" on:click={handle_auth}>
+        {#if $connected}
+            {"Logout"}
+        {:else}
+            {"Login"}
+        {/if}
+    </button>
+  </div>
 </nav>
+

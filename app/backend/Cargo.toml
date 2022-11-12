@@ -11,6 +11,10 @@ readme = "README.md"
 repository = "https://github.com/scattered-systems/proton"
 version = "0.1.0"
 
+[[bin]]
+test = false
+name = "proton-backend"
+
 [build-dependencies]
 
 [dependencies]
@@ -18,6 +22,7 @@ axum = { features = ["headers"], version = "0.5.17" }
 clap = { features = ["derive"], version = "4.0.22" }
 futures = "0.3.25"
 http = "0.2.8"
+notify = "5.0.0"
 opentelemetry = { features = ["rt-tokio"], version = "0.18.0" }
 opentelemetry-jaeger = { features = ["full"], version = "0.17.0" }
 scsys = { features = ["full"], git = "https://github.com/scattered-systems/scsys", version = "0.1.26" }

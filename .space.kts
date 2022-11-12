@@ -1,4 +1,4 @@
-job("Docker: Build and publish") {
+job("(Backend) Docker: Build and publish") {
     startOn {
         gitPush { 
             branchFilter {
@@ -19,18 +19,82 @@ job("Docker: Build and publish") {
         }
 
         dockerBuildPush {
-            context = "."
+            context = "./app/backend"
             file = "Dockerfile"
             labels["vendor"] = "Scattered-Systems, LLC"
             tags {
-                +"scsys/proton:backend"
-                +"scsys/proton:backend_v0.1.${"$"}JB_SPACE_EXECUTION_NUMBER"
+                +"scsys/proton-backend:latest"
+                +"scsys/proton-backend:0.1.${"$"}JB_SPACE_EXECUTION_NUMBER"
             }
         }
     }
 }
 
-job("(Disarray) Rust: Build and test workspace") {
+job("(Frontend) Docker: Build and publish") {
+    startOn {
+        gitPush { 
+            branchFilter {
+                +"refs/heads/main"
+                +"refs/tags/v*.*.*"
+            }
+        }
+        schedule { cron("0 8 * * *") }
+    }
+    host("Build artifacts and a Docker image") {
+        env["HUB_USER"] = Secrets("dockerhub_username")
+        env["HUB_TOKEN"] = Secrets("dockerhub_token")
+
+        shellScript {
+            content = """
+                docker login --username ${'$'}HUB_USER --password "${'$'}HUB_TOKEN"
+            """
+        }
+
+        dockerBuildPush {
+            context = "./app/frontend"
+            file = "Dockerfile"
+            labels["vendor"] = "Scattered-Systems, LLC"
+            tags {
+                +"scsys/proton-frontend:latest"
+                +"scsys/proton-frontend:0.1.${"$"}JB_SPACE_EXECUTION_NUMBER"
+            }
+        }
+    }
+}
+
+job("(Proton) Docker: Build and publish") {
+    startOn {
+        gitPush { 
+            branchFilter {
+                +"refs/heads/main"
+                +"refs/tags/v*.*.*"
+            }
+        }
+        schedule { cron("0 8 * * *") }
+    }
+    host("Build artifacts and a Docker image") {
+        env["HUB_USER"] = Secrets("dockerhub_username")
+        env["HUB_TOKEN"] = Secrets("dockerhub_token")
+
+        shellScript {
+            content = """
+                docker login --username ${'$'}HUB_USER --password "${'$'}HUB_TOKEN"
+            """
+        }
+
+        dockerBuildPush {
+            context = "./proton"
+            file = "Dockerfile"
+            labels["vendor"] = "Scattered-Systems, LLC"
+            tags {
+                +"scsys/proton:latest"
+                +"scsys/proton:0.1.${"$"}JB_SPACE_EXECUTION_NUMBER"
+            }
+        }
+    }
+}
+
+job("(Proton) Rust: Build and test workspace") {
     startOn {
         gitPush { 
             branchFilter {

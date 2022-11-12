@@ -13,6 +13,7 @@ use scsys::{
 };
 use serde::{Deserialize, Serialize};
 
+
 #[derive(Clone, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
 pub struct Settings {
     pub mode: Option<String>,
@@ -25,7 +26,7 @@ impl Settings {
     pub fn build() -> ConfigResult<Self> {
         let builder = Config::builder()
             .add_source(collect_config_files("**/Backend.toml", true))
-            .add_source(Environment::default().separator("__"));
+            .add_source(Environment::default().prefix("APP").separator("__"));
 
         builder.build()?.try_deserialize()
     }

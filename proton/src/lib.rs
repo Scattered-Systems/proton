@@ -1,18 +1,12 @@
 /*
-    Appellation: curiosity <lib>
+    Appellation: proton <library>
     Contrib: FL03 <jo3mccain@icloud.com>
-    Description: Curiosity is a sandbox wasm environment
+    Description:
+        Proton is a unified interface built as a personal computing platform
 */
+pub use self::{actors::*, components::*, core::*, data::*};
 
-use wasm_bindgen::prelude::*;
-
-#[wasm_bindgen]
-pub fn add_one(data: usize) -> usize {
-    data + 1
-}
-
-
-#[wasm_bindgen]
-pub fn timestamp() -> i64 {
-    scsys::prelude::Timestamp::default().into()
-}
+pub(crate) mod actors;
+pub(crate) mod components;
+pub(crate) mod core;
+pub(crate) mod data;

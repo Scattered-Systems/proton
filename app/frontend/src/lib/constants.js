@@ -1,12 +1,12 @@
 export let info = {
-    homepage: "https://scattered-systems.com",
-
-    name: "Portal",
-    slug: "portal",
+    homepage: "/",
+    metadata: {
+        github: "scattered-systems",
+        twitter: "scsys_eth"
+    },
+    name: "Proton",
     pages: [
-        {
-            href: "/",
-            label: "Home"
-        }
-    ]
+        { href: "/", label: "Dashboard" }
+    ],
+    slug: "proton",
 }

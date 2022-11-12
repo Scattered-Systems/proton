@@ -1,6 +1,13 @@
-FROM scsys/rust:debian-lts as builder-base
+FROM rust:latest as builder-base
 
 RUN apt-get update -y && apt-get upgrade -y
+
+RUN apt-get install -y \
+    apt-utils
+
+RUN rustup default nightly && \
+    rustup target add wasm32-unknown-unknown && \
+    cargo install wasm-bindgen-cli
 
 FROM builder-base as builder
 
@@ -9,13 +16,6 @@ WORKDIR /app
 
 COPY . .
 RUN cargo build --release
-
-FROM builder as publisher
-
-ENV CRATE=curiosity \
-    CARGO_REGISTRY_TOKEN=""
-
-RUN cargo publish -p ${CRATE} --token ${CARGO_REGISTRY_TOKEN}
 
 FROM builder
 
