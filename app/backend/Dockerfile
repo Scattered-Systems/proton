@@ -1,4 +1,4 @@
-FROM scsys/rust:debian-lts as base-image
+FROM rust as base-image
 
 RUN apt-get update -y && apt-get upgrade -y
 
@@ -10,17 +10,13 @@ ADD . /workspace
 WORKDIR /workspace
 
 COPY . .
-RUN cargo build --color ${COLOR} --release --verbose --workspace && \
-    cargo test --all --all-features
+RUN cargo build --color ${COLOR} --release --verbose --workspace
 
 FROM debian:latest as runner-base
 
 RUN apt-get update -y && apt-get upgrade -y
 
-FROM runner-base as runner 
-
-RUN apt-get install -y \
-    openssl
+FROM runner-base as runner
 
 COPY --from=builder /workspace/target/release/proton-backend /bin/proton-backend
 
