@@ -22,8 +22,8 @@ COPY --from=builder /workspace/target/release/proton-backend /bin/proton-backend
 
 FROM runner
 
-ENV APP__SERVER__PORT=8000
+ENV PORT=8000
 
-EXPOSE ${APP__SERVER__PORT}/tcp
+EXPOSE 8000:${PORT}
 
 CMD ["proton-backend"]

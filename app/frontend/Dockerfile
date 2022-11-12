@@ -16,7 +16,7 @@ FROM builder as development
 
 ENV PORT=5173
 
-EXPOSE ${PORT}/tcp
+EXPOSE ${PORT}
 
 CMD ["npm", "run", "dev"]
 
@@ -24,6 +24,6 @@ FROM builder as preview
 
 ENV PORT=4173
 
-EXPOSE ${PORT}/tcp
+EXPOSE 4173:${PORT}
 
 CMD ["npm", "run", "preview"]
