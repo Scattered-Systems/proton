@@ -19,12 +19,12 @@ job("(Proton) Docker: Build and publish") {
         }
 
         dockerBuildPush {
-            context = "."
+            context = "./app/backend"
             file = "Dockerfile"
             labels["vendor"] = "Scattered-Systems, LLC"
             tags {
-                +"scsys/proton:backend"
-                +"scsys/proton:backend_v0.1.${"$"}JB_SPACE_EXECUTION_NUMBER"
+                +"scsys/proton-backend:latest"
+                +"scsys/proton-backend:0.1.${"$"}JB_SPACE_EXECUTION_NUMBER"
             }
         }
     }
