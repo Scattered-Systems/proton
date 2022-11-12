@@ -2,7 +2,6 @@ job("(Backend) Docker: Build and publish") {
     startOn {
         gitPush { 
             branchFilter {
-                +"refs/heads/main"
                 +"refs/tags/v*.*.*"
             }
         }
@@ -34,7 +33,6 @@ job("(Frontend) Docker: Build and publish") {
     startOn {
         gitPush { 
             branchFilter {
-                +"refs/heads/main"
                 +"refs/tags/v*.*.*"
             }
         }
@@ -66,7 +64,6 @@ job("(Proton) Docker: Build and publish") {
     startOn {
         gitPush { 
             branchFilter {
-                +"refs/heads/main"
                 +"refs/tags/v*.*.*"
             }
         }
@@ -98,7 +95,6 @@ job("(Proton) Rust: Build and test workspace") {
     startOn {
         gitPush { 
             branchFilter {
-                +"refs/heads/main"
                 +"refs/tags/v*.*.*"
             }
         }
