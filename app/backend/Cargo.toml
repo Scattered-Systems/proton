@@ -11,6 +11,10 @@ readme = "README.md"
 repository = "https://github.com/scattered-systems/proton"
 version = "0.1.0"
 
+[[bin]]
+test = false
+name = "proton-backend"
+
 [build-dependencies]
 
 [dependencies]

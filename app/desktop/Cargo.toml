@@ -10,6 +10,12 @@ name = "proton-desktop"
 repository = "https://github.com/scattered-systems/proton"
 version = "0.1.0"
 
+
+[[bin]]
+test = false
+name = "proton-desktop"
+
+
 [build-dependencies]
 tauri-build = { features = [], version = "1.1.1" }
 
