@@ -1,11 +1,14 @@
 [workspace]
 default-members = [
-    "frontend"
+    "proton"
 ]
-
+exclude = [
+    "examples/*"
+]
 members = [
-    "desktop",
-    "frontend"
+    "app/desktop",
+    "app/backend",
+    "proton"
 ]
 
 [profile.dev]

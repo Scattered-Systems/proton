@@ -5,10 +5,14 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: cargo
-    directory: /desktop
+    directory: /app/backend
+    schedule:
+      interval: daily
+  - package-ecosystem: npm
+    directory: /app/frontend
     schedule:
       interval: daily
   - package-ecosystem: cargo
-    directory: /frontend
+    directory: /proton
     schedule:
       interval: daily

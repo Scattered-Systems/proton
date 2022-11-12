@@ -1,15 +1,24 @@
 {
-	"author": "FL03 <jo3mccain@icloud.com> (https://gitlab.com/FL03)",
-	"bugs": "https://gitlab.com/pzzld/app/frontend/-/issues",
+	"author": "FL03 <jo3mccain@icloud.com> (https://github.com/FL03)",
+	"bugs": "https://github.com/scattered-systems/proton/issues",
 	"description": "A customizable portal into the future of internet-based experiences",
 	"keywords": [],
 	"license": "MIT",
 	"name": "@scsys/proton",
 	"private": false,
-	"readme": "https://gitlab.com/pzzld/app/frontend#README",
-	"repository": "https://gitlab.com/pzzld/app/frontend",
+	"readme": "https://github.com/scattered-systems/proton/blob/main/app/frontend/#README",
+	"repository": "https://github.com/scattered-systems/proton",
 	"scripts": {
-		"dev": "trunk --config frontend/Trunk.toml serve"
+		"build": "npm run app:build",
+        "dev": "npm run app:dev",
+        "start": "npm run app:preview",
+		"app:build": "npm run build --workspace=@proton/frontend",
+		"app:dev": "npm run dev --workspace=@proton/frontend",
+        "app:install": "npm install --workspace=@proton/frontend",
+		"app:preview": "npm run preview --workspace=@proton/frontend"
 	},
-	"version": "0.1.0"
+	"version": "0.1.0",
+	"workspaces": [
+		"app/frontend"
+	]
 }

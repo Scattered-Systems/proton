@@ -1,16 +1,14 @@
-name: Rust Clippy
+name: rust-clippy analyze
 
 on:
   push:
-    branches: ["main", "master", "prod*"]
-  pull_request:
-    tags: [ "v*.*.*" ]
-  workflow_dispatch:
+    tags: ["v*.*.*"]
   schedule:
     - cron: '30 9 * * 5'
+  workflow_dispatch:
 
 jobs:
-  analysis:
+  rust-clippy-analyze:
     name: Run rust-clippy analyzing
     runs-on: ubuntu-latest
     permissions:
