@@ -2,7 +2,7 @@ FROM node:latest as builder-base
 
 RUN apt-get update -y && apt-get upgrade -y
 
-RUN npm install -g npm@8.19.2
+RUN npm install -g npm@9.1.1
 
 FROM builder-base as builder
 
