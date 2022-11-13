@@ -1,9 +1,22 @@
 <script>
+    import { page } from '$app/stores';
     import { info } from "$lib/constants.js";
 
-    let toolbar = {
+    let props = {
         search: {
             label: "Search"
+        },
+        links: {
+            styles: {
+                link: "hover:underline px-3 py-2 hover:opacity-75 dark:text-white",
+                list: "flex flex-col lg:flex-row list-none mr-auto"
+            },
+            data: [
+                { href: "/", label: "Account" },
+                { href: "/", label: "Community" },
+                { href: "/", label: "Content" },
+                { href: "/", label: "Discover" }
+            ]
         }
     }
 
@@ -12,7 +25,7 @@
     async function handle_submission() {
         
     }
-    $: props = info;
+    $: data = info;
 
 </script>
 
@@ -25,15 +38,18 @@
         <button 
             class="rounded-full bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900 px-3 py-1 rounded-full hover:opacity-75"
             >
-            {toolbar.search.label}
+            {props.search.label}
         </button>
     </div>
     <div class = "xl:flex lg:flex md:hidden grow items-center sm:hidden xs:hidden">
-        <ul class="flex flex-col lg:flex-row list-none mr-auto">
-            <li><a class="hover:underline px-3 py-2 hover:opacity-75 dark:text-white" href="/">Activites</a></li>
-            <li><a class="hover:underline px-3 py-2 hover:opacity-75 dark:text-white" href="/">Activites</a></li>
-            <li><a class="hover:underline px-3 py-2 hover:opacity-75 dark:text-white" href="/">Activites</a></li>
-            <li><a class="hover:underline px-3 py-2 hover:opacity-75 dark:text-white" href="/">Activites</a></li>
+        <ul class="{props.links.styles.list}">
+            {#each props.links.data as view}
+                <li class:active={$page.url.pathname === view.endpoint}>
+                    <a class="{props.links.styles.link}" sveltekit:prefetch href="{view.endpoint}">
+                        {view.label}
+                    </a>
+                </li>
+            {/each}
         </ul>
     </div>
     <div class = "flex no-wrap">
