@@ -1,5 +1,4 @@
 <script>
-    import { info } from '$lib/constants';
     import Text from '$lib/misc/Text.svelte';
     import { connected, defaultEvmStores } from 'svelte-web3';
 
@@ -29,17 +28,17 @@
 	async function handle_auth() {
       if ($connected) {
         defaultEvmStores.disconnect();
+        Response.redirect('/', 200);
       } else {
         defaultEvmStores.setProvider();
+        Response.redirect('/dashboard', 200);
       }
       console.log($connected)
     }
-
-    $: data = info;
 </script>
 
 <svelte:head>
-	<title>Dashboard</title>
+	<title>Proton</title>
 	<meta name="description" content="A powerful, cloud-native application" />
 </svelte:head>
 

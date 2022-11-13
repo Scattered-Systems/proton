@@ -12,10 +12,10 @@
                 list: "flex flex-col lg:flex-row list-none mr-auto"
             },
             data: [
-                { href: "/", label: "Account" },
-                { href: "/", label: "Community" },
-                { href: "/", label: "Content" },
-                { href: "/", label: "Discover" }
+                { href: "/dashboard/account", label: "Account" },
+                { href: "/dashboard/community", label: "Community" },
+                { href: "/dashboard/content", label: "Content" },
+                { href: "/dashboard/discover", label: "Discover" }
             ]
         }
     }
@@ -54,7 +54,7 @@
     </div>
     <div class = "flex no-wrap">
         <ul>
-            <li><a class="hover:underline" href="/">Settings</a></li>
+            <li><a class="{props.links.styles.link}" href="#">Settings</a></li>
         </ul>
     </div>
 </div>
