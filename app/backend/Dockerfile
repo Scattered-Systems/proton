@@ -6,7 +6,7 @@ FROM base-image as builder
 
 ENV CARGO_TERM_COLOR=always
 
-ADD --link . /workspace
+ADD . /workspace
 VOLUME /workspace
 WORKDIR /workspace
 
