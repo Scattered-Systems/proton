@@ -1,8 +1,11 @@
-FROM rust as base-image
+FROM rust:latest as builder-base
 
-RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get update -y && apt-get upgrade -y && rustup update
 
-FROM base-image as builder
+RUN apt-get -y \
+    protobuf-compiler
+
+FROM builder-base as builder
 
 ENV CARGO_TERM_COLOR=always
 
@@ -15,16 +18,13 @@ RUN cargo build --color ${CARGO_TERM_COLOR} --release --verbose --workspace
 
 FROM scratch as appstore
 
-RUN mkdir /space
+COPY --from=builder /workspace/target/release/proton-backend /space/proton-backend
 VOLUME /space
-WORKDIR /space
-
-COPY --from=builder /workspace/target/release/proton-backend /proton-backend
 
 FROM photon:latest as runner-base
 
 RUN yum update -y && yum upgrade -y
-COPY --from=appstore  /bin/proton-backend /bin/proton-backend
+COPY --from=appstore  /space/proton-backend /bin/proton-backend
 
 ENV PORT=8000
 
