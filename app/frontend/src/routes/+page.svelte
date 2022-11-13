@@ -1,4 +1,7 @@
 <script>
+    /** @type {import('./$types').PageData} */
+    export let data;
+
     import Form from '$lib/form/Form.svelte';
     import Text from '$lib/misc/text/Text.svelte';
     import { connected, defaultEvmStores } from 'svelte-web3';
@@ -44,35 +47,42 @@
     }
 
 	async function handle_auth() {
+        defaultEvmStores.setProvider();
         if ($connected) {
-            defaultEvmStores.disconnect();
-            return Response.redirect('/', 200);
-        } else {
-            defaultEvmStores.setProvider();
-            return Response.redirect('/dashboard', 200);
+            return Response.redirect('/dashboard', 301)
         }
     }
 </script>
 
+<svelte:head>
+    <title>Proton - Login</title>
+</svelte:head>
+
 <div class="flex flex-col justify-between m-3 p-3 min-h-full">
     <section class="p-3">
-        <Text size={"xl"} props={"bold hover:opacity-75"}>Login</Text>
+        <Text size={"xl"} props={"bold hover:opacity-75"}>
+            Login
+        </Text>
     </section>
     <div class="divide-y">
         <section class="items-center justify-between p-3">
             <Form props="py-3">
                 <input class="{props.forms.stores[0].cls}" id="{props.forms.stores[0].id}" value={props.forms.stores[0].value}>
+                <button 
+                    class="{props.styles.buttons.primary}" 
+                    on:click={handle_submission}
+                    >
+                    {props.content.ctrl.submit.label}
+                </button>
             </Form>
-            <button 
-                class="{props.styles.buttons.primary}" 
-                on:click={handle_submission}
-                >
-                {props.content.ctrl.submit.label}
-            </button>
+            
         </section>
         <section class="">
             <div class="flex grow items-center justify-center p-3">
-                <button class="{props.styles.buttons.primary}" on:click={handle_auth}>
+                <button 
+                    class="{props.styles.buttons.primary}" 
+                    on:click={handle_auth}
+                    >
                     {props.content.ctrl.wallet.label}
                 </button>
             </div>
@@ -83,4 +93,3 @@
 <style>
 	
 </style>
-

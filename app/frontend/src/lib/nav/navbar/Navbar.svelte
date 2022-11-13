@@ -13,12 +13,15 @@
   }
   
   async function handle_auth() {
-    if ($connected) {
-      defaultEvmStores.disconnect();
-    } else {
-      defaultEvmStores.setProvider();
-    }
-    console.log($connected)
+      console.log($connected);
+
+      if ($connected) {
+          defaultEvmStores.disconnect();
+          return Response.redirect('/', 301);
+      } else {
+          defaultEvmStores.setProvider();
+          return Response.redirect('/dashboard', 301);
+      }
   }
 
   $: data = info;

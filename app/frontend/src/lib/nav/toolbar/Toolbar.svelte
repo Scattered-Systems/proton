@@ -41,7 +41,7 @@
             {props.search.label}
         </button>
     </div>
-    <div class = "items-center xs:hidden sm:hidden md:hidden lg:flex xl:flex lg:grow xl:grow">
+    <div class="items-center xs:hidden sm:hidden md:hidden lg:flex xl:flex lg:grow xl:grow">
         <List props="{props.links.styles.list}">
             {#each props.links.data as view}
                 <li class:active={$page.url.pathname === view.href}>
@@ -52,7 +52,7 @@
             {/each}
         </List>
     </div>
-    <div class = "flex no-wrap">
+    <div class="flex no-wrap">
         <List>
             <li><a class="{props.links.styles.link}" href="#">Settings</a></li>
         </List>

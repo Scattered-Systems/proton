@@ -5,7 +5,7 @@
 	/** @type {import('./$types').PageData} */
     export let data;
 
-    function load_chain_info() {
+    async function load_chain_info() {
 		if ($connected) {
 			return {
 				account: {

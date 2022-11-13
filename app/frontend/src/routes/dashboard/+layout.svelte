@@ -5,9 +5,9 @@
 </script>
 
 <Navbar/>
-<div class="flex flex-col min-h-screen">
-	<div class="flex flex-auto items-center justify-center mt-16 min-h-full">
-		<main class="container mx-auto">
+<div class="flex flex-col items-center justify-center min-h-screen">
+	<div class="flex flex-auto items-center justify-center min-h-full">
+		<main class="container mt-16 mx-auto">
 			<slot/>
 		</main>
 	</div>
