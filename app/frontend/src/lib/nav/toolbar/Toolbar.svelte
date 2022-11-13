@@ -54,7 +54,7 @@
     </div>
     <div class="flex no-wrap">
         <List>
-            <li><a class="{props.links.styles.link}" href="#">Settings</a></li>
+            <li><a class="{props.links.styles.link}" href="/settings">Settings</a></li>
         </List>
     </div>
 </div>

@@ -1,27 +1,16 @@
 <script>
-  import List from '$lib/list/List.svelte';
-  import NavBanner from '$lib/nav/navbar/banner/NavBanner.svelte';
   import { page } from '$app/stores';
   import { info } from '$lib/constants';
-  import { connected, defaultEvmStores } from 'svelte-web3';
+
+  import List from '$lib/list/List.svelte';
+  import NavBanner from '$lib/nav/navbar/banner/NavBanner.svelte';
+  import Wallet from '$lib/login/wallet/Wallet.svelte';
   let props = {
     banner: {
       href: "/",
       cls: "flex items-center"
     },
     links: []
-  }
-  
-  async function handle_auth() {
-      console.log($connected);
-
-      if ($connected) {
-          defaultEvmStores.disconnect();
-          return Response.redirect('/', 301);
-      } else {
-          defaultEvmStores.setProvider();
-          return Response.redirect('/dashboard', 301);
-      }
   }
 
   $: data = info;
@@ -41,13 +30,7 @@
     </List>
   </div>
   <div class="flex justify-end w-1/6">
-    <button class="bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900 px-3 py-1 rounded-full hover:opacity-75" on:click={handle_auth}>
-        {#if $connected}
-            {"Logout"}
-        {:else}
-            {"Login"}
-        {/if}
-    </button>
+    <Wallet/>
   </div>
 </nav>
 

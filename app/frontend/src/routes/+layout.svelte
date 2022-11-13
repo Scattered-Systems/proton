@@ -1,13 +1,9 @@
 <script>
-	import { connected } from 'svelte-web3';
-	import Login from '$lib/login/Login.svelte';
-	import Navbar from '$lib/nav/navbar/Navbar.svelte';
-	import Toolbar from '$lib/nav/toolbar/Toolbar.svelte';
 	import '$lib/styles.css';
 </script>
 
 <svelte:head>
-	<base href="/dashboard">
+	<base href="/">
 </svelte:head>
 
 <div class="applicaiton bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white">
