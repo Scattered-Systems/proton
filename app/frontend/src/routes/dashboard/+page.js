@@ -1,4 +1,12 @@
+
+import {connected} from 'svelte-web3';
+
 /** @type {import('./$types').PageLoad} */
 export async function load() {
-    return {};
+    let user = {
+        auth: connected
+    }
+    return {
+        user
+    };
 };

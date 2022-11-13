@@ -9,4 +9,22 @@ export let info = {
         { href: "/", label: "Dashboard" }
     ],
     slug: "proton",
+    data: [
+        {
+            id: '0',
+            href: '/',
+            label: 'Dashboard',
+
+        }
+    ]
+}
+
+export let theme = () => {
+    return {
+        btn: {
+            color: {
+                primary: ""
+            }
+        }
+    }
 }

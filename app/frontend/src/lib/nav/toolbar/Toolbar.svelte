@@ -1,7 +1,7 @@
 <script>
     import { page } from '$app/stores';
     import { info } from "$lib/constants.js";
-
+    import List from '$lib/list/List.svelte';
     let props = {
         search: {
             label: "Search"
@@ -29,7 +29,7 @@
 
 </script>
 
-<div class="bg-zinc-800 opacity-95 flex no-wrap items-center justify-between toolbar p-3 sticky bottom-0 z-0">
+<div class="bg-zinc-800 opacity-95 no-wrap items-center justify-between toolbar p-3 sticky bottom-0 z-0">
     <div class = "flex">
         <input 
             class="flex items-center rounded-full mx-3 py-1 px-3 text-black" 
@@ -41,21 +41,21 @@
             {props.search.label}
         </button>
     </div>
-    <div class = "xl:flex lg:flex md:hidden grow items-center sm:hidden xs:hidden">
-        <ul class="{props.links.styles.list}">
+    <div class = "items-center xs:hidden sm:hidden md:hidden lg:flex xl:flex lg:grow xl:grow">
+        <List props="{props.links.styles.list}">
             {#each props.links.data as view}
-                <li class:active={$page.url.pathname === view.endpoint}>
-                    <a class="{props.links.styles.link}" sveltekit:prefetch href="{view.endpoint}">
+                <li class:active={$page.url.pathname === view.href}>
+                    <a class="{props.links.styles.link}" sveltekit:prefetch href="{view.href}">
                         {view.label}
                     </a>
                 </li>
             {/each}
-        </ul>
+        </List>
     </div>
     <div class = "flex no-wrap">
-        <ul>
+        <List>
             <li><a class="{props.links.styles.link}" href="#">Settings</a></li>
-        </ul>
+        </List>
     </div>
 </div>
 
@@ -63,6 +63,6 @@
     .toolbar {
 		display: flex;
 		margin: 0;
-		min-width: 30vw;
+		min-width: 100vw;
 	}
 </style>

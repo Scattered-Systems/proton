@@ -1,6 +1,8 @@
 <script>
-	import Text from '$lib/misc/Text.svelte';
-    /** @type {import('./$types').PageData} */
+
+	import Text from '$lib/misc/text/Text.svelte';
+    import { chainId, connected, selectedAccount } from 'svelte-web3';
+	/** @type {import('./$types').PageData} */
     export let data;
 
     function load_chain_info() {
@@ -26,6 +28,6 @@
 
 <section class="rounded bg-zinc-800 p-3 min-h-full">
     <div class="flex flex-wrap items-center">
-        <Text>{$eth.account.address}</Text>
+        <Text>{$selectedAccount}</Text>
     </div>
 </section>
