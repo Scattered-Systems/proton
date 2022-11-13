@@ -1,3 +1,8 @@
+FROM scratch as space
+
+COPY Backend.toml /config/Backend.toml
+VOLUME /config
+
 FROM rust:latest as builder-base
 
 RUN apt-get update -y && apt-get upgrade -y && rustup update
@@ -25,6 +30,7 @@ VOLUME /space
 FROM photon:latest as runner-base
 
 RUN yum update -y && yum upgrade -y
+COPY Backend.toml Backend.toml
 COPY --from=appstore  /space/proton-backend /bin/proton-backend
 
 ENV PORT=8000
