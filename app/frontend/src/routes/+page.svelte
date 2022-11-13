@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-	<title>Dashboard</title>
+	<title>Proton</title>
 	<meta name="description" content="A powerful, cloud-native application" />
 </svelte:head>
 
