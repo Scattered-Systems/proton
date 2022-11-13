@@ -29,8 +29,10 @@
 	async function handle_auth() {
       if ($connected) {
         defaultEvmStores.disconnect();
+        Response.redirect('/', 200);
       } else {
         defaultEvmStores.setProvider();
+        Response.redirect('/dashboard', 200);
       }
       console.log($connected)
     }

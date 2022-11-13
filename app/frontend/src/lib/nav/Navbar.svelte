@@ -3,6 +3,11 @@
     import { info } from '$lib/constants';
     import { connected, defaultEvmStores } from 'svelte-web3';
 
+    let props = {
+      pages: [
+        { href: "/", label: "Dashboard" }
+      ]
+    }
     let is_hidden = false;
 
     function setNavbarView() {
@@ -30,9 +35,9 @@
       </a>
     </div>
   </div>
-  <div class="lg:flex grow items-center sm:hidden xs:hidden" id="main-menu">
+  <div class="lg:flex grow items-center justify-start sm:hidden xs:hidden" id="main-menu">
     <ul class="flex flex-col lg:flex-row list-none mr-auto">
-      {#each data.pages as view}
+      {#each props.pages as view}
           <li class:active={$page.url.pathname === view.endpoint}>
               <a class="block px-3 py-2 hover:opacity-75 dark:text-white" sveltekit:prefetch href="{view.endpoint}">
                   {view.label}
