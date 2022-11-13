@@ -14,6 +14,7 @@ VOLUME /workspace
 WORKDIR /workspace
 
 COPY . .
+COPY Backend.toml Backend.toml
 RUN cargo build --color ${CARGO_TERM_COLOR} --release --verbose --workspace
 
 FROM scratch as appstore
