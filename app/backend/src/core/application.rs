@@ -47,7 +47,7 @@ impl<T: Stateful> Application<T> {
         Api::new(self.ctx.settings.server.address(), self.ctx.clone())
     }
     ///
-    pub async fn run(&self) -> BoxResult<&Self> {
+    pub async fn spawn(&self) -> BoxResult<&Self> {
         self.setup_backend().run().await?;
 
         Ok(self)

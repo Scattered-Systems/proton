@@ -4,26 +4,31 @@ RUN apt-get update -y && apt-get upgrade -y
 
 FROM base-image as builder
 
-ENV COLOR=always
+ENV CARGO_TERM_COLOR=always
 
-ADD . /workspace
+ADD --link . /workspace
+VOLUME /workspace
 WORKDIR /workspace
 
 COPY . .
-RUN cargo build --color ${COLOR} --release --verbose --workspace
+RUN cargo build --color ${CARGO_TERM_COLOR} --release --verbose --workspace
 
-FROM debian:latest as runner-base
+FROM scratch as appstore
 
-RUN apt-get update -y && apt-get upgrade -y
+RUN mkdir /space
+VOLUME /space
+WORKDIR /space
 
-FROM runner-base as runner
+COPY --from=builder /workspace/target/release/proton-backend /proton-backend
 
-COPY --from=builder /workspace/target/release/proton-backend /bin/proton-backend
+FROM photon:latest as runner-base
 
-FROM runner
+RUN yum update -y && yum upgrade -y
+COPY --from=appstore  /bin/proton-backend /bin/proton-backend
 
 ENV PORT=8000
 
-EXPOSE 8000:${PORT}
+EXPOSE 80
+EXPOSE ${PORT}
 
 CMD ["proton-backend"]
