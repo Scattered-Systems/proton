@@ -32,11 +32,13 @@
 <div class="bg-zinc-800 opacity-95 no-wrap items-center justify-between toolbar p-3 sticky bottom-0 z-0">
     <div class = "flex">
         <input 
-            class="flex items-center rounded-full mx-3 py-1 px-3 text-black" 
+            class="flex items-center rounded-full mx-3 py-1 px-3 text-black"
+            placeholder="Search"
             value={query}
             >
         <button 
             class="rounded-full bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900 px-3 py-1 rounded-full hover:opacity-75"
+            on:click={handle_submission}
             >
             {props.search.label}
         </button>

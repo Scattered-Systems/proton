@@ -1,6 +1,6 @@
 import { invalid, redirect } from '@sveltejs/kit';
 import * as api from '$lib/api.js';
-import { connected } from 'svelte-web3';
+import { connected, defaultEvmStores, selectedAccount } from 'svelte-web3';
 import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 dotenv.config()
 
@@ -23,19 +23,19 @@ export const actions = {
 			
 		}
 
+		const provider = async () => await defaultEvmStores.setProvider();
+
 		const data = await request.formData();
 
-		const body = await api.post('oauth/auth', {
-			payload,
-			username: data.get('username'),
-			password: data.get('password')
-		});
+		const body = {
+			address: provider.selectedAccount
+		};
 
 		if (body.errors) {
 			return invalid(401, body);
 		}
 
-		const value = btoa(JSON.stringify(body.user));
+		const value = btoa(JSON.stringify(body));
 		cookies.set('jwt', value, { path: '/dashboard' });
 
 		throw redirect(307, '/dashboard');
