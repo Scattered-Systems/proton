@@ -22,16 +22,18 @@ COPY . .
 COPY Backend.toml Backend.toml
 RUN cargo build --color ${CARGO_TERM_COLOR} --release --verbose --workspace
 
-FROM scratch as appstore
+FROM scratch as cache
 
-COPY --from=builder /workspace/target/release/proton-backend /space/proton-backend
+COPY --from=builder /workspace/target/release/proton-backend /space/proton/proton-backend
 VOLUME /space
 
 FROM photon:latest as runner-base
 
 RUN yum update -y && yum upgrade -y
+
 COPY Backend.toml Backend.toml
-COPY --from=appstore  /space/proton-backend /bin/proton-backend
+RUN chmod -R 777 Backend.toml
+COPY --from=cache  /space/proton-backend /bin/proton-backend
 
 ENV PORT=8000
 

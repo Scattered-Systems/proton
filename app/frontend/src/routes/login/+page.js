@@ -1,6 +1,7 @@
 /** @type {import('./$types').PageLoad} */
 export async function load() {
     return {
+        title: 'Login',
         ctrl: {
             submit: { label: "Submit" },
             wallet: { label: "Wallet" }

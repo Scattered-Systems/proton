@@ -13,7 +13,7 @@
 </script>
 
 <svelte:head>
-    <title>Proton - Login</title>
+    <title>{data.login}</title>
 </svelte:head>
 
 <div class="flex flex-col justify-between m-3 p-3 min-h-full">

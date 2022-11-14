@@ -7,12 +7,12 @@ export async function load({ locals }) {
     
     return {
         user: locals.user && {
+            account: {
+                address: selectedAccount
+            },
             email: locals.user.email,
             password: locals.user.password,
             username: locals.user.username,
-            account: {
-                address: selectedAccount
-            }
         }
     };
 };
