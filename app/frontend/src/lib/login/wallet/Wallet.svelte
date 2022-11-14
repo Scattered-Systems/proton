@@ -1,10 +1,14 @@
 <script>
-    import { info } from '$lib/constants'
+    import { redirect } from '@sveltejs/kit';
     import { connected, defaultEvmStores, selectedAccount } from 'svelte-web3';
+
+    import { info } from '$lib/constants'
+
 
 	async function handle_click() {
         if (!$connected) {
             defaultEvmStores.setProvider();
+            Response.redirect(307, '/dashboard');
         } else {
             defaultEvmStores.disconnect();
         }

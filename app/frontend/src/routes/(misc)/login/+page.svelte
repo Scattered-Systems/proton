@@ -8,11 +8,13 @@
     import Form from '$lib/form/Form.svelte';
     import Text from '$lib/misc/text/Text.svelte';
     import Wallet from '$lib/login/wallet/Wallet.svelte';
+
     
+    $: props = data;
 </script>
 
 <svelte:head>
-    <title>{data.login}</title>
+    <title>Proton - {props.title}</title>
 </svelte:head>
 
 <div class="flex flex-col justify-between m-3 p-3 min-h-full">

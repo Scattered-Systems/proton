@@ -1,8 +1,9 @@
 import { invalid, redirect } from '@sveltejs/kit';
 import * as api from '$lib/api.js';
-import { connected, defaultEvmStores, selectedAccount } from 'svelte-web3';
-import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-dotenv.config()
+import { defaultEvmStores } from 'svelte-web3';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals }) {
@@ -36,7 +37,9 @@ export const actions = {
 		}
 
 		const value = btoa(JSON.stringify(body));
-		cookies.set('jwt', value, { path: '/dashboard' });
+
+		cookies.set('address', value, { path: '/dashboard' });
+		// cookies.set('jwt', value, { path: '/dashboard' });
 
 		throw redirect(307, '/dashboard');
 	}
