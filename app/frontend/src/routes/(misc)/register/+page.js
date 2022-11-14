@@ -1,7 +1,18 @@
+import { info } from '$lib/constants.js';
+
 /** @type {import('./$types').PageLoad} */
 export async function load({ locals }) {
     return {
-        title: 'Login',
+        title: 'Register',
+        components: [
+            {
+                id: 0,
+                key: 'header',
+                data: [
+
+                ]
+            }
+        ],
         ctrl: {
             submit: { label: "Submit" },
             wallet: { label: "Wallet" }

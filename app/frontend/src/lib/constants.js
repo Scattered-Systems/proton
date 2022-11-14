@@ -11,24 +11,24 @@ export let info = {
         label: "Home",
         data: [
             {
-                href: "/dashboard",
+                layout: "dashboard",
                 label: "Dashboard",
                 data: [
                     {
-                        href: "/dashboard/account",
-                        label: "Dashboard"
+                        href: "/account",
+                        label: "Account"
                     },
                     {
-                        href: "/dashboard/community",
-                        label: "Dashboard"
+                        href: "/community",
+                        label: "Community"
                     },
                     {
-                        href: "/dashboard/content",
-                        label: "Dashboard"
+                        href: "/content",
+                        label: "Content"
                     },
                     {
-                        href: "/dashboard/discover",
-                        label: "Dashboard"
+                        href: "/discover",
+                        label: "Discover"
                     }
                 ]
             }
@@ -56,4 +56,16 @@ export let info = {
             ]
         }
     }
+}
+
+export let colors = {
+    gradients: {
+        cyan: ["bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900 text-white"]
+    }
+}
+
+export let theme = {
+    button: [
+        "flex flex-auto mx-auto px-3 py-1 rounded items-center justify-center" + colors.gradients.cyan[0]
+    ]
 }

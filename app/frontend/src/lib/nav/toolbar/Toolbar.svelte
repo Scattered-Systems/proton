@@ -2,6 +2,15 @@
     import { page } from '$app/stores';
     import { info } from "$lib/constants.js";
     import List from '$lib/list/List.svelte';
+    export let wrapper = 'bg-zinc-800 bottom-0 flex items-center justify-between no-wrap opacity-95 sticky w-screen z-50';
+    export let links = {
+        components: {
+            elem: "",
+            link: "hover:underline px-3 py-2 hover:opacity-75 text-white",
+            list: "flex flex-col lg:flex-row list-none mr-auto"
+        },
+        data: info.sitemap.data[0].data
+    }
     let props = {
         search: {
             label: "Search"
@@ -11,12 +20,7 @@
                 link: "hover:underline px-3 py-2 hover:opacity-75 dark:text-white",
                 list: "flex flex-col lg:flex-row list-none mr-auto"
             },
-            data: [
-                { href: "/dashboard/account", label: "Account" },
-                { href: "/dashboard/community", label: "Community" },
-                { href: "/dashboard/content", label: "Content" },
-                { href: "/dashboard/discover", label: "Discover" }
-            ]
+            data: info.sitemap.data[0].data
         }
     }
 
@@ -29,8 +33,28 @@
 
 </script>
 
-<div class="bg-zinc-800 opacity-95 no-wrap items-center justify-between toolbar p-3 sticky bottom-0 z-0">
-    <div class = "flex">
+<div class="{wrapper} toolbar p-3">
+    <div class="divide-x flex no-wrap">
+        <div class="flex no-wrap">
+            <a class="{links.components.link}" href="/settings">
+                <button>
+                    Settings
+                </button>
+            </a>
+        </div>
+        <div class="items-center xs:hidden sm:hidden md:hidden lg:flex xl:flex grow">
+            <List props="{links.components.list}">
+                {#each links.data as view}
+                    <li class:active={$page.url.pathname === view.href}>
+                        <a class="{links.components.link}" sveltekit:prefetch href="{view.href}">
+                            {view.label}
+                        </a>
+                    </li>
+                {/each}
+            </List>
+        </div>
+    </div>
+    <div class="flex">
         <input 
             class="flex items-center rounded-full mx-3 py-1 px-3 text-black"
             placeholder="Search"
@@ -43,28 +67,8 @@
             {props.search.label}
         </button>
     </div>
-    <div class="items-center xs:hidden sm:hidden md:hidden lg:flex xl:flex lg:grow xl:grow">
-        <List props="{props.links.styles.list}">
-            {#each props.links.data as view}
-                <li class:active={$page.url.pathname === view.href}>
-                    <a class="{props.links.styles.link}" sveltekit:prefetch href="{view.href}">
-                        {view.label}
-                    </a>
-                </li>
-            {/each}
-        </List>
-    </div>
-    <div class="flex no-wrap">
-        <List>
-            <li><a class="{props.links.styles.link}" href="/settings">Settings</a></li>
-        </List>
-    </div>
 </div>
 
 <style>
-    .toolbar {
-		display: flex;
-		margin: 0;
-		min-width: 100vw;
-	}
+
 </style>
