@@ -1,6 +1,5 @@
 <script>
-    /** @type {import('./$types').PageData} */
-    export let data;
+    export let open = false;
 
     import { info } from '$lib/constants.js';
     import Banner from '$lib/banner/Banner.svelte';
@@ -12,7 +11,7 @@
 </script>
 
 
-<div class="bg-zinc-800 hidden xl:flex items-center justify-center h-full w-full">
+<aside class="bg-zinc-800 hidden xl:flex items-center justify-center h-full w-full" class:open>
     <div class="divide-y flex flex-col h-full">
         <div class="hidden xl:flex p-3 mx-auto items-center justify-center">
             <div class="flex p-3">
@@ -31,4 +30,17 @@
             </div>
         </div>
     </div>
-</div>
+</aside>
+
+<style>
+    aside {
+        /* offscreen by default */
+        left: -100%;
+        transition: left 0.3s ease-in-out
+    }
+
+    .open {
+        /* slide on screen */
+        left: 0
+    }
+</style>
