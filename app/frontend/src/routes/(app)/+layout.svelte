@@ -7,9 +7,9 @@
 </script>
 
 <Navbar/>
-<div class="{bg} flex items-center text-white m-0 p-0">
-	<div class="flex flex-col min-h-screen m-0 p-0">
-		<main class="flex flex-auto items-center justify-between">
+<div class="{bg} flex items-center text-white h-screen m-0 p-0">
+	<div class="flex flex-col h-full m-0 p-0">
+		<main class="flex flex-auto items-center justify-between h-full">
 			<slot/>
 		</main>
 		<Toolbar/>

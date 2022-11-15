@@ -2,7 +2,7 @@
     import { page } from '$app/stores';
     import { info, colors } from "$lib/constants.js";
     import List from '$lib/list/List.svelte';
-    export let wrapper = 'bg-zinc-800 bottom-0 flex items-center justify-between no-wrap opacity-95 sticky w-screen z-50';
+    export let wrapper = 'bg-zinc-800 bottom-0 flex items-center justify-between no-wrap opacity-95 sticky w-screen';
     export let links = {
         components: {
             elem: "",

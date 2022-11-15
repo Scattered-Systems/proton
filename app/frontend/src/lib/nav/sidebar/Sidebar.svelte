@@ -8,32 +8,33 @@
 	
 </script>
 
-<div class="bg-zinc-800 hidden xl:flex items-center justify-between rounded-lg">
-    <div class="mx-auto p-3 sidebar">
-        <div class="divide-y flex-col py-3">
-            <Text>Sidebar</Text>
-            <div class="flex flex-col grow mb-auto">
-                
-                <Text>
-    
-                    {$selectedAccount}
-    
-                </Text>
-            </div>
-            <div class="flex flex-col mt-auto">
-                
-                <Text>
-                    Controls
-    
-                </Text>
-            </div>
-        </div>
-        
-    </div>
-</div>
 
-<style>
-    .sidebar {
-        height: 75vh
-    }
-</style>
+<div class="bg-zinc-800 hidden xl:flex items-center justify-between m-0 h-full py-3">
+    <div class="flex flex-col items-center justify-between h-full py-12">
+        <div class="divide-y">
+            <div class="flex flex-col flex-initial">
+                <span class="h2 text-center">Sidebar</span>
+            </div>
+            <div class="flex-col py-3">
+                
+                <div class="flex flex-col grow mb-auto">
+                    
+                    <Text>
+        
+                        {$selectedAccount}
+        
+                    </Text>
+                </div>
+                <div class="flex flex-col mt-auto">
+                    
+                    <Text>
+                        Controls
+        
+                    </Text>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
