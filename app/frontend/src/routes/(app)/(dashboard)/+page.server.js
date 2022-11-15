@@ -1,4 +1,4 @@
-import { redirect } from 'svelte';
+import { redirect } from '@sveltejs/kit';
 import { chainId, selectedAccount } from 'svelte-web3';
 
 /** @type {import('./$types').PageServerLoad} */

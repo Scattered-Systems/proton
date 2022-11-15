@@ -4,11 +4,15 @@
 	
 </script>
 
-<div class="flex no-wrap min-w-full">
-	<Sidebar/>
-	<section class="flex flex-auto grow items-center justify-between ml-auto p-3">
-		<slot/>
-	</section>
+<div class="grid grid-flow-row-dense grid-cols-4">
+	<div class="col-span-1">
+		<Sidebar/>
+	</div>
+	<div class="col-span-3">
+		<section class="flex flex-auto grow items-center justify-center p-3">
+			<slot/>
+		</section>
+	</div>
 </div>
 
 

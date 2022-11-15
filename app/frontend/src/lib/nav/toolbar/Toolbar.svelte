@@ -11,19 +11,11 @@
         },
         data: info.sitemap.data[0].data
     }
-    let props = {
-        search: {
-            label: "Search"
-        },
-        links: {
-            styles: {
-                link: "hover:underline px-3 py-2 hover:opacity-75 dark:text-white",
-                list: "flex flex-col lg:flex-row list-none mr-auto"
-            },
-            data: info.sitemap.data[0].data
-        }
+    
+    export let button = {
+        props: ["rounded-full px-3 py-1 rounded-full hover:opacity-75", info.theme.color.gradient.primary],
+        data: ["Search"]
     }
-
     let query = "";
 
     async function handle_submission() {
@@ -35,14 +27,14 @@
 
 <div class="{wrapper} toolbar p-3">
     <div class="divide-x flex no-wrap">
-        <div class="flex no-wrap">
+        <div class="no-wrap hidden sm:flex">
             <a class="{links.components.link}" href="/settings">
                 <button>
                     Settings
                 </button>
             </a>
         </div>
-        <div class="items-center xs:hidden sm:hidden md:hidden lg:flex xl:flex grow">
+        <div class="items-center hidden lg:flex lg:grow">
             <List props="{links.components.list}">
                 {#each links.data as view}
                     <li class:active={$page.url.pathname === view.href}>
@@ -56,15 +48,15 @@
     </div>
     <div class="flex">
         <input 
-            class="flex items-center rounded-full mx-3 py-1 px-3 text-black"
+            class="flex items-center rounded-full mx-3 py-1 px-3 text-black hover:opacity-75"
             placeholder="Search"
             value={query}
             >
         <button 
-            class="rounded-full bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900 px-3 py-1 rounded-full hover:opacity-75"
+            class="{button.props}"
             on:click={handle_submission}
             >
-            {props.search.label}
+            {button.data}
         </button>
     </div>
 </div>

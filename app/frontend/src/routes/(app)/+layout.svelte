@@ -10,7 +10,7 @@
 <div class="{bg} flex flex-col items-center text-white m-0 p-0">
 	<div class="flex flex-col min-h-screen m-0 p-0">
 		<div class="flex flex-auto items-center justify-center">
-			<main class="container mx-auto">
+			<main class="">
 				<slot/>
 			</main>
 		</div>

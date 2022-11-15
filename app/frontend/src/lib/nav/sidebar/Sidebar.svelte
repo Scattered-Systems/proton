@@ -8,7 +8,7 @@
 	
 </script>
 
-<div class="bg-zinc-800 flex items-center justify-between max-w-sm rounded-lg">
+<div class="bg-zinc-800 hidden xl:flex items-center justify-between rounded-lg">
     <div class="mx-auto p-3 sidebar">
         <div class="divide-y flex-col py-3">
             <Text>Sidebar</Text>
