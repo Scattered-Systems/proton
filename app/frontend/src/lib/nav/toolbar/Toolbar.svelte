@@ -1,6 +1,6 @@
 <script>
     import { page } from '$app/stores';
-    import { info } from "$lib/constants.js";
+    import { info, colors } from "$lib/constants.js";
     import List from '$lib/list/List.svelte';
     export let wrapper = 'bg-zinc-800 bottom-0 flex items-center justify-between no-wrap opacity-95 sticky w-screen z-50';
     export let links = {
@@ -13,7 +13,10 @@
     }
     
     export let button = {
-        props: ["rounded-full px-3 py-1 rounded-full hover:opacity-75", info.theme.color.gradient.primary],
+        props: {
+            color: colors.gradients.cyan[0],
+            layout: "rounded-full px-3 py-1 rounded hover:opacity-75",
+        },
         data: ["Search"]
     }
     let query = "";
@@ -53,7 +56,7 @@
             value={query}
             >
         <button 
-            class="{button.props}"
+            class="{button.props.color} {button.props.layout}"
             on:click={handle_submission}
             >
             {button.data}

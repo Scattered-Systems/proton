@@ -7,13 +7,11 @@
 </script>
 
 <Navbar/>
-<div class="{bg} flex flex-col items-center text-white m-0 p-0">
+<div class="{bg} flex items-center text-white m-0 p-0">
 	<div class="flex flex-col min-h-screen m-0 p-0">
-		<div class="flex flex-auto items-center justify-center">
-			<main class="">
-				<slot/>
-			</main>
-		</div>
+		<main class="flex flex-auto items-center justify-between">
+			<slot/>
+		</main>
 		<Toolbar/>
 	</div>
 </div>
