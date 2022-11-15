@@ -1,5 +1,6 @@
 <script>
-    import Text from '$lib/misc/Text.svelte';
+    import Form from '$lib/form/Form.svelte';
+    import Text from '$lib/misc/text/Text.svelte';
     import { connected, defaultEvmStores } from 'svelte-web3';
 
     let props = {
@@ -9,6 +10,28 @@
                 wallet: { label: "Wallet" }
             }
         },
+        forms: {
+            stores: [
+                {
+                    cls: "rounded-full py-1 px-3 text-black",
+                    id: "inputUsername",
+                    label: "username",
+                    value: ""
+                },
+                {
+                    id: 1,
+                    label: "password",
+                    value: ""
+                }
+            ],
+            styles: {
+                input: {
+                    bd: "rounded-full",
+                    color: "text-black",
+                    pd: "py-1 px-3",
+                }
+            }
+        },
         styles: {
             buttons: {
                 primary: "bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900 px-3 py-1 rounded-full hover:opacity-75"
@@ -16,42 +39,30 @@
         }
     }
 
-    let formstore = {
-        ens: "",
-        password: ""
-    }
-
     async function handle_submission() {
         
     }
 
 	async function handle_auth() {
-      if ($connected) {
-        defaultEvmStores.disconnect();
-        Response.redirect('/', 200);
-      } else {
-        defaultEvmStores.setProvider();
-        Response.redirect('/dashboard', 200);
-      }
-      console.log($connected)
+        if ($connected) {
+            defaultEvmStores.disconnect();
+            return Response.redirect('/', 200);
+        } else {
+            defaultEvmStores.setProvider();
+            return Response.redirect('/dashboard', 200);
+        }
     }
 </script>
 
-<svelte:head>
-	<title>Proton</title>
-	<meta name="description" content="A powerful, cloud-native application" />
-</svelte:head>
-
-
-<div class="flex flex-col justify-between m-3 p-3">
+<div class="flex flex-col justify-between m-3 p-3 min-h-full">
     <section class="p-3">
         <Text size={"xl"} props={"bold hover:opacity-75"}>Login</Text>
     </section>
     <div class="divide-y">
         <section class="items-center justify-between p-3">
-            <form class="flex flex-col py-3">
-                <input class="rounded-full py-1 px-3 text-black" id="inputUsername" value={formstore.ens}>
-            </form>
+            <Form props="py-3">
+                <input class="{props.forms.stores[0].cls}" id="{props.forms.stores[0].id}" value={props.forms.stores[0].value}>
+            </Form>
             <button 
                 class="{props.styles.buttons.primary}" 
                 on:click={handle_submission}

@@ -3,9 +3,9 @@
     export let props = "";
 </script>
 
-<ul class="{props}">
+<li class="{props}">
     <slot/>
-</ul>
+</li>
 
 <style>
 

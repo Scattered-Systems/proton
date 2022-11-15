@@ -24,6 +24,6 @@ FROM builder as preview
 
 ENV PORT=4173
 
-EXPOSE 4173:${PORT}
+EXPOSE ${PORT}
 
 CMD ["npm", "run", "preview"]

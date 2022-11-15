@@ -7,7 +7,7 @@ use scsys::{
     components::{logging::Logger, networking::Server},
     prelude::{
         collect_config_files,
-        config::{Config, Environment},
+        config::{Config, Environment, File},
         ConfigResult,
     },
 };
@@ -25,7 +25,12 @@ pub struct Settings {
 impl Settings {
     pub fn build() -> ConfigResult<Self> {
         let builder = Config::builder()
-            .add_source(collect_config_files("**/Backend.toml", true))
+            .add_source(
+                glob::glob("**/Backend.toml")
+                    .expect("Failed to find any files matching the given pattern")
+                    .map(|p| File::from(p.expect("Failed to create a file from pathbuf")))
+                    .collect::<Vec<_>>()
+            )
             .add_source(Environment::default().prefix("APP").separator("__"));
 
         builder.build()?.try_deserialize()

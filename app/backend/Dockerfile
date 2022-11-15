@@ -1,29 +1,43 @@
-FROM rust as base-image
+FROM scratch as space
 
-RUN apt-get update -y && apt-get upgrade -y
+COPY Backend.toml /config/Backend.toml
+VOLUME /config
 
-FROM base-image as builder
+FROM rust:latest as builder-base
 
-ENV COLOR=always
+RUN apt-get update -y && apt-get upgrade -y && rustup update
+
+RUN apt-get install -y \
+    protobuf-compiler
+
+FROM builder-base as builder
+
+ENV CARGO_TERM_COLOR=always
 
 ADD . /workspace
+VOLUME /workspace
 WORKDIR /workspace
 
 COPY . .
-RUN cargo build --color ${COLOR} --release --verbose --workspace
+COPY Backend.toml Backend.toml
+RUN cargo build --color ${CARGO_TERM_COLOR} --release --verbose --workspace
 
-FROM debian:latest as runner-base
+FROM scratch as cache
 
-RUN apt-get update -y && apt-get upgrade -y
+COPY --from=builder /workspace/target/release/proton-backend /space/proton/proton-backend
+VOLUME /space
 
-FROM runner-base as runner
+FROM photon:latest as runner-base
 
-COPY --from=builder /workspace/target/release/proton-backend /bin/proton-backend
+RUN yum update -y && yum upgrade -y
 
-FROM runner
+COPY Backend.toml Backend.toml
+RUN chmod -R 777 Backend.toml
+COPY --from=cache  /space/proton-backend /bin/proton-backend
 
 ENV PORT=8000
 
-EXPOSE 8000:${PORT}
+EXPOSE 80
+EXPOSE ${PORT}
 
 CMD ["proton-backend"]

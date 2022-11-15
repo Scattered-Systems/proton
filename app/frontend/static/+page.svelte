@@ -5,6 +5,8 @@
 
 {#if !$connected }
     <Login/>
+{:else}
+    {Response.redirect("/dashboard", 200)}
 {/if}
 
 <style>

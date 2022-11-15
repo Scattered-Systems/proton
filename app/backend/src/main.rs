@@ -17,7 +17,7 @@ async fn main() -> scsys::prelude::BoxResult {
 
     let app = Application::<contexts::Context>::default();
     println!("{}", &app);
-    app.with_tracing().run().await?;
+    app.with_tracing().spawn().await?;
 
     Ok(())
 }
