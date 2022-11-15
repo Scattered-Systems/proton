@@ -3,7 +3,7 @@
 	"bugs": "https://github.com/scattered-systems/proton/issues",
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
-		"cookie": "^0.4.1",
+		"cookie": "^0.5.0",
 		"dotenv": "16.0.3",
 		"svelte-web3": "latest"
 	},
