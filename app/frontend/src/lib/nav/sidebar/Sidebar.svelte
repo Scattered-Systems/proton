@@ -24,9 +24,9 @@
             </div>
             <div class="flex flex-col justify-between py-3">
                 <div class="flex flex-col grow">
-                    <Text>
+                    <a class="" href="/settings" sveltekit:prefetch>
                         Settings
-                    </Text>
+                    </a>
                 </div>
             </div>
         </div>
