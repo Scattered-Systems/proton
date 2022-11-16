@@ -1,7 +1,7 @@
 <script>
     import { connected, defaultEvmStores, selectedAccount } from 'svelte-web3';
 
-    import { info } from '$lib/constants'
+    import { theme } from '$lib/constants'
 
 
 	async function handle_click() {
@@ -13,8 +13,9 @@
     }
 </script>
 
-<div class="flex space-x-2 justify-center w-24">
-    <button class="overflow-x-hidden {info.theme.color.gradient.primary} {info.theme.button.layout.primary}" on:click={handle_click}>
+
+<div class="flex flex-initial items-center justify-center mx-auto px-2">
+    <button class="overflow-x-hidden py-1 px-2 {theme.button.primary} {theme.secondary}" on:click={handle_click}>
         {#if !$connected}
             Connect
         {:else}
@@ -22,6 +23,8 @@
         {/if}
     </button>
 </div>
+
+
 
 
 <style>

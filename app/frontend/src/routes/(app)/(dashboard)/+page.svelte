@@ -15,9 +15,5 @@
             <span class="">Content Section</span>
         </div>
     </div>
-    <div class="md:flex md:flex-initial hidden ml-auto p-3">
-        <div class="bg-zinc-800 flex flex-col rounded p-3 wrap items-center justify-center">
-            <span>Feed</span>
-        </div>
-    </div>
+    
 </section>

@@ -6,7 +6,7 @@
     import { info, colors } from '$lib/constants';
     import Form from '$lib/form/Form.svelte';
     import Text from '$lib/misc/text/Text.svelte';
-    import Wallet from '$lib/login/wallet/Wallet.svelte';
+    import Wallet from '$lib/wallet/Wallet.svelte';
 
 
     let btn_primary = info.theme.button.layout.primary;

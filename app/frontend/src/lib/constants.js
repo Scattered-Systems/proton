@@ -65,8 +65,9 @@ export let colors = {
 }
 
 export let theme = {
+    secondary: colors.gradients.cyan[0],
     button: {
-        primary: "flex flex-initial mx-auto px-3 py-1 rounded items-center justify-center" + colors.gradients.cyan[0]
+        primary: "flex flex-initial px-3 py-1 rounded items-center justify-center"
     },
     link: "flex flex-initial overflow-y-clip hover:underline px-3 py-2 hover:opacity-75 text-white"
 }
