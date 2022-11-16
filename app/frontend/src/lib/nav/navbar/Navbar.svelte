@@ -1,11 +1,10 @@
 <script>
-  export let sidebar = false;
   import { page } from '$app/stores';
   import { info } from '$lib/constants';
 
   import List from '$lib/list/List.svelte';
   import Banner from '$lib/banner/Banner.svelte';
-  import SidebarToggle from '../sidebar/SidebarToggle.svelte';
+  import WalletToggle from '$lib/misc/wallet/WalletToggle.svelte';
 
   export const links = [];
 
@@ -15,8 +14,6 @@
     <div class="flex">
         <Banner bind:label={info.name}/>
     </div>
-  
-  
   <div class="lg:flex grow items-center justify-start sm:hidden xs:hidden" id="main-menu">
     <List props="flex flex-col lg:flex-row list-none mr-auto">
       {#each links as view}
@@ -29,7 +26,7 @@
     </List>
   </div>
   <div class="justify-end">
-    <SidebarToggle bind:open={sidebar}/>
+    <WalletToggle/>
   </div>
 </nav>
 

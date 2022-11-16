@@ -14,7 +14,7 @@
 		<main class="flex flex-auto items-center justify-between h-full">
 			<slot/>
 		</main>
-		<Toolbar/>
+		<Toolbar bind:sidebar={open}/>
 	</div>
 </div>
 

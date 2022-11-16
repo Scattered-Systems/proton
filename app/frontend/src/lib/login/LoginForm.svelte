@@ -61,7 +61,7 @@
     <div class="divide-y">
         <section class="items-center justify-between p-3">
             <Form props="py-3">
-                <input class="{props.forms.stores[0].cls}" id="{props.forms.stores[0].id}" value={props.forms.stores[0].value}>
+                <input class="rounded-full py-1 px-3 text-black" id="usernameInput" value={props.forms.stores[0].value}>
             </Form>
             <button 
                 class="{props.styles.buttons.primary}" 

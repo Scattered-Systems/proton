@@ -1,6 +1,6 @@
 <script>
     export let open = false;
-    export let name = "Portal";
+    export let name = "Controls";
 
     
 	import Text from '$lib/misc/text/Text.svelte';
@@ -8,21 +8,25 @@
 </script>
 
 
-<aside class="absolute bg-zinc-700 text-white hidden sm:flex max-w-md items-center justify-center h-full opacity-95 top-0 w-full z-40 pt-24" class:open>
+<aside class="absolute bg-zinc-700 text-white flex max-w-md w-full items-center justify-between h-full opacity-95 top-0 z-40 py-24" class:open>
     <div class="flex flex-col justify-center h-full w-full">
         <div class="divide-y h-full">
             <div class="flex p-3 mx-auto items-center justify-center">
                 <div class="flex p-3">
-                    Control Panel
+                    {name}
                 </div>
                 
             </div>
             <div class="flex flex-col justify-between py-3">
-                <div class="flex flex-col grow mb-auto">
+                <div class="flex flex-col h-full">
                     <slot/>
                 </div>
-                <div class="flex flex-col mt-auto">
-                    <Text>Controls</Text>
+            </div>
+            <div class="flex flex-col justify-between py-3">
+                <div class="flex flex-col grow">
+                    <Text>
+                        Settings
+                    </Text>
                 </div>
             </div>
         </div>

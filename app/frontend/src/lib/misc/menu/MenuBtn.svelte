@@ -1,5 +1,4 @@
 <script>
-    import { theme } from '$lib/constants.js';
     export let open = false
 
     function handle_click() {
