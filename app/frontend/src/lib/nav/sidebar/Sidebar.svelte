@@ -34,7 +34,6 @@
 
 <style>
     aside {
-        /* offscreen by default */
         left: -100%;
         transition: left 0.3s ease-in-out
     }
