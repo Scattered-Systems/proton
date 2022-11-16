@@ -10,8 +10,8 @@
 
 <Navbar bind:sidebar={open}/>
 <div class="{bg} flex items-center text-white h-screen m-0 p-0 z-0">
-	<div class="flex flex-col h-full m-0 p-0">
-		<main class="flex flex-auto items-center justify-between h-full">
+	<div class="flex flex-col h-full w-full m-0 p-0">
+		<main class="flex items-center justify-center h-full w-full">
 			<slot/>
 		</main>
 		<Toolbar bind:sidebar={open}/>

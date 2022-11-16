@@ -15,8 +15,8 @@ export let info = {
                 label: "Dashboard",
                 data: [
                     {
-                        href: "/account",
-                        label: "Account"
+                        href: "/automate",
+                        label: "Automate"
                     },
                     {
                         href: "/community",
