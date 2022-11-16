@@ -1,34 +1,46 @@
 <script>
-    /** @type {import('./$types').PageData} */
-    export let data;
+    export let open = false;
+    export let name = "Controls";
 
-    import { info } from '$lib/constants.js';
-    import Banner from '$lib/banner/Banner.svelte';
+    
 	import Text from '$lib/misc/text/Text.svelte';
-    import { selectedAccount, web3 } from 'svelte-web3';
-
-    const balance = async () => await $web3.eth.getBalance('0x0000000000000000000000000000000000000000');
 	
 </script>
 
 
-<div class="bg-zinc-800 hidden xl:flex items-center justify-center h-full w-full">
-    <div class="divide-y flex flex-col h-full">
-        <div class="hidden xl:flex p-3 mx-auto items-center justify-center">
-            <div class="flex p-3">
-                <Banner label="{info.name}"/>
+<aside class="absolute bg-zinc-700 text-white flex max-w-md w-full items-center justify-between h-full opacity-95 top-0 z-40 py-24" class:open>
+    <div class="flex flex-col justify-center h-full w-full">
+        <div class="divide-y h-full">
+            <div class="flex p-3 mx-auto items-center justify-center">
+                <div class="flex p-3">
+                    {name}
+                </div>
+                
             </div>
-            
+            <div class="flex flex-col justify-between py-3">
+                <div class="flex flex-col h-full">
+                    <slot/>
+                </div>
+            </div>
+            <div class="flex flex-col justify-between py-3">
+                <div class="flex flex-col grow">
+                    <a class="" href="/settings" sveltekit:prefetch>
+                        Settings
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="flex flex-col justify-between py-3">
-            <div class="flex flex-col grow mb-auto">
-                <Text>
-                    {$selectedAccount}
-                </Text>
-            </div>
-            <div class="flex flex-col mt-auto">
-                <Text>Controls</Text>
-            </div>
-        </div>
+        
     </div>
-</div>
+</aside>
+
+<style>
+    aside {
+        left: -100%;
+        transition: left 0.3s ease-in-out
+    }
+
+    .open {
+        left: 0
+    }
+</style>

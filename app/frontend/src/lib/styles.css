@@ -8,7 +8,7 @@
 }
 
 body {
-	background: white;
+	background: #FFF;
 	color: var(--color-dark);
 	display: flex;
 	flex-direction: column;
@@ -17,3 +17,13 @@ body {
 	padding: 0;
 }
 
+.banner {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+.center {
+	align-items: center;
+	justify-content: center;
+}

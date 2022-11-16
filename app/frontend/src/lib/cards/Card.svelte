@@ -3,17 +3,11 @@
 
 </script>
 
-<div class="{cls}">
+<div class="flex flex-col p-3 rounded h-full mx-auto {cls}">
     <slot/>
 </div>
 
 
 <style>
-    section {
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        min-height: 100%;
-        padding: 0;
-    }
+    
 </style>

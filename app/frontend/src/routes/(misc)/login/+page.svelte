@@ -3,15 +3,13 @@
     export let data;
     /** @type {import('./$types').ActionData} */
 	export let form;
-    import { info } from '$lib/constants';
+    import { info, colors } from '$lib/constants';
     import Form from '$lib/form/Form.svelte';
     import Text from '$lib/misc/text/Text.svelte';
-    import Wallet from '$lib/login/wallet/Wallet.svelte';
+    import Wallet from '$lib/misc/wallet/WalletToggle.svelte';
 
-    let btn_primary = [
-        info.theme.color.gradient.primary,
-        info.theme.button.layout.primary,
-    ]
+
+    let btn_primary = info.theme.button.layout.primary;
 </script>
 
 <svelte:head>
@@ -37,7 +35,7 @@
         <section class="">
             <div class="items-center justify-between p-3">
                 <a href="/register">
-                    <button class="{btn_primary[0]} {btn_primary[1]}">
+                    <button class="{colors.gradients.primary} {btn_primary}">
                         Create a new account
                     </button>
                 </a>
