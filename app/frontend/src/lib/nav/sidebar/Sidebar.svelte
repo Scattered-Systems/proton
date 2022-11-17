@@ -2,8 +2,8 @@
     export let open = false;
     export let name = "Controls";
 
-    
-	import Text from '$lib/misc/text/Text.svelte';
+    import List from '$lib/list/List.svelte';
+    import ProfileCard from "$lib/cards/profile/ProfileCard.svelte";
 	
 </script>
 
@@ -12,23 +12,28 @@
     <div class="flex flex-col justify-center h-full w-full">
         <div class="divide-y h-full">
             <div class="flex p-3 mx-auto items-center justify-center">
-                <div class="flex p-3">
-                    {name}
-                </div>
-                
+                {name}
             </div>
-            <div class="flex flex-col justify-between py-3">
+            <div class="flex p-3 mx-auto items-center justify-start">
+                <List props="flex flex-col lg:flex-row list-none">
+                    <li>
+                        <a class="" href="/settings" sveltekit:prefetch>
+                            Settings
+                        </a>
+                    </li>
+                </List>
+            </div>
+            <div class="flex flex-col justify-start py-3">
+                
                 <div class="flex flex-col h-full">
+                    
                     <slot/>
                 </div>
             </div>
-            <div class="flex flex-col justify-between py-3">
-                <div class="flex flex-col grow">
-                    <a class="" href="/settings" sveltekit:prefetch>
-                        Settings
-                    </a>
-                </div>
+            <div class="flex p-3">
+                <ProfileCard/>
             </div>
+            
         </div>
         
     </div>

@@ -3,7 +3,7 @@
   import { info } from '$lib/constants';
 
   import List from '$lib/list/List.svelte';
-  import Banner from '$lib/banner/Banner.svelte';
+  import NavLogo from '$lib/nav/navbar/NavLogo.svelte';
   import WalletToggle from '$lib/misc/wallet/WalletToggle.svelte';
 
   export const links = [];
@@ -12,7 +12,7 @@
 
 <nav class="absolute bg-transparent flex flex-nowrap items-center justify-between inset-x-0 mt-3 p-3 text-white top-0 w-full z-50">
     <div class="flex">
-        <Banner bind:label={info.name}/>
+        <NavLogo bind:label={info.name}/>
     </div>
   <div class="lg:flex grow items-center justify-start sm:hidden xs:hidden" id="main-menu">
     <List props="flex flex-col lg:flex-row list-none mr-auto">

@@ -3,8 +3,7 @@
     
 </script>
 
-
-<div class="rounded-lg shadow-lg bg-gray-600 w-full flex flex-row flex-wrap p-3 antialiased" style="
+<div class="antialiased bg-zinc-600 flex flex-wrap rounded-lg shadow-lg w-full" style="
     background-image: url('https://images.unsplash.com/photo-1578836537282-3171d77f8632?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
     background-repeat: no-repat;
     background-size: cover;
@@ -33,3 +32,4 @@
         </div>
     </div>
 </div>
+
