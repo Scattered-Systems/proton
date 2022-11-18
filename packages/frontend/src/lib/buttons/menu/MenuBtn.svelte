@@ -13,7 +13,7 @@
     };
     export let open = false
 
-    function handle_click() {
+    export function handle_click() {
         open = !open
     }
 </script>
