@@ -1,12 +1,11 @@
 <script>
 	import { info } from '$lib/constants.js';
-	import Navbar from '$lib/nav/navbar/Navbar.svelte';
-	import Sidebar from "$lib/nav/sidebar/Sidebar.svelte";
-	import Toolbar from '$lib/nav/toolbar/Toolbar.svelte';
+	import { Navbar, Sidebar, Toolbar } from '$lib/nav';
 	import '$lib/styles.css';
 	
 	let bg = "bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900";
 	let open = false;
+
 </script>
 
 <Navbar bind:sidebar={open} name={info.name}/>
@@ -18,7 +17,7 @@
 		
 	</div>
 </div>
-<Toolbar bind:sidebar={open}/>
+<Toolbar linktree={info.sitemap.data[0].data} bind:sidebar={open}/>
 <Sidebar bind:open>
 	Sidebar
 </Sidebar>
