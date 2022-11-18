@@ -5,18 +5,17 @@
     }
     export let bg = "";
     export let color = "";
-    export let depth = ""
-    export let direction = "flex-row";
-    export let m = "m-0";
-    export let p = "p-0"
-    export let sz = {
-        h: "max-h-12",
-        w: "w-24"
+    export let dim = {
+        h: "h-full",
+        w: "w-full",
+        z: ""
     };
+    export let direction = "";
+    export let m = "mx-auto";
+    export let pd = "p-0"
     export let wrap = "flex-wrap";
-    export let z = "";
 </script>
 
-<div class="flex {align.items} {align.justify} {bg} {color} {depth} {direction} {m} {p} {sz.h} {sz.w} {wrap} {z}">
+<div class="flex {align.items} {align.justify} {bg} {color} {dim.h} {dim.w} {dim.z} {direction} {m} {pd} {wrap}" >
     <slot/>
 </div>
