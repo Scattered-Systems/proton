@@ -7,6 +7,10 @@
     let card = {
         bg: "bg-cyan-200"
     }
+
+    import { connected, defaultEvmStores, selectedAccount } from 'svelte-web3';
+    $: web3 = defaultEvmStores.web3;
+
 </script>
 
 <svelte:head>
@@ -19,7 +23,18 @@
     <Section bg="bg-zinc-800">
         <Card bg={card.bg} color="text-black">
             <CardBody>
-                <span class="prose">Welcome to Proton</span>
+                <span class="prose">
+                    Welcome to Proton
+                </span>
+            </CardBody>
+        </Card>
+        <Card color="text-black">
+            <CardBody>
+                <span class="prose">
+                    {#if $connected}
+                        {$selectedAccount}
+                    {/if}
+                </span>
             </CardBody>
         </Card>
     </Section>

@@ -4,14 +4,14 @@
         };
 </script>
 
-<button class="flex max-w-sm px-3 py-1">
-    <a class="inline-block nowrap hover:opacity-95 w-full" href="/" sveltekit:prefetch>
+<a class="flex max-w-sm px-3 py-1" href="/" sveltekit:prefetch>
+    <button class="flex flex-auto nowrap hover:opacity-95 w-full">
         <img alt="#" class="mr-3 h-6 sm:h-9 rounded-full" src="{logo.src}" >
-        <span class="self-center text-xl font-semibold whitespace-nowrap prose">
+        <span class="self-center text-xl font-semibold whitespace-nowrap prose text-white">
             <slot/>
         </span>
-    </a>
-</button>
+    </button>
+</a>
 
 
 <style>

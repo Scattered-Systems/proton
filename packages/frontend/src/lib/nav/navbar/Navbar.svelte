@@ -1,18 +1,18 @@
 <script>
   import { page } from '$app/stores';
-  import { info } from '$lib/constants';
 
   import List from '$lib/list/List.svelte';
   import NavLogo from '$lib/nav/navbar/NavLogo.svelte';
   import WalletToggle from '$lib/misc/wallet/WalletToggle.svelte';
 
+  export let name = "";
   export const links = [];
 
 </script>
 
 <nav class="absolute bg-transparent flex flex-nowrap items-center justify-between inset-x-0 mt-3 p-3 text-white top-0 w-full z-50">
   <div class="flex flex-auto items-center justify-center">
-    <NavLogo>{info.name}</NavLogo>
+    <NavLogo>{name}</NavLogo>
     <div class="lg:flex grow items-center justify-start sm:hidden xs:hidden" id="main-menu">
       <List props="flex flex-col lg:flex-row list-none mr-auto">
         {#each links as view}
