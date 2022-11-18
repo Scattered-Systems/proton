@@ -3,11 +3,11 @@ default-members = [
     "proton"
 ]
 exclude = [
+    "bin/desktop",
     "examples/*"
 ]
 members = [
-    "app/desktop",
-    "app/backend",
+    "bin/backend",
     "proton"
 ]
 
