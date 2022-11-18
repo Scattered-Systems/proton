@@ -1,5 +1,4 @@
-
-
+import { chainId, connected, selectedAccount } from 'svelte-web3';
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
@@ -10,5 +9,14 @@ export async function load() {
         },
         body: {},
         footer: {},
+        data: [
+            {
+                id: 'ethereum',
+                address: selectedAccount,
+                chain_id: chainId,
+                status: connected,
+
+            }
+        ]
     };
 };

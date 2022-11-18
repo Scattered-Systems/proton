@@ -4,9 +4,8 @@
     /** @type {import('./$types').ActionData} */
 	export let form;
     import { info, colors } from '$lib/constants';
-    import Form from '$lib/form/Form.svelte';
-    import Text from '$lib/misc/text/Text.svelte';
-    import Wallet from '$lib/misc/wallet/WalletToggle.svelte';
+    import { Form, Text } from '$lib/core';
+    import { WalletToggle } from '$lib/core/misc';
 
 
     let btn_primary = info.theme.button.layout.primary;
@@ -25,9 +24,8 @@
     <section>
         <section class="items-center justify-between p-3">
             <Form props="py-3">
-                
                 <div class="items-center justify-between p-3">
-                    <Wallet/>
+                    <WalletToggle/>
                 </div>
             </Form>
             

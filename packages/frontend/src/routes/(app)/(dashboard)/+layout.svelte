@@ -1,15 +1,8 @@
 <script>
-	
+	import {Box} from '$lib/core';
 </script>
 
-	
-<section class="flex flex-auto grow items-center justify-center p-3 h-full z-10">
-	<slot/>
-</section>
-
-
-
-
+<Box><slot/></Box>
 
 <style>
 	
