@@ -1,4 +1,16 @@
 <script>
+    export let align = {
+        items: "items-center",
+        justify: "justify-center"
+    }
+    export let bg = "";
+    export let color = "";
+    export let m = "mx-auto";
+    export let p = "px-3 py-1"
+    export let sz = {
+        h: "max-h-12",
+        w: "w-24"
+    };
     export let open = false
 
     function handle_click() {
@@ -6,19 +18,19 @@
     }
 </script>
 
-<div class="flex flex-initial items-center jsutify-center">
-    <button class="flex space-x-2" class:open on:click={handle_click}>
-        <svg class="inline-flex">
-            <line id="top" x1=0 y1=2 x2=32 y2=2/>
-            <line id="middle" x1=0 y1=12 x2=32 y2=12/>
-            <line id="bottom" x1=0 y1=22 x2=32 y2=22/>
-        </svg>
-    </button>
-</div>
+<button class="{align.items} {align.justify} {bg} {color} {m} {p} {sz.h} {sz.w} bottom-0 z-50" class:open on:click={handle_click}>
+    <svg class="{align.items} {align.justify}">
+        <line id="top" x1=0 y1=2 x2=32 y2=2/>
+        <line id="middle" x1=0 y1=12 x2=32 y2=12/>
+        <line id="bottom" x1=0 y1=22 x2=32 y2=22/>
+    </svg>
+</button>
 
 
 <style>
     svg {
+        display: flex;
+
         transition: transform 0.3s ease-in-out;
     }
 
