@@ -1,5 +1,5 @@
 <script>
-    import { SidebarToggle } from '$lib/nav';
+    import { SidebarToggle } from '$lib/core/nav/sidebar';
     import { SearchBtn } from '$lib/core/buttons';
     import ToolbarLinks from './ToolbarLinks.svelte';
 

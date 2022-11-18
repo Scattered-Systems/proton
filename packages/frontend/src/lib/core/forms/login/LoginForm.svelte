@@ -1,6 +1,5 @@
 <script>
-    import Form from '$lib/form/Form.svelte';
-    import Text from '$lib/misc/text/Text.svelte';
+    import { Form, Text } from '$lib/core';
     import { connected, defaultEvmStores } from 'svelte-web3';
 
     let props = {

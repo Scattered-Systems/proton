@@ -1,4 +1,4 @@
 import Form from './Form.svelte';
-import LoginForm from '$lib/form/login';
+import { LoginForm } from './login';
 
 export { Form, LoginForm }
