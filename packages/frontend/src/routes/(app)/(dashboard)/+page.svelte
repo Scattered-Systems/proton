@@ -5,7 +5,8 @@
     /** @type {import('./$types').PageData} */
     export let data;
     let card = {
-        bg: "bg-cyan-200"
+        bg: "bg-zinc-500",
+        color: 'text-white'
     }
 
     import { connected, defaultEvmStores, selectedAccount } from 'svelte-web3';
@@ -20,22 +21,21 @@
 
 
 <div class="flex flex-auto items-center justify-between py-24 h-full w-full">
-    <Section bg="bg-zinc-800">
-        <Card bg={card.bg} color="text-black">
+    <Section bg="bg-transparent" dir="flex-row">
+        <Card bg={card.bg} color={card.color}>
             <CardBody>
-                <span class="prose">
+                <span class="prose text-center">
                     Welcome to Proton
                 </span>
             </CardBody>
         </Card>
-        <Card color="text-black">
+        <Card bg={card.bg} color={card.color}>
             <CardBody>
-                <span class="prose">
-                    {#if $connected}
-                        {$selectedAccount}
-                    {/if}
+                <span class="prose text-center">
+                    Welcome to Proton
                 </span>
             </CardBody>
         </Card>
+        
     </Section>
 </div>

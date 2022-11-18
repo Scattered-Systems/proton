@@ -16,9 +16,12 @@
 
 </script>
 
-<div class="flex flex-col p-3 rounded mx-auto {align.items} {align.justify} {bg} {color} {m} {p} {sz.h} {sz.w}" class:props>
-    <slot/>
-</div> 
+<div class="{m} {p} {sz.h} {sz.w}">
+    <div class="flex flex-col p-3 rounded mx-auto {align.items} {align.justify} {bg} {color} {m} {p} {sz.h} {sz.w}" class:props>
+        <slot/>
+    </div> 
+</div>
+
 
 
 

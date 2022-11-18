@@ -10,16 +10,15 @@
 </script>
 
 <Navbar bind:sidebar={open} name={info.name}/>
-<div class="{bg} flex items-center text-white h-screen m-0 p-0 z-0">
+<div class="{bg} flex items-center text-white min-h-screen m-0 p-0 z-0">
 	<div class="flex flex-col h-full w-full m-0 p-0">
-		<main class="flex items-center justify-center h-full w-full">
+		<main class="flex flex-col items-center justify-center h-full w-full z-10">
 			<slot/>
 		</main>
-		<Toolbar bind:sidebar={open}/>
+		
 	</div>
 </div>
-
-
+<Toolbar bind:sidebar={open}/>
 <Sidebar bind:open>
 	Sidebar
 </Sidebar>

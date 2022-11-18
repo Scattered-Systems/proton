@@ -5,6 +5,7 @@
     };
     export let bg = "bg-transparent";
     export let color = "text-black dark:text-white";
+    export let dir = "flex-col";
     export let m = "m-0";
     export let p = "p-0";
     export let sz = {
@@ -13,7 +14,7 @@
     };
 </script>
 
-<section class="flex flex-col {align.items} {align.justify} {bg} {color} {m} {p} {sz.h} {sz.w}"><slot/></section>
+<section class="flex {dir} {align.items} {align.justify} {bg} {color} {m} {p} {sz.h} {sz.w}"><slot/></section>
 
 
 <style>
