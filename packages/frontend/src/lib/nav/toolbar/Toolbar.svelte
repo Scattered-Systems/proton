@@ -1,37 +1,39 @@
 <script>
+    import SidebarToggle from '$lib/nav/sidebar/SidebarToggle.svelte';
+    import { SearchBtn } from '$lib/core/buttons';
+    import ToolbarLinks from './ToolbarLinks.svelte';
+
+    export let linktree = [];
+    let search = "";
+    export let sidebar = false;
+
     export let align = {
         items: "items-center",
-        justify: "justify-center"
+        justify: "justify-between"
     };
-    export let bg = "bg-zinc-800 opacity-95";
+    export let bg = "bg-transparent";
     export let color = "text-white";
+    export let m = "m-0";
+    export let pd = "p-3";
     export let position = "sticky bottom-0";
-    export let sidebar = false;
-    export let sz = {
+    export let dim = {
         h: "",
-        w: "min-w-full max-w-screen"
+        w: "min-w-full max-w-screen",
+        z: "z-50"
     }
-    export let depth = "z-50";
-    export let linktree = [];
-
-    import SidebarToggle from '$lib/nav/sidebar/SidebarToggle.svelte';
-    import SearchBtn from '$lib/buttons/search/SearchBtn.svelte';
-    import ToolbarLinks from '$lib/nav/toolbar/ToolbarLinks.svelte';
-    
-    let search = "";
-
 </script>
 
-<div class="flex {align.items} {align.justify} {bg} {color} {depth} {position} {sz.h} {sz.w}">
-    <div class="flex items-center justify-between no-wrap opacity-95 w-full">
-        <div class="divide-x">
+<div class="flex flex-nowrap {align.items} {align.justify} {bg} {color} {dim.h} {dim.w} {dim.z} {m} {pd} {position}">
+    <div class="divide-x flex flex-nowrap grow">
+        <div class="px-3 items-center hidden sm:flex">
             <SidebarToggle bind:open={sidebar}/>
-            <div class="px-3 items-center hidden lg:flex lg:grow">
-                <ToolbarLinks links={linktree}/>
-            </div>
         </div>
-        <SearchBtn bg="bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900" color={color} bind:query={search}/>
+        
+        <div class="px-3 items-center hidden lg:flex">
+            <ToolbarLinks links={linktree}/>
+        </div>
     </div>
+    <SearchBtn bg="bg-gradient-to-r from-cyan-700 via-cyan-500 to-cyan-900" color={color} bind:query={search}/>
 </div>
 
 <style>

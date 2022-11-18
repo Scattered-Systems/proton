@@ -8,17 +8,14 @@
 
 </script>
 
-<Navbar bind:sidebar={open} name={info.name}/>
-<div class="{bg} flex items-center text-white min-h-screen m-0 p-0 z-0">
-	<div class="flex flex-col h-full w-full m-0 p-0">
-		<main class="flex flex-col items-center justify-center h-full w-full z-10">
-			<slot/>
-		</main>
-		
-	</div>
+<div class="{bg} flex flex-col items-center text-white min-h-screen m-0 p-0 z-0">
+	<Navbar bind:sidebar={open} name={info.name}/>
+	<main class="flex flex-col grow items-center justify-center min-h-full max-h-screen w-full z-0">
+		<slot/>
+	</main>
+	<Toolbar linktree={info.sitemap.data[0].data} bind:sidebar={open}/>
 </div>
-<Toolbar linktree={info.sitemap.data[0].data} bind:sidebar={open}/>
+
 <Sidebar bind:open>
 	Sidebar
 </Sidebar>
-

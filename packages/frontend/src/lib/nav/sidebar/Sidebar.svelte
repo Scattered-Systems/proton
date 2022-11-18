@@ -3,7 +3,7 @@
     export let name = "Controls";
 
     import List from '$lib/list/List.svelte';
-    import ProfileCard from "$lib/cards/profile/ProfileCard.svelte";
+    import { ProfileCard } from "$lib/core";
 	
 </script>
 

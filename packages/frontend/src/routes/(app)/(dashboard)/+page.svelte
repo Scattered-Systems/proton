@@ -1,7 +1,7 @@
 <script>
-    import Card from '$lib/cards/card/Card.svelte';
-    import CardBody from '$lib/cards/card/CardBody.svelte';
+    import {Card, CardBody} from '$lib/core';
     import Section from '$lib/sections/Section.svelte';
+    
     /** @type {import('./$types').PageData} */
     export let data;
     let card = {
@@ -9,7 +9,7 @@
         color: 'text-white'
     }
 
-    import { connected, defaultEvmStores, selectedAccount } from 'svelte-web3';
+    import { chainId, connected, defaultEvmStores, selectedAccount } from 'svelte-web3';
     $: web3 = defaultEvmStores.web3;
 
 </script>
@@ -25,14 +25,15 @@
         <Card bg={card.bg} color={card.color}>
             <CardBody>
                 <span class="prose text-center">
-                    Welcome to Proton
+                    {$chainId}
                 </span>
             </CardBody>
         </Card>
         <Card bg={card.bg} color={card.color}>
             <CardBody>
                 <span class="prose text-center">
-                    Welcome to Proton
+                    {$selectedAccount}
+                    
                 </span>
             </CardBody>
         </Card>

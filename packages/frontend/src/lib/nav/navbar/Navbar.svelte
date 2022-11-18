@@ -7,10 +7,18 @@
 
   export let name = "";
   export const links = [];
-
+  export let align = "items-center justify-center";
+  export let bg = 'bg-transparent';
+  export let color = 'text-white';
+  export let dim = "min-w-full max-w-screen";
+  export let m = "";
+  export let pd = "p-3"
+  export let position = "sticky top-0";
+  export let space = "inset-x-0";
+  export let z = 50;
 </script>
 
-<nav class="absolute bg-transparent flex flex-nowrap items-center justify-between inset-x-0 mt-3 p-3 text-white top-0 w-full z-50">
+<nav class="flex flex-nowrap {align} {bg} {color} {dim} {m} {pd} {position} {space} z-{z}">
   <div class="flex flex-auto items-center justify-center">
     <NavLogo>{name}</NavLogo>
     <div class="lg:flex grow items-center justify-start sm:hidden xs:hidden" id="main-menu">
