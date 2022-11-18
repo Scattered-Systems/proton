@@ -1,6 +1,12 @@
 <script>
+    import Card from '$lib/cards/card/Card.svelte';
+    import CardBody from '$lib/cards/card/CardBody.svelte';
+    import Section from '$lib/sections/Section.svelte';
     /** @type {import('./$types').PageData} */
     export let data;
+    let card = {
+        bg: "bg-cyan-200"
+    }
 </script>
 
 <svelte:head>
@@ -10,10 +16,11 @@
 
 
 <div class="flex flex-auto items-center justify-between py-24 h-full w-full">
-    <section class="bg-zinc-800 flex grow rounded h-full w-full">
-        <div class="px-3 flex grow no-wrap items-center justify-center h-full w-full">
-            <span class="prose text-white">Welcome to Proton</span>
-            
-        </div>
-    </section>
+    <Section bg="bg-zinc-800">
+        <Card bg={card.bg} color="text-black">
+            <CardBody>
+                <span class="prose">Welcome to Proton</span>
+            </CardBody>
+        </Card>
+    </Section>
 </div>
