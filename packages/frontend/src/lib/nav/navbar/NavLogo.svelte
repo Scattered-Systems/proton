@@ -1,23 +1,18 @@
 <script>
-    import { theme } from '$lib/constants.js';
-    export let label = "Banner";
     export let logo = {
-        alt: "#",
-        props: "mr-3 h-6 sm:h-9 rounded-full",
         src: "https://pzzld.eth.limo/media/img/Scattered-Systems-Logo.png"
-    };
+        };
 </script>
 
-<div class="flex items-center justify-center">
-    <a class="flex flex-initial" href="/" >
-        <button class="{theme.button[0]}">
-            <img src="{logo.src}" class="{logo.props}" alt="{logo.alt}">
-            <span class="self-center text-xl font-semibold whitespace-nowrap">
-                {label}
-            </span>
-        </button>
+<button class="flex max-w-sm px-3 py-1">
+    <a class="inline-block nowrap hover:opacity-95 w-full" href="/" sveltekit:prefetch>
+        <img alt="#" class="mr-3 h-6 sm:h-9 rounded-full" src="{logo.src}" >
+        <span class="self-center text-xl font-semibold whitespace-nowrap prose">
+            <slot/>
+        </span>
     </a>
-</div>
+</button>
+
 
 <style>
 
