@@ -1,6 +1,6 @@
 <script>
 	import { info } from '$lib/constants.js';
-	import { Navbar, Sidebar, Toolbar } from '$lib/nav';
+	import { Navbar, Sidebar, Toolbar } from '$lib/core/nav';
 	import '$lib/styles.css';
 	
 	let bg = "bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900";
