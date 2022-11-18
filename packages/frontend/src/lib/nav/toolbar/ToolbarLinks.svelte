@@ -2,7 +2,7 @@
     export let links = [];
     
     import { page } from '$app/stores';
-    import List from '$lib/list/List.svelte';
+    import { List } from '$lib/core';
 </script>
 
 <List props="flex flex-col lg:flex-row list-none">

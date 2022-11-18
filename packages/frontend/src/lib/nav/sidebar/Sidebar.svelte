@@ -2,8 +2,7 @@
     export let open = false;
     export let name = "Controls";
 
-    import List from '$lib/list/List.svelte';
-    import { ProfileCard } from "$lib/core";
+    import { List, ProfileCard } from "$lib/core";
 	
 </script>
 

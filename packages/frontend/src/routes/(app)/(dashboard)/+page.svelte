@@ -1,6 +1,5 @@
 <script>
-    import {Card, CardBody} from '$lib/core';
-    import Section from '$lib/sections/Section.svelte';
+    import {Card, CardBody, Section } from '$lib/core';
     
     /** @type {import('./$types').PageData} */
     export let data;
@@ -37,6 +36,5 @@
                 </span>
             </CardBody>
         </Card>
-        
     </Section>
 </div>

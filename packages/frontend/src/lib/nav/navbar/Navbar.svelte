@@ -1,9 +1,9 @@
 <script>
   import { page } from '$app/stores';
 
-  import List from '$lib/list/List.svelte';
-  import NavLogo from '$lib/nav/navbar/NavLogo.svelte';
-  import WalletToggle from '$lib/misc/wallet/WalletToggle.svelte';
+  import NavLogo from './NavLogo.svelte';
+  import { List } from '$lib/core';
+  import { WalletToggle } from '$lib/core/misc';
 
   export let name = "";
   export const links = [];

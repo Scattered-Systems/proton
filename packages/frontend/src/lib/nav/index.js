@@ -1,5 +1,5 @@
-import { Navbar, NavLogo } from '$lib/nav/navbar';
-import { Sidebar, SidebarToggle } from '$lib/nav/sidebar';
-import { Toolbar } from '$lib/nav/toolbar';
+import { Navbar, NavLogo } from './navbar';
+import { Sidebar, SidebarToggle } from './sidebar';
+import { Toolbar } from './toolbar';
 
 export { Navbar, NavLogo, Sidebar, SidebarToggle, Toolbar }
