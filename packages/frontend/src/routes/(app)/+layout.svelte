@@ -1,4 +1,5 @@
 <script>
+	import { theme } from '$lib/stores/theme'; 
 	import { info } from '$lib/constants.js';
 	import { Navbar, Sidebar, Toolbar } from '$lib/core/nav';
 	import '$lib/styles.css';
