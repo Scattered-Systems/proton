@@ -1,0 +1,9 @@
+{
+	"name": "@proton/wasm",
+	"private": false,
+	"scripts": {
+		"build": "wasm-pack build",
+        "publish": "wasm-pack publish",
+        "test": "wasm-pack test --node"
+	}
+}
