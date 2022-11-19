@@ -7,13 +7,16 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "timonwong.shellcheck",
-                "rust-lang.rust-analyzer",
-                "panicbit.cargo",
-                "serayuzgur.crates",
-                "ms-azuretools.vscode-docker",
-                "tamasfe.even-better-toml"
-            ]
+				"timonwong.shellcheck",
+				"rust-lang.rust-analyzer",
+				"panicbit.cargo",
+				"serayuzgur.crates",
+				"ms-azuretools.vscode-docker",
+				"tamasfe.even-better-toml",
+				"NomicFoundation.hardhat-solidity",
+				"svelte.svelte-vscode",
+				"christian-kohler.npm-intellisense"
+			]
         }
     },
     "features": {
