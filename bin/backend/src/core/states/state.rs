@@ -3,7 +3,7 @@
     Contrib: FL03 <jo3mccain@icloud.com>
     Description: ... summary ...
 */
-use scsys::prelude::Stateful;
+use scsys::agents::Stateful;
 use serde::{Deserialize, Serialize};
 use std::fmt;
 use strum::{EnumString, EnumVariantNames};

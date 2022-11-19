@@ -4,7 +4,7 @@
     Description: ... summary ...
 */
 use crate::{api::Api, contexts::Context, sessions::Session, states::States};
-use scsys::prelude::{BoxResult, Stateful};
+use scsys::{agents::Stateful, BoxResult};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
@@ -32,8 +32,9 @@ impl<T: Stateful> Application<T> {
     }
     ///
     pub fn with_tracing(&self) -> &Self {
-        let logger = self.ctx.settings.clone().tracing.unwrap_or_default();
-        logger.setup();
+        let mut logger = self.ctx.settings.clone().tracing.unwrap_or_default();
+        logger.setup(None);
+        tracing_subscriber::fmt::init();
         tracing::info!("Successfully initiated the tracing protocol...");
         self
     }

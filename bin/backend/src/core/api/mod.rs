@@ -7,7 +7,7 @@ pub use self::{interface::*, utils::*};
 
 pub(crate) mod interface;
 pub(crate) mod utils {
-    use scsys::prelude::BoxResult;
+    use scsys::BoxResult;
     use tracing_subscriber::{fmt::format::FmtSpan, prelude::*};
 
     /// Initializes an OpenTelemetry tracing subscriber with a Jaeger backend.

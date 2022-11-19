@@ -7,7 +7,7 @@ use crate::actors as routes;
 use crate::{contexts::Context, Settings};
 use axum::{Extension, Router, Server};
 use http::header::{HeaderName, AUTHORIZATION};
-use scsys::prelude::BoxResult;
+use scsys::BoxResult;
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
 use tower_http::{

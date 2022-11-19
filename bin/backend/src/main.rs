@@ -12,7 +12,7 @@ pub(crate) mod core;
 pub(crate) mod data;
 
 #[tokio::main]
-async fn main() -> scsys::prelude::BoxResult {
+async fn main() -> scsys::BoxResult {
     println!("{}", scsys::prelude::Timestamp::now());
 
     let app = Application::<contexts::Context>::default();

@@ -3,12 +3,13 @@
     Contrib: FL03 <jo3mccain@icloud.com>
     Description: ... summary ...
 */
+use config::{Config, Environment};
 use scsys::{
-    components::{logging::Logger, networking::Server},
+    collect_config_files,
+    ConfigResult,
     prelude::{
-        collect_config_files,
-        config::{Config, Environment, File},
-        ConfigResult,
+        Logger, Server,
+        
     },
 };
 use serde::{Deserialize, Serialize};
@@ -26,10 +27,7 @@ impl Settings {
     pub fn build() -> ConfigResult<Self> {
         let builder = Config::builder()
             .add_source(
-                glob::glob("**/Backend.toml")
-                    .expect("Failed to find any files matching the given pattern")
-                    .map(|p| File::from(p.expect("Failed to create a file from pathbuf")))
-                    .collect::<Vec<_>>()
+               collect_config_files("**/Backend.toml", false)
             )
             .add_source(Environment::default().prefix("APP").separator("__"));
 
