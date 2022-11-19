@@ -3,11 +3,13 @@ FROM rust:latest as builder-base
 RUN apt-get update -y && apt-get upgrade -y
 
 RUN apt-get install -y \
-    apt-utils
+    apt-utils \
+    curl
 
 RUN rustup default nightly && \
-    rustup target add wasm32-unknown-unknown && \
-    cargo install wasm-bindgen-cli
+    rustup target add wasm32-wasi wasm32-unknown-unknown
+
+RUN curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
 FROM builder-base as builder
 
