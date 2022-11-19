@@ -7,7 +7,6 @@ exclude = [
     "examples/*"
 ]
 members = [
-    "bin/backend",
     "proton"
 ]
 

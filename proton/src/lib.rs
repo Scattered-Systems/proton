@@ -54,32 +54,32 @@ pub mod api {
 
         // Convert this other `Promise` into a rust `Future`.
         let json = JsFuture::from(resp.json()?).await?;
-
+        println!("{:?}", json.clone());
         // Send the JSON response back to JS.
         Ok(json)
     }
 
-    #[wasm_bindgen]
-    pub fn fetch_json_simple(url: &str) -> Promise {
-        let mut opts = RequestInit::new();
-        opts.method("GET");
-        opts.mode(RequestMode::Cors);
+    // #[wasm_bindgen]
+    // pub fn fetch_json_simple(url: &str) -> Promise {
+    //     let mut opts = RequestInit::new();
+    //     opts.method("GET");
+    //     opts.mode(RequestMode::Cors);
 
-        let req = Request::new_with_str_and_init(url, &opts).expect("");
-        req.headers().set("Accept", "application/json").expect("");
+    //     let req = Request::new_with_str_and_init(url, &opts).expect("");
+    //     req.headers().set("Accept", "application/json").expect("");
 
-        let window = web_sys::window().expect("");
-        let promise = window.fetch_with_request(&req);
+    //     let window = web_sys::window().expect("");
+    //     let promise = window.fetch_with_request(&req);
 
-        let future = JsFuture::from(promise)
-            .and_then(| r | {
-                // `resp_value` is a `Response` object.
-                assert!(r.is_instance_of::<Response>());
-                let resp: Response = r.dyn_into().expect("");
-                resp.json().expect("")
-            });
+    //     let future = JsFuture::from(promise)
+    //         .and_then(| r | {
+    //             // `resp_value` is a `Response` object.
+    //             assert!(r.is_instance_of::<Response>());
+    //             let resp: Response = r.dyn_into().expect("");
+    //             resp.json().expect("")
+    //         });
 
-        // Convert this Rust `Future` back into a JS `Promise`.
-        future_to_promise(future)
-    }
+    //     // Convert this Rust `Future` back into a JS `Promise`.
+    //     future_to_promise(future)
+    // }
 }
