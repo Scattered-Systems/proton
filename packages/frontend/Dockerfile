@@ -12,18 +12,16 @@ WORKDIR /workspace
 COPY . .
 RUN npm install && npm run build
 
-FROM builder as development
+FROM builder as runner-base
 
-ENV PORT=5173
+FROM runner-base as development
 
-EXPOSE ${PORT}
+EXPOSE 5173
 
 CMD ["npm", "run", "dev"]
 
-FROM builder as preview
+FROM runner-base as preview
 
-ENV PORT=4173
-
-EXPOSE ${PORT}
+EXPOSE 4173
 
 CMD ["npm", "run", "preview"]
