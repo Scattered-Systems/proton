@@ -1,5 +1,4 @@
 <script>
-    import { Flex } from '$lib/core';
     export let props;
     export let align = {
         items: "items-center",
@@ -17,10 +16,10 @@
 
 </script>
 
-<div class="rounded-lg {dim.h} {dim.w} {m} {pd} ">
-    <Flex align={align} bg={bg} color={color} dim={dim} direction="flex-col">
+<div class="flex flex-col rounded-lg {align.items} {align.justify} {bg} {color} {dim.h} {dim.w} {dim.z} {m} {pd} {props}">
+    <div class="flex min-h-full max-h-screen min-w-full max-w-screen p-3">
         <slot/>
-    </Flex> 
+    </div> 
 </div>
 
 

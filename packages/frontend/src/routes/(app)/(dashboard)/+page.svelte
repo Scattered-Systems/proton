@@ -8,8 +8,7 @@
         color: 'text-white'
     }
 
-    import { chainId, connected, defaultEvmStores, selectedAccount } from 'svelte-web3';
-    $: web3 = defaultEvmStores.web3;
+    import { chainId, selectedAccount } from 'svelte-web3';
 
 </script>
 
@@ -32,7 +31,6 @@
             <CardBody>
                 <span class="prose text-center">
                     {$selectedAccount}
-                    
                 </span>
             </CardBody>
         </Card>
