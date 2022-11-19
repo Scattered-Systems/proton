@@ -39,6 +39,7 @@ pulldown-cmark = "0.9.2"
 # scsys = { features = [], git = "https://github.com/scattered-systems/scsys", version = "0.1.27" }
 serde = { features = ["derive"], version = "1.0.147" }
 serde_json = "1.0.87"
+tokio = "1.22.0"
 wasm-bindgen = "0.2.83"
 wasm-bindgen-futures = "0.4.33"
 wasm-logger = "0.2.0"

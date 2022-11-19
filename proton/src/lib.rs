@@ -11,7 +11,7 @@ pub(crate) mod components;
 pub(crate) mod core;
 pub(crate) mod data;
 
-pub(crate) mod api {
+pub mod api {
     use futures::{future, Future, TryFutureExt};
     use js_sys::Promise;
     use serde::{Deserialize, Serialize};
@@ -37,29 +37,18 @@ pub(crate) mod api {
         opts.method("GET");
         opts.mode(RequestMode::Cors);
 
-        let req = Request::new_with_str_and_init(url, &opts).unwrap();
-        req.headers().set("Accept", "application/json").unwrap();
+        let req = Request::new_with_str_and_init(url, &opts).expect("");
+        req.headers().set("Accept", "application/json").expect("");
 
-        let window = web_sys::window().unwrap();
+        let window = web_sys::window().expect("");
         let promise = window.fetch_with_request(&req);
 
         let future = JsFuture::from(promise)
-            .and_then(|resp_value| {
+            .and_then(| r | {
                 // `resp_value` is a `Response` object.
-                assert!(resp_value.is_instance_of::<Response>());
-                let resp: Response = resp_value.dyn_into().unwrap();
-                resp.json()
-            })
-            .and_then(|json_value: Promise| {
-                // Convert this other `Promise` into a rust `Future`.
-                JsFuture::from(json_value)
-            })
-            .and_then(|json| {
-                // Use serde to parse the JSON into a struct.
-                let message: Msg = json.into_serde().unwrap();
-
-                // Send the `Branch` struct back to JS as an `Object`.
-                future::ok(JsValue::from_serde(&message).unwrap())
+                assert!(r.is_instance_of::<Response>());
+                let resp: Response = r.dyn_into().expect("");
+                resp.json().expect("")
             });
 
         // Convert this Rust `Future` back into a JS `Promise`.
