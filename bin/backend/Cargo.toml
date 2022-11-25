@@ -18,7 +18,7 @@ name = "proton-backend"
 [build-dependencies]
 
 [dependencies]
-axum = { features = ["headers"], version = "0.5.17" }
+axum = { features = ["headers"], version = "0.6.0" }
 clap = { features = ["derive"], version = "4.0.22" }
 futures = "0.3.25"
 glob = "0.3.0"
