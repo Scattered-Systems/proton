@@ -1,8 +1,9 @@
 use gloo::console::log;
 use gloo::worker::Spawnable;
-use proton::multiplier::Multiplier;
+use proton::ops::multiply::Multiplier;
 
 fn main() {
+    #[cfg(feature = "full")]
     console_error_panic_hook::set_once();
 
     let bridge = Multiplier::spawner()
