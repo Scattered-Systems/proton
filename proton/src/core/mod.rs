@@ -19,7 +19,7 @@ pub(crate) mod utils {
     }
 
     #[wasm_bindgen]
-    pub fn timestamp() -> i64 {
-        scsys::prelude::Timestamp::default().into()
+    pub fn timestamp() -> String {
+        chrono::Utc::now().to_rfc3339()
     }
 }

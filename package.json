@@ -6,19 +6,23 @@
 	"license": "MIT",
 	"name": "@scsys/proton",
 	"private": false,
-	"readme": "https://github.com/scattered-systems/proton/blob/main/app/frontend/#README",
+	"readme": "https://github.com/scattered-systems/proton/blob/main/#README",
 	"repository": "https://github.com/scattered-systems/proton",
 	"scripts": {
-		"build": "npm run app:build",
+		"build": "npm run wasm:build && npm run app:build",
         "dev": "npm run app:dev",
         "start": "npm run app:preview",
+		"test": "npm run wasm:test",
 		"app:build": "npm run build --workspace=@proton/frontend",
 		"app:dev": "npm run dev --workspace=@proton/frontend",
         "app:install": "npm install --workspace=@proton/frontend",
-		"app:preview": "npm run preview --workspace=@proton/frontend"
+		"app:preview": "npm run preview --workspace=@proton/frontend",
+		"wasm:build": "npm run build --workspace=@proton/wasm",
+		"wasm:test": "npm run test --workspace=@proton/wasm"
 	},
 	"version": "0.1.0",
 	"workspaces": [
-		"packages/*"
+		"packages/*",
+		"proton"
 	]
 }

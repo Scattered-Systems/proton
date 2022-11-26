@@ -1,23 +1,22 @@
 <script>
-
     export let align = {
         items: "items-center",
         justify: "justify-center"
     }
     export let bg = "";
     export let color = "";
+    export let dim = {
+        h: "h-full",
+        w: "w-full",
+        z: ""
+    };
     export let direction = "";
     export let display = "container";
     export let m = "mx-auto";
-    export let p = "p-0"
-    export let sz = {
-        h: "h-full",
-        w: "w-full"
-    };
+    export let pd = "p-0"
     export let wrap = "flex-wrap";
-    export let z = "";
 </script>
 
-<div class="{align.items} {align.justify} {bg} {color} {direction} {display} {m} {p} {sz.h} {sz.w} {wrap} {z}" >
+<div class="{align.items} {align.justify} {bg} {color} {dim.h} {dim.w} {dim.z} {direction} {display} {m} {pd} {wrap}" >
     <slot/>
 </div>

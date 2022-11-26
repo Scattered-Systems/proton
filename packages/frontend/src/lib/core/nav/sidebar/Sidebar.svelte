@@ -1,6 +1,6 @@
 <script>
     export let open = false;
-    export let name = "Controls";
+    export let title = "Controls";
 
     import { List, ProfileCard } from "$lib/core";
 	
@@ -8,10 +8,10 @@
 
 
 <aside class="absolute bg-zinc-700 text-white flex max-w-md w-full items-center justify-between h-full opacity-95 top-0 z-40 py-24" class:open>
-    <div class="flex flex-col justify-center h-full w-full">
+    <div class="flex flex-col justify-between h-full w-full">
         <div class="divide-y h-full">
             <div class="flex p-3 mx-auto items-center justify-center">
-                {name}
+                {title}
             </div>
             <div class="flex p-3 mx-auto items-center justify-start">
                 <List props="flex flex-col lg:flex-row list-none">
@@ -21,13 +21,6 @@
                         </a>
                     </li>
                 </List>
-            </div>
-            <div class="flex flex-col justify-start py-3">
-                
-                <div class="flex flex-col h-full">
-                    
-                    <slot/>
-                </div>
             </div>
             <div class="flex p-3">
                 <ProfileCard/>
