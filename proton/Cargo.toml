@@ -5,7 +5,7 @@ categories = []
 description = "Proton is a personal computing platform powered by the scsys ecosystem"
 edition = "2021"
 keywords = ["wasm"]
-license = "MIT"
+license = "Apache-2.0"
 name = "proton"
 readme = "README.md"
 repository = "https://github.com/scattered-systems/proton"
@@ -41,12 +41,11 @@ js-sys = "0.3.60"
 lazy_static = "1.4.0"
 lru = "0.8.1"
 parking_lot = "0.12.1"
-pulldown-cmark = "0.9.2"
-# scsys = { features = [],  version = "0.1.33" }
+# pulldown-cmark = "0.9.2"
+# scsys = { features = ["wasm"], version = "0.1.33" }
 serde = { default-features = false, features = ["derive"], version = "1.0.147" }
-serde_json = "1.0.89"
-tokio = "1.22.0"
-wasm-bindgen = { features = [], version = "0.2.83" }
+tokio = { features = ["macros"], version = "1.22.0" }
+wasm-bindgen = { features = ["serde-serialize"], version = "0.2.83" }
 wasm-bindgen-futures = "0.4.33"
 wasm-logger = "0.2.0"
 
