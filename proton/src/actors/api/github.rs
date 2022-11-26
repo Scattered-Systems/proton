@@ -30,13 +30,15 @@ impl Fetch {
         let headers = headers.unwrap_or_default();
         Self { endpoint, headers }
     }
-    pub fn request(&self) -> Result<Request, JsValue> {
-       Request::new_with_str_and_init(&url, &opts)
+    pub fn request(&self, opts: &mut RequestInit) -> Result<Request, JsValue> {
+       Request::new_with_str_and_init(&self.endpoint, opts)
     }
 }
 
 #[wasm_bindgen]
 pub async fn fetch_github(repo: String) -> crate::WasmResult<JsValue, JsValue> {
+    let mut headers = Headers::new();
+    headers.push("Accept".to_string(), "application/vnd.github.v3+json".to_string());
     let mut opts = RequestInit::new();
     opts.method("GET");
     opts.mode(RequestMode::Cors);
