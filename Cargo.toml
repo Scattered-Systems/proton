@@ -2,10 +2,7 @@
 default-members = [
     "proton"
 ]
-exclude = [
-    "bin/desktop",
-    "examples/*"
-]
+exclude = []
 members = [
     "proton"
 ]

@@ -3,26 +3,22 @@
 	"bugs": "https://github.com/scattered-systems/proton/issues",
 	"description": "A customizable portal into the future of internet-based experiences",
 	"keywords": [],
-	"license": "MIT",
+	"license": "Apache-2.0",
 	"name": "@scsys/proton",
-	"private": false,
+	"private": true,
 	"readme": "https://github.com/scattered-systems/proton/blob/main/#README",
 	"repository": "https://github.com/scattered-systems/proton",
 	"scripts": {
-		"build": "npm run wasm:build && npm run app:build",
-        "dev": "npm run app:dev",
-        "start": "npm run app:preview",
+		"preinstall": "curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh",
+		"build": "npm run wasm:build",
+        "dev": "",
+        "start": "",
 		"test": "npm run wasm:test",
-		"app:build": "npm run build --workspace=@proton/frontend",
-		"app:dev": "npm run dev --workspace=@proton/frontend",
-        "app:install": "npm install --workspace=@proton/frontend",
-		"app:preview": "npm run preview --workspace=@proton/frontend",
 		"wasm:build": "npm run build --workspace=@proton/wasm",
 		"wasm:test": "npm run test --workspace=@proton/wasm"
 	},
 	"version": "0.1.0",
 	"workspaces": [
-		"packages/*",
 		"proton"
 	]
 }

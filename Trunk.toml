@@ -1,0 +1,3 @@
+[build]
+target = "proton/index.html"
+dist = "dist"

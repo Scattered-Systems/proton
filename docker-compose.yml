@@ -2,40 +2,15 @@ version: "4"
 services:
   proton:
       build:
-        context: ../proton
+        context: .
         dockerfile: Dockerfile
       container_name: proton
       ports:
         - "9090:9090"
       restart: always
       volumes:
+        - /config:/config
         - /data:/data
-  backend:
-    build:
-      context: ../app/backend
-      dockerfile: Dockerfile
-    container_name: backend
-    depends_on:
-      - database
-    ports:
-      - "8000:8000"
-    restart: always
-    tty: true
-    volumes:
-      - /data:/data
-  
-  frontend:
-    build:
-      context: ../app/frontend
-      dockerfile: Dockerfile
-    container_name: frontend
-    depends_on:
-      - backend
-    ports:
-      - "4173:4173"
-    restart: always
-    volumes:
-      - /data:/data
 
   cache:
     container_name: cache

@@ -2,7 +2,8 @@ name: rust-clippy analyze
 
 on:
   push:
-    tags: ["v*.*.*"]
+    branches-ignore: ["dev", "next"]
+    tags: ['v*.*.*']
   schedule:
     - cron: '30 9 * * 5'
   workflow_dispatch:

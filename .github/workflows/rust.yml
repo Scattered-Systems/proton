@@ -3,6 +3,7 @@ name: Rust
 on:
   push:
     branches-ignore: ["dev", "next"]
+    tags: ['v*.*.*']
   schedule:
     - cron: '30 9 * * 5'
   workflow_dispatch:
@@ -12,18 +13,16 @@ env:
   CARGO_REGISTRY_TOKEN: ${CARGO_REGISTRY_TOKEN}
 
 jobs:
-  login:
+  builder:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Login
       run: cargo login ${CARGO_REGISTRY_TOKEN}
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
+    - run: |
+        rustup default nightly
+        rustup target add wasm32-unknown-unknown wasm32-wasi --toolchain nightly
     - name: Build
-      run: cargo build --release --verbose --workspace
+      run: cargo build --release -v --workspace
     - name: Test
-      run: cargo test --all-features --release --verbose
-
+      run: cargo test --all --all-features --release -v
