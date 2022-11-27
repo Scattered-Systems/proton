@@ -1,9 +1,9 @@
 tasks:
   - init: |
+      sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove && sudo apt install -y protobuf-compiler
       rustup default nightly
       rustup target add wasm32-unknown-unknown wasm32-wasi --toolchain nightly
       rustup component add clippy rustfmt --toolchain nightly
-      curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | bash
     command: npm run dev
 
 
