@@ -15,7 +15,9 @@ WORKDIR /app
 COPY . .
 RUN cargo build --release
 
-FROM nixos/nix as runner-base
+FROM debian:buster-slim as runner-base
+
+RUN apt-get update -y && apt-get upgrade -y
 
 ENV SERVER_PORT=9000
 
