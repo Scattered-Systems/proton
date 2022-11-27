@@ -21,8 +21,8 @@ impl ClientRouter {
     pub fn new() -> Self {
         Self(Router::new())
     }
-    pub fn layers(&mut self, ctx: Context<Settings>) -> &Self {
-        self.0 = self.router().clone()
+    pub async fn layers(&mut self, ctx: Context<Settings>) -> &Self {
+        self.0 = self.router().await.clone()
             .layer(
                 TraceLayer::new_for_http()
                     .make_span_with(DefaultMakeSpan::new().include_headers(true))
@@ -39,7 +39,7 @@ impl ClientRouter {
             .layer(axum::Extension(ctx));
         self
     }
-    pub fn router(&self) -> &Router {
+    pub async fn router(&self) -> &Router {
         &self.0
     }
 }
