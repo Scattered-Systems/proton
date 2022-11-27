@@ -8,9 +8,7 @@ use futures::Future;
 use scsys::prelude::{Configurable, Contextual,State};
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
-use tower::Service;
-
-
+use tower::Layer;
 
 #[derive(Clone, Default, Deserialize, Eq, PartialEq, Serialize)]
 pub struct Context<Cnf: Configurable, T: Default + Display = serde_json::Value> {
@@ -34,7 +32,8 @@ impl<Cnf: Configurable> Contextual for Context<Cnf> {
     }
 }
 
-impl<Cnf: Configurable> tower::layer::Layer<axum::routing::Route> for Context<Cnf> {
+/// TODO: Finish implementing the middleware for handling contexts
+impl<Cnf: Configurable> Layer<axum::routing::Route> for Context<Cnf> {
     type Service = Self;
 
     fn layer(&self, inner: axum::routing::Route) -> Self::Service {
