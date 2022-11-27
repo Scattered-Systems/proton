@@ -2,7 +2,7 @@ name: Rust
 
 on:
   push:
-    branches-ignore: ["dev", "next"]
+    branches: ["main"]
     tags: ['v*.*.*']
   schedule:
     - cron: '30 9 * * 5'

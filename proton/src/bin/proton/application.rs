@@ -32,11 +32,6 @@ impl<T: Clone + Default + Display + Serialize> Application<T> {
         self.state = state;
         self
     }
-    pub async fn spawn_api(&self) -> BoxResult {
-        let api = Api::new(self.ctx.clone());
-        api.run(Some(self.cnf.server.clone())).await?;
-        Ok(())
-    }
     /// Initializes the platform runtime
     pub async fn runtime(&self) -> BoxResult<Runtime<Settings, State<T>>> {
         let ctx = Context::new(self.cnf.clone());
