@@ -2,14 +2,10 @@ FROM rust:latest as builder-base
 
 RUN apt-get update -y && apt-get upgrade -y
 
-RUN apt-get install -y \
-    apt-utils \
-    curl
+RUN apt-get install -y protobuf-compiler
 
 RUN rustup default nightly && \
-    rustup target add wasm32-wasi wasm32-unknown-unknown
-
-RUN curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+    rustup target add wasm32-wasi wasm32-unknown-unknown --toolchain nightly
 
 FROM builder-base as builder
 
@@ -19,6 +15,14 @@ WORKDIR /app
 COPY . .
 RUN cargo build --release
 
-FROM builder
+FROM nixos/nix as runner-base
 
-RUN cargo test --all-features --release --verbose
+ENV SERVER_PORT=9000
+
+EXPOSE ${SERVER_PORT}
+
+FROM runner-base as runner
+
+COPY --from=builder /app/target/release/proton /bin/proton
+
+CMD ["proton"]
