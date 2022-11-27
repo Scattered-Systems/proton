@@ -16,6 +16,9 @@ pub enum States<T: Default + std::fmt::Display> {
     Request(State<T>),
     Response(State<T>),
     Idle,
+    Initializing,
+    Configuring,
+    
 }
 
 impl<T: Default + std::fmt::Display> Default for States<T> {

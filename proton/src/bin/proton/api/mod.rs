@@ -1,13 +1,14 @@
 /*
    Appellation: api <module>
-   Contributors: FL03 <jo3mccain@icloud.com>
-   Description:
-       ... Summary ...
+   Contrib: FL03 <jo3mccain@icloud.com>
+   Description: ... Summary ...
 */
 pub use self::{interface::*, utils::*};
 
 pub(crate) mod interface;
+pub mod client;
 pub mod routes;
+pub mod server;
 
 pub(crate) mod utils {
     use super::Api;
