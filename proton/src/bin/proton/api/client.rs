@@ -3,10 +3,10 @@
    Contrib: FL03 <jo3mccain@icloud.com>
    Description: ... Summary ...
 */
-use crate::Context;
+use crate::Settings;
+use proton::platform::contexts::Context;
 use axum::Router;
 use http::header::{HeaderName, AUTHORIZATION};
-use scsys::prelude::Contextual;
 use tower_http::{
     compression::CompressionLayer,
     propagate_header::PropagateHeaderLayer,
@@ -21,7 +21,7 @@ impl ClientRouter {
     pub fn new() -> Self {
         Self(Router::new())
     }
-    pub fn layers(&mut self, ctx: Context) -> &Self {
+    pub fn layers(&mut self, ctx: Context<Settings>) -> &Self {
         self.0 = self.router().clone()
             .layer(
                 TraceLayer::new_for_http()

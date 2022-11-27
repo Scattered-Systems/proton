@@ -41,7 +41,7 @@ impl Commands {
                         tracing::info!("Spawning the api...");
                         // tokio::spawn(async move {app.spawn_api();});
                         let api = Api::default();
-                        match api.run().await {
+                        match api.run(None).await {
                             Err(e) => panic!("{}", e),
                             Ok(v) => v,
                         };

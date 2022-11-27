@@ -74,6 +74,12 @@ impl Configurable for Settings {
     }
 }
 
+impl scsys::prelude::Loggable for Settings {
+    fn level(&self) -> String {
+        self.logger.clone().unwrap_or_default().level
+    }
+}
+
 impl Default for Settings {
     fn default() -> Self {
         match Self::build() {

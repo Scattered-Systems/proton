@@ -5,10 +5,9 @@
         Proton is a unique runtime environment capable of engaging a myriad of providers
 
 */
-pub use self::{application::*, context::*, settings::*, states::*};
+pub use self::{application::*, settings::*, states::*};
 
 pub(crate) mod application;
-pub(crate) mod context;
 pub(crate) mod settings;
 pub(crate) mod states;
 

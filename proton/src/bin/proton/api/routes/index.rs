@@ -4,13 +4,14 @@
    Description:
        ... Summary ...
 */
-use crate::Context;
+use crate::Settings;
 use axum::{
     extract::Path,
     routing::*,
     Extension, Json, Router,
 };
-use scsys::prelude::messages::Message;
+use proton::platform::contexts::Context;
+use scsys::prelude::{Configurable, Message};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 
@@ -24,7 +25,7 @@ impl Homepage {
     pub fn router(&mut self) -> Router {
         Router::new()
             .route("/", get(landing))
-            .route("/settings", get(settings))
+            .route("/settings", get(settings::<Settings>))
             .route("/notifications/:id", get(notifications).post(notifications))
     }
 }
@@ -48,6 +49,6 @@ pub async fn notifications(Path(id): Path<usize>) -> Json<Value> {
 }
 
 /// Broadcasts the current settings specified by the user for the interface and other technical systems to leverage
-pub async fn settings(Extension(ctx): Extension<Context>) -> Json<Value> {
+pub async fn settings<Cnf: Configurable>(Extension(ctx): Extension<Context<Cnf>>) -> Json<Value> {
     Json(json!(ctx.settings))
 }

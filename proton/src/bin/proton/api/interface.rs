@@ -4,10 +4,11 @@
     Description:
         ... Summary ...
 */
-use crate::{api::routes, Context};
+use crate::{api::routes, Settings};
 use axum::{Router, Server};
 use http::header::{HeaderName, AUTHORIZATION};
-use scsys::prelude::BoxResult;
+use proton::platform::contexts::Context;
+use scsys::prelude::{BoxResult, Configurable};
 use serde::{Deserialize, Serialize};
 use tower_http::{
     compression::CompressionLayer,
@@ -16,13 +17,13 @@ use tower_http::{
     trace::{DefaultMakeSpan, DefaultOnRequest, DefaultOnResponse, TraceLayer},
 };
 
-#[derive(Clone, Debug, Default, Deserialize, Eq, Hash, PartialEq, Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
 pub struct Api {
-    pub ctx: Context,
+    pub ctx: Context<Settings>,
 }
 
 impl Api {
-    pub fn new(ctx: Context) -> Self {
+    pub fn new(ctx: Context<Settings>) -> Self {
         Self { ctx }
     }
     pub async fn client(&self) -> Router {
@@ -54,8 +55,8 @@ impl Api {
         tracing::info!("Terminating the application...");
     }
     /// Quickly run the api
-    pub async fn run(&self) -> BoxResult {
-        let address = self.ctx.clone().settings.server.address();
+    pub async fn run(&self, server: Option<scsys::prelude::Server>) -> BoxResult {
+        let address = server.unwrap_or_default().address();
         let client = self.client().await;
         let server = Server::bind(&address)
             .serve(client.into_make_service())
@@ -67,10 +68,6 @@ impl Api {
 
 impl std::fmt::Display for Api {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "View the application locally at http://localhost:{}",
-            self.ctx.settings.server.port
-        )
+        write!(f, "{}",  serde_json::to_string(&self).unwrap())
     }
 }

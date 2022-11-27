@@ -11,14 +11,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, Deserialize, Hash, Parser, PartialEq, Serialize)]
 #[clap(about, author, version)]
 #[clap(long_about = "")]
-pub struct CommandLineInterface {
+pub struct CLIContext {
     #[clap(subcommand)]
     pub command: Option<Commands>,
     #[arg(long, short)]
     pub update: Option<isize>,
 }
 
-impl CommandLineInterface {
+impl CLIContext {
     pub async fn handler(&self) -> &Self {
         match self.command.clone() {
             None => {}
@@ -30,7 +30,7 @@ impl CommandLineInterface {
     }
 }
 
-impl Default for CommandLineInterface {
+impl Default for CLIContext {
     fn default() -> Self {
         Self::parse()
     }

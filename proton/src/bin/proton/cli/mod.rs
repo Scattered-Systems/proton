@@ -4,8 +4,8 @@
     Description:
         ... Summary ...
 */
-pub use self::{args::Power, commands::Commands, interface::CommandLineInterface};
+pub use self::{args::Power, commands::*, context::*};
 
 mod args;
 mod commands;
-mod interface;
+mod context;
