@@ -31,7 +31,6 @@ substrate-wasm-builder = "4.0.0"
 wasm-bindgen-test = "0.3.33"
 
 [dependencies]
-anyhow = "1.0.66"
 chrono = "0.4.23"
 console_error_panic_hook = { optional = true, version = "0.1.7" }
 dotenv_codegen = "0.15.0"
@@ -43,7 +42,7 @@ lru = "0.8.1"
 parking_lot = "0.12.1"
 # pulldown-cmark = "0.9.2"
 # scsys = { features = ["wasm"], version = "0.1.33" }
-serde = { default-features = false, features = ["derive"], version = "1.0.147" }
+serde = { features = ["derive"], version = "1.0.147" }
 tokio = { features = ["macros"], version = "1.22.0" }
 wasm-bindgen = { features = ["serde-serialize"], version = "0.2.83" }
 wasm-bindgen-futures = "0.4.33"
