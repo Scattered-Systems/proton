@@ -25,6 +25,7 @@ EXPOSE ${SERVER_PORT}
 
 FROM runner-base as runner
 
+COPY Proton.toml /config/Proton.toml
 COPY --from=builder /app/target/release/proton /bin/proton
 
-CMD ["proton"]
+CMD [ "proton" ]

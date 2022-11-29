@@ -8,7 +8,7 @@ use crate::{api::routes, Settings};
 use axum::{Router, Server};
 use http::header::{HeaderName, AUTHORIZATION};
 use proton::platform::contexts::Context;
-use scsys::prelude::{BoxResult, Configurable};
+use scsys::prelude::{BoxResult, Configurable, Contextual};
 use serde::{Deserialize, Serialize};
 use tower_http::{
     compression::CompressionLayer,
@@ -16,6 +16,13 @@ use tower_http::{
     sensitive_headers::SetSensitiveHeadersLayer,
     trace::{DefaultMakeSpan, DefaultOnRequest, DefaultOnResponse, TraceLayer},
 };
+
+pub enum ApiState {
+    Connected,
+    Disconnected,
+    Detached,
+    Idle
+}
 
 #[derive(Clone, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
 pub struct Api {
@@ -26,10 +33,13 @@ impl Api {
     pub fn new(ctx: Context<Settings>) -> Self {
         Self { ctx }
     }
+    /// Creates a new client instance for the server to run which is responsible for collecting implemented routes and desired attributes
     pub async fn client(&self) -> Router {
         let mut router = Router::new();
+        // Merge availible routers into the base client
         router = router
             .merge(routes::Homepage::default().router());
+        // Add depth to the service with layers
         router = router
             .layer(
                 TraceLayer::new_for_http()
@@ -63,6 +73,24 @@ impl Api {
             .with_graceful_shutdown(self.shutdown())
             .await?;
         Ok(server)
+    }
+}
+
+impl Contextual for Api {
+    type Cnf = Settings;
+
+    type Ctx = Context<Settings>;
+
+    fn context(&self) -> &Self::Ctx {
+        &self.ctx
+    }
+}
+
+impl Configurable for Api {
+    type Settings = crate::Settings;
+
+    fn settings(&self) -> &Self::Settings {
+        &self.ctx.settings
     }
 }
 

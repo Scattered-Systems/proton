@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+sh <(curl -L https://nixos.org/nix/install)
 rustup default nightly
 rustup component add clippy rustfmt --toolchain nightly
 rustup target add wasm32-wasi wasm32-unknown-unknown --toolchain nightly
