@@ -47,7 +47,10 @@ impl Settings {
     }
     pub fn build() -> ConfigResult<Self> {
         let mut builder = Config::builder()
-            .add_source(Environment::default().separator("__"));
+            .add_source(Environment::default().separator("__"))
+            .set_default("logger.level", Some("info"))?
+            .set_default("server.host", "0.0.0.0")?
+            .set_default("server.port", 9000)?;
 
         match try_collect_config_files("**/Proton.toml", false) {
             Err(_) => {},
