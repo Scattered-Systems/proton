@@ -6,7 +6,7 @@ services:
         dockerfile: Dockerfile
       container_name: proton
       ports:
-        - "9090:9090"
+        - "9000:9000"
       restart: always
       volumes:
         - /config:/config

@@ -8,3 +8,7 @@ experiences.
 
     git clone https://github.com/scattered-systems/proton.git
 
+### *Docker*
+
+    docker pull scsys/proton:latest
+    docker run -P scsys/proton:latest proton system on
