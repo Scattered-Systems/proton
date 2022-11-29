@@ -5,7 +5,7 @@
    Description:
        ... Summary ...
 */
-use scsys::prelude::{config::{Config, Environment}, collect_config_files, ConfigResult, Configurable, Logger, Server};
+use scsys::prelude::{config::{Config, Environment}, try_collect_config_files, ConfigResult, Configurable, Logger, Server};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Default, Deserialize, Eq, Hash, PartialEq, Serialize)]
@@ -49,8 +49,10 @@ impl Settings {
         let mut builder = Config::builder()
             .add_source(Environment::default().separator("__"));
 
-        
-        builder = builder.add_source( collect_config_files("**/Proton.toml", false));
+        match try_collect_config_files("**/Proton.toml", false) {
+            Err(_) => {},
+            Ok(v) => {builder = builder.add_source(v);}
+        }
         
         match std::env::var("RUST_LOG") {
             Err(_) => {},
