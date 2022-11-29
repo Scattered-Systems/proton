@@ -5,7 +5,7 @@
 */
 use crate::platform::contexts::Context;
 
-use scsys::prelude::{Configurable, Loggable, Logger, Stateful};
+use scsys::prelude::{BoxResult, Configurable, Loggable, Logger, Stateful};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Deserialize, Eq, PartialEq, Serialize)]
@@ -25,6 +25,7 @@ impl<Cnf: Configurable + Loggable, S: Stateful> Runtime<Cnf, S> {
     pub fn setup_logger(&self) -> &Self {
         Logger::new(self.cnf.level().clone()).setup(None);
         tracing_subscriber::fmt::init();
+        tracing::info!("Success: Initialized platform logging...");
         self
     }
 }

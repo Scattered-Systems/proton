@@ -38,7 +38,7 @@ impl Default for Homepage {
 
 /// Define the landing endpoint
 pub async fn landing() -> Json<Value> {
-    let msg = Message::from("welcome to flow");
+    let msg = Message::from("Welcome to Proton");
     Json(json!(msg))
 }
 

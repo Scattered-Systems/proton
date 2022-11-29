@@ -34,6 +34,7 @@ impl<T: Clone + Default + Display + Serialize> Application<T> {
     }
     /// Initializes the platform runtime
     pub async fn runtime(&self) -> BoxResult<Runtime<Settings, State<T>>> {
+        
         let ctx = Context::new(self.cnf.clone());
         let rt = Runtime::new(self.cnf.clone(), ctx, self.state.clone());
         rt.setup_logger();
@@ -41,7 +42,7 @@ impl<T: Clone + Default + Display + Serialize> Application<T> {
     }
     pub async fn run(&self) -> BoxResult<&Self> {
         let _rt = self.runtime().await?;
-        tracing::info!("Success: Application initialized; awaiting commands...");
+        tracing::info!("Success: Runtime initialized; awaiting commands...");
         // self.spawn_api().await?;
         let cli = CLIContext::default();
         tracing::info!("Success: Commands parsed, processing requests...");
@@ -50,12 +51,19 @@ impl<T: Clone + Default + Display + Serialize> Application<T> {
     }
 }
 
+impl<T: Clone + Default + Display + Serialize> Configurable for Application<T> {
+    type Settings = Settings;
+
+    fn settings(&self) -> &Self::Settings {
+        &self.cnf
+    }
+}
+
 impl<T: Clone + Default + Display + Serialize> std::fmt::Debug for Application<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", serde_json::to_string_pretty(&self).unwrap())
     }
 }
-
 
 impl<T: Clone + Default + Display + Serialize> std::fmt::Display for Application<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
