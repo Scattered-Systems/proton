@@ -21,6 +21,9 @@ RUN apt-get update -y && apt-get upgrade -y
 
 RUN apt-get install -y protobuf-compiler
 
+RUN mkdir /config
+VOLUME /config
+
 FROM runner-base as runner
 
 ENV SERVER_PORT=9000
@@ -31,4 +34,6 @@ EXPOSE ${SERVER_PORT}
 COPY Proton.toml /config/Proton.toml
 COPY --from=builder /app/target/release/proton /bin/proton
 
-CMD [ "proton" ]
+ENTRYPOINT [ "proton" ]
+
+CMD [ "proton", "system", "on" ]

@@ -8,6 +8,12 @@ use super::Commands;
 use clap::Parser;
 use serde::{Deserialize, Serialize};
 
+#[derive(Clone, Copy, Debug, Default, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, clap::ValueEnum)]
+pub enum ApplicationArgs {
+    #[default]
+    Update,
+}
+
 #[derive(Clone, Debug, Deserialize, Hash, Parser, PartialEq, Serialize)]
 #[clap(about, author, version)]
 #[clap(long_about = "")]

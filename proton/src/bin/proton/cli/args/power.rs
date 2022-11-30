@@ -8,7 +8,7 @@ use clap::ValueEnum;
 use scsys::prelude::BoxResult;
 use serde::{Deserialize, Serialize};
 
-#[derive(ValueEnum, Clone, Debug, Deserialize, Hash, PartialEq, Serialize)]
+#[derive(Clone, Debug, Deserialize, Hash, PartialEq, Serialize, ValueEnum)]
 pub enum Power {
     On,
     Off,
