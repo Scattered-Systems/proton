@@ -15,16 +15,16 @@ pub struct AppSettings {
 }
 
 impl AppSettings {
-    pub fn name(&mut self, name: Option<&str>) -> &Self {
-        self.name = match name {
-            Some(v) => v.to_string(),
-            None => self.name.clone(),
-        };
+    pub fn update_name(&mut self, name: Option<String>) -> &Self {
+        self.name = name.unwrap_or_else(|| self.name.clone());
 
         self
     }
+    pub fn name(&self) -> String {
+        self.name.clone()
+    }
     pub fn slug(&self) -> String {
-        self.name.clone().to_lowercase()
+        self.name().to_lowercase()
     }
 }
 
