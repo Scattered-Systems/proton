@@ -36,4 +36,4 @@ COPY --from=builder /app/target/release/proton /bin/proton
 
 ENTRYPOINT [ "proton" ]
 
-CMD [ "proton", "system", "on" ]
+CMD [ "system", "on" ]
