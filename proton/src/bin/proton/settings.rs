@@ -8,42 +8,15 @@
 use scsys::prelude::{config::{Config, Environment}, try_collect_config_files, ConfigResult, Configurable, Logger, Server};
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, Default, Deserialize, Eq, Hash, PartialEq, Serialize)]
-pub struct AppSettings {
-    pub mode: String,
-    pub name: String,
-}
-
-impl AppSettings {
-    pub fn update_name(&mut self, name: Option<String>) -> &Self {
-        self.name = name.unwrap_or_else(|| self.name.clone());
-
-        self
-    }
-    pub fn name(&self) -> String {
-        self.name.clone()
-    }
-    pub fn slug(&self) -> String {
-        self.name().to_lowercase()
-    }
-}
-
-impl std::fmt::Display for AppSettings {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", serde_json::to_string_pretty(&self).unwrap())
-    }
-}
-
 #[derive(Clone, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
 pub struct Settings {
-    pub application: Option<AppSettings>,
     pub logger: Option<Logger>,
     pub server: Server,
 }
 
 impl Settings {
-    pub fn new(application: Option<AppSettings>, logger: Option<Logger>, server: Server) -> Self {
-        Self { application, logger, server }
+    pub fn new(logger: Option<Logger>, server: Server) -> Self {
+        Self { logger, server }
     }
     pub fn build() -> ConfigResult<Self> {
         let mut builder = Config::builder()
@@ -89,7 +62,7 @@ impl Default for Settings {
     fn default() -> Self {
         match Self::build() {
             Ok(v) => v,
-            Err(_) => Self::new(None, Some(Default::default()), Default::default()),
+            Err(_) => Self::new(Some(Default::default()), Server::new("127.0.0.1".to_string(), 9000)),
         }
     }
 }
