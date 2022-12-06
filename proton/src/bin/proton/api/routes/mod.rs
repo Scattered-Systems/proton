@@ -4,7 +4,6 @@
    Description:
        ... Summary ...
 */
-pub use self::{index::*};
-
+pub use self::index::*;
 
 pub(crate) mod index;

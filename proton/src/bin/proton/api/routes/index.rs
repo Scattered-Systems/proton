@@ -5,11 +5,7 @@
        ... Summary ...
 */
 use crate::Settings;
-use axum::{
-    extract::Path,
-    routing::*,
-    Extension, Json, Router,
-};
+use axum::{extract::Path, routing::*, Extension, Json, Router};
 use proton::platform::contexts::Context;
 use scsys::prelude::{Configurable, Message};
 use serde::{Deserialize, Serialize};

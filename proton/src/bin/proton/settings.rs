@@ -1,11 +1,12 @@
 /*
-   Appellation: settings
-   Context:
-   Creator: FL03 <jo3mccain@icloud.com>
-   Description:
-       ... Summary ...
+    Appellation: settings <module>
+    Contrib: FL03 <jo3mccain@icloud.com>
+    description: ... Summary ...
 */
-use scsys::prelude::{config::{Config, Environment}, try_collect_config_files, ConfigResult, Configurable, Logger, Server};
+use scsys::prelude::{
+    config::{Config, Environment},
+    try_collect_config_files, ConfigResult, Configurable, Logger, Server,
+};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
@@ -25,20 +26,15 @@ impl Settings {
             .set_default("server.host", "0.0.0.0")?
             .set_default("server.port", 9000)?;
 
-        match try_collect_config_files("**/Proton.toml", false) {
-            Err(_) => {},
-            Ok(v) => {builder = builder.add_source(v);}
+        if let Ok(f) = try_collect_config_files("**/*.config.*", false) {
+            builder = builder.add_source(f);
         }
-        
-        match std::env::var("RUST_LOG") {
-            Err(_) => {},
-            Ok(v) => {builder = builder.set_override("logger.level", Some(v))?;}
-        };
-
-        match std::env::var("SERVER_PORT") {
-            Err(_) => {},
-            Ok(v) => {builder = builder.set_override("server.port", v)?;}
-        };
+        if let Ok(lvl) = std::env::var("RUST_LOG") {
+            builder = builder.set_override("logger.level", lvl)?;
+        }
+        if let Ok(port) = std::env::var("SERVER_PORT") {
+            builder = builder.set_override("server.port", port)?;
+        }
 
         builder.build()?.try_deserialize()
     }
@@ -62,7 +58,10 @@ impl Default for Settings {
     fn default() -> Self {
         match Self::build() {
             Ok(v) => v,
-            Err(_) => Self::new(Some(Default::default()), Server::new("127.0.0.1".to_string(), 9000)),
+            Err(_) => Self::new(
+                Some(Default::default()),
+                Server::new("127.0.0.1".to_string(), 9000),
+            ),
         }
     }
 }
@@ -72,4 +71,3 @@ impl std::fmt::Display for Settings {
         write!(f, "{}", serde_json::to_string_pretty(&self).unwrap())
     }
 }
-

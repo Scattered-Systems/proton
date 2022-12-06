@@ -5,18 +5,19 @@
 */
 use crate::platform::contexts::Context;
 
-use scsys::prelude::{BoxResult, Configurable, Loggable, Logger, Stateful};
+use scsys::prelude::{Configurable, Loggable, Logger, Stateful};
 use serde::{Deserialize, Serialize};
+use std::sync::Arc;
 
 #[derive(Clone, Default, Deserialize, Eq, PartialEq, Serialize)]
 pub struct Runtime<Cnf: Configurable, S: Stateful> {
     pub cnf: Cnf,
     pub ctx: Context<Cnf>,
-    pub state: S
+    pub state: Arc<S>,
 }
 
 impl<Cnf: Configurable, S: Stateful> Runtime<Cnf, S> {
-    pub fn new(cnf: Cnf, ctx: Context<Cnf>, state: S) -> Self {
+    pub fn new(cnf: Cnf, ctx: Context<Cnf>, state: Arc<S>) -> Self {
         Self { cnf, ctx, state }
     }
 }

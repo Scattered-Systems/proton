@@ -4,9 +4,9 @@
    Description: ... Summary ...
 */
 use crate::Settings;
-use proton::platform::contexts::Context;
 use axum::Router;
 use http::header::{HeaderName, AUTHORIZATION};
+use proton::platform::contexts::Context;
 use tower_http::{
     compression::CompressionLayer,
     propagate_header::PropagateHeaderLayer,
@@ -22,7 +22,10 @@ impl ClientRouter {
         Self(Router::new())
     }
     pub async fn layers(&mut self, ctx: Context<Settings>) -> &Self {
-        self.0 = self.router().await.clone()
+        self.0 = self
+            .router()
+            .await
+            .clone()
             .layer(
                 TraceLayer::new_for_http()
                     .make_span_with(DefaultMakeSpan::new().include_headers(true))

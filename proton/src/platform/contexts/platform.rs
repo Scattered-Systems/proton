@@ -12,7 +12,7 @@ use tower::Layer;
 #[derive(Clone, Default, Deserialize, Eq, PartialEq, Serialize)]
 pub struct Context<Cnf: Configurable, T: Default + Display = serde_json::Value> {
     pub settings: Cnf,
-    pub state: State<T>
+    pub state: State<T>,
 }
 
 impl<Cnf: Configurable> Context<Cnf> {
@@ -43,14 +43,21 @@ impl<Cnf: Configurable> Layer<axum::routing::Route> for Context<Cnf> {
 impl<Cnf: Configurable> Future for Context<Cnf> {
     type Output = serde_json::Value;
 
-    fn poll(self: std::pin::Pin<&mut Self>, cx: &mut std::task::Context<'_>) -> std::task::Poll<Self::Output> {
+    fn poll(
+        self: std::pin::Pin<&mut Self>,
+        cx: &mut std::task::Context<'_>,
+    ) -> std::task::Poll<Self::Output> {
         todo!()
     }
 }
 
 impl<Cnf: Configurable> std::fmt::Debug for Context<Cnf> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", serde_json::to_string_pretty(&self.settings).unwrap())
+        write!(
+            f,
+            "{}",
+            serde_json::to_string_pretty(&self.settings).unwrap()
+        )
     }
 }
 
