@@ -1,19 +1,25 @@
 name: Rust
 
-on:
-  push:
-    branches: ["main"]
-    tags: ['v*.*.*']
-  schedule:
-    - cron: '30 9 * * 5'
-  workflow_dispatch:
-
 env:
   CARGO_TERM_COLOR: always
 
+on:
+  push:
+    branches: [ "main", "master", "prod" ]
+    tags: [ "v*.*.*" ]
+  schedule:
+    - cron: "30 9 * * 5"
+  workflow_dispatch:
+    inputs:
+      publish:
+        default: true
+        description: 'Publish'
+        required: true
+        type: boolean
+
 jobs:
-  build_and_test:
-    name: Rust - Build and Test
+  build:
+    name: Build and Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -22,8 +28,39 @@ jobs:
           - nightly
     steps:
       - uses: actions/checkout@v3
-      - run: cargo login ${{ secrets.CARGO_REGISTRY_TOKEN }}
       - run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
-      - run: cargo build -v --workspace
+      - run: cargo build -v
       - run: cargo test --all --all-features -v
+  features:
+    if: ${{ github.event.inputs.publish }}
+    needs: [ build ]
+    name: Features
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+          - proton-core
+          - proton-runtime
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish (${{matrix.package}})
+        run: cargo publish --all-features -v --package ${{ matrix.package }} --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+  sdk:
+    if: ${{ github.event.inputs.publish }}
+    name: Features
+    needs: [ build, features ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish (proton-sdk)
+        run: cargo publish --all-features -v --package proton-sdk --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+  publish:
+    if: ${{ github.event.inputs.publish }}
+    name: Publish
+    needs: [ build, sdk ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish (proton)
+        run: cargo publish --all-features -v --package proton --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
   

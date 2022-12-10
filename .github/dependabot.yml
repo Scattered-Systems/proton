@@ -1,10 +1,26 @@
 version: 2
 updates:
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: daily
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: daily
   - package-ecosystem: cargo
     directory: /proton
+    schedule:
+      interval: daily
+  - package-ecosystem: cargo
+    directory: /crates/core
+    schedule:
+      interval: daily
+  - package-ecosystem: cargo
+    directory: /crates/runtime
+    schedule:
+      interval: daily
+  - package-ecosystem: cargo
+    directory: /crates/sdk
     schedule:
       interval: daily
