@@ -23,14 +23,22 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dockerfile:
+          - proton
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker buildx build --tag ${{ env.IMAGE }} .
+        run: docker buildx build --tag ${{ env.IMAGE }} ${{ matrix.dockerfile }}
   publish:
-    if: ${{ github.event.inputs.publish }}
+    # if: ${{ github.event.inputs.publish }}
     needs: build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dockerfile:
+          - proton
     steps:
     - uses: actions/checkout@v3
     - name: Publish to Registry
@@ -39,4 +47,4 @@ jobs:
         name: ${{ env.IMAGE }}
         username: ${{ env.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-        dockerfile: Dockerfile
+        dockerfile: ${{ matrix.dockerfile }}

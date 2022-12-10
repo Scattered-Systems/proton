@@ -9,6 +9,10 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: cargo
+    directory: /desktop
+    schedule:
+      interval: daily
+  - package-ecosystem: cargo
     directory: /proton
     schedule:
       interval: daily
@@ -17,9 +21,6 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: cargo
-    directory: /crates/runtime
-    schedule:
-      interval: daily
   - package-ecosystem: cargo
     directory: /crates/sdk
     schedule:

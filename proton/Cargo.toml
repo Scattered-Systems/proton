@@ -1,19 +1,18 @@
 [package]
 authors = ["FL03 <jo3mccain@icloud.com> (https://github.com/FL03)"]
 categories = []
-description = "curiosity"
+description = "proton"
 edition = "2021"
-homepage = "https://github.com/FL03/curiosity/wiki"
+homepage = "https://github.com/scattered-systems/proton/wiki"
 keywords = ["wasm"]
 license = "Apache-2.0"
-name = "proton-wasm"
+name = "proton"
 readme = "README.md"
-repository = "https://github.com/FL03/curiosity"
+repository = "https://github.com/scattered-systems/proton"
 version = "0.1.0"
 
 [features]
 default = []
-
 
 [lib]
 crate-type = ["cdylib", "rlib"]

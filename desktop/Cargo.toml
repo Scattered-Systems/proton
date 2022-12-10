@@ -14,19 +14,9 @@ version = "0.1.0"
 [features]
 default = []
 
-
-
 [lib]
 crate-type = ["cdylib", "rlib"]
 test = true
-
-[[bin]]
-name = "proton"
-path = "src/bin/backend/main.rs"
-
-[[bin]]
-name = "proton-desktop"
-path = "src/bin/desktop/main.rs"
 
 [build-dependencies]
 tauri-build = { features = [], version = "1.2" }

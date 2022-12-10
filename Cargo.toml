@@ -1,57 +1,11 @@
-[package]
-authors = ["FL03 <jo3mccain@icloud.com> (https://github.com/FL03)", "Scattered-Systems <jo3mccain@scattered-systems.com> (https://github.com/scattered-systems)"]
-build = "build.rs"
-categories = []
-description = "Proton is a personal computing platform powered by the scsys ecosystem"
-edition = "2021"
-keywords = ["scsys"]
-license = "Apache-2.0"
-name = "proton"
-readme = "README.md"
-repository = "https://github.com/scattered-systems/proton"
-version = "0.1.0"
-
-[features]
-default = ["core", "runtime"]
-full = ["core", "runtime"]
-
-core = ["proton-core/default"]
-runtime = ["proton-runtime/default"]
-desktop = [ "tauri-build" ]
-
-[lib]
-crate-type = ["cdylib", "rlib"]
-test = true
-
-[[bin]]
-name = "proton"
-path = "src/bin/backend/main.rs"
-
-[[bin]]
-name = "proton-desktop"
-path = "src/bin/desktop/main.rs"
-
-[build-dependencies]
-tauri-build = { features = [], optional = true, version = "1.2" }
-
-[dev-dependencies]
-
-[dependencies]
-proton-backend = { features = [], path = "./backend", version = "0.1.0" }
-proton-core = { features = [], optional = true, path = "./crates/core", version = "0.1.0" }
-proton-runtime = { features = [], optional = true, path = "./crates/runtime", version = "0.1.0" }
-# proton-sdk = { features = ["full"], path = "../crates/sdk", version = "0.1.0" }
-tauri = { version = "1.2", features = ["api-all"] }
-
 [workspace]
-default-members = ["."]
-exclude = ["wasm"]
+default-members = [
+    "proton"
+]
+exclude = [ "desktop" ]
 members = [
-    "crates/core",
-    "crates/runtime",
-    "crates/sdk",
-    "backend",
-    "."
+    "crates/*",
+    "proton"
 ]
 
 [profile.dev]

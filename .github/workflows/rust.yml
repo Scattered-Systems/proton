@@ -40,11 +40,10 @@ jobs:
       matrix:
         package:
           - proton-core
-          - proton-runtime
     steps:
       - uses: actions/checkout@v3
       - name: Publish (${{matrix.package}})
-        run: cargo publish --all-features -v --package ${{ matrix.package }} --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: cargo publish --all-features -v -p ${{ matrix.package }} --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
   sdk:
     if: ${{ github.event.inputs.publish }}
     name: Features
@@ -53,14 +52,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Publish (proton-sdk)
-        run: cargo publish --all-features -v --package proton-sdk --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
-  publish:
+        run: cargo publish --all-features -v -p proton-sdk --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+  apps:
     if: ${{ github.event.inputs.publish }}
     name: Publish
     needs: [ build, sdk ]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+          - proton-desktop
+          - proton
     steps:
       - uses: actions/checkout@v3
-      - name: Publish (proton)
-        run: cargo publish --all-features -v --package proton --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+      - name: Publish (${{ matrix.package }})
+        run: cargo publish --all-features -v -p ${{ matrix.package }} --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
   
