@@ -4,6 +4,7 @@ default-members = [
 ]
 exclude = []
 members = [
+    "crates/*",
     "proton"
 ]
 

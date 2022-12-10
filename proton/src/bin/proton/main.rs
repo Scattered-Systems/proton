@@ -5,15 +5,9 @@
         Proton is a unique runtime environment capable of engaging a myriad of providers
 
 */
-pub use self::{settings::*, states::*};
+use proton::{Settings, State, States};
+use proton_sdk::rt::{Context, Runtime};
 
-pub(crate) mod settings;
-pub(crate) mod states;
-
-pub mod api;
-pub mod cli;
-
-use proton::{platform::contexts::Context, rt::Runtime};
 use scsys::prelude::{AsyncResult, Configurable};
 use serde::{Deserialize, Serialize};
 use std::{fmt::Display, sync::Arc};
@@ -47,7 +41,7 @@ impl<T: Clone + Default + Display + Serialize> Application<T> {
         self.set_state(&State::from(&States::Startup));
         let rt = Runtime::new(self.cnf.clone(), self.ctx.clone(), self.state.clone());
         rt.setup_logger();
-        let cli = cli::new();
+        let cli = proton::cli::new();
         tracing::info!("Success: Commands parsed, processing requests...");
         cli.handler().await?;
         Ok(rt)

@@ -6,8 +6,8 @@
 */
 pub use self::{args::Power, commands::*, context::*};
 
-mod args;
-mod commands;
+pub(crate) mod args;
+pub(crate) mod commands;
 
 pub fn new() -> Cli {
     Cli::default()
@@ -20,7 +20,7 @@ pub(crate) mod context {
 
     #[derive(Clone, Debug, Deserialize, Eq, Hash, Parser, PartialEq, Serialize)]
     #[clap(about, author, version)]
-    #[clap(long_about = "Welcome to a template-cli written in Rust")]
+    #[clap(long_about = "Welcome to Proton")]
     pub struct Cli {
         #[clap(subcommand)]
         pub command: Option<Commands>,

@@ -1,0 +1,27 @@
+[package]
+authors = ["FL03 <jo3mccain@icloud.com>"]
+categories = []
+description = "Proton is a personal computing platform powered by the scsys ecosystem"
+edition = "2021"
+keywords = ["wasm"]
+license = "Apache-2.0"
+name = "proton-core"
+repository = "https://github.com/scattered-systems/proton"
+version = "0.1.0"
+
+[features]
+default = []
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+test = true
+
+[build-dependencies]
+
+[dev-dependencies]
+
+[dependencies]
+scsys = { features = ["full"], version = "0.1.36" }
+serde = { features = ["derive"], version = "1.0.149" }
+serde_json = "1.0.89"
+strum = { features = ["derive"], version = "0.24.1" }

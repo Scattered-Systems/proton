@@ -13,7 +13,7 @@ pub fn new() -> Api {
     Api::default()
 }
 
-pub fn from_ctx(ctx: &proton::platform::contexts::Context<crate::Settings>) -> Api {
+pub fn from_ctx(ctx: &proton_sdk::rt::Context<crate::Settings>) -> Api {
     Api::from(ctx)
 }
 
@@ -21,7 +21,7 @@ pub(crate) mod interface {
     use crate::{api::routes, Settings};
     use axum::{Router, Server};
     use http::header::{HeaderName, AUTHORIZATION};
-    use proton::platform::contexts::Context;
+    use proton_sdk::rt::Context;
     use scsys::prelude::{BoxResult, Configurable, Contextual};
     use serde::{Deserialize, Serialize};
     use tower_http::{
@@ -118,5 +118,4 @@ pub(crate) mod interface {
             write!(f, "{}", serde_json::to_string(&self).unwrap())
         }
     }
-
 }
