@@ -1,0 +1,68 @@
+{
+    "build": {
+      "beforeBuildCommand": "trunk build --release",
+      "beforeDevCommand": "trunk serve",
+      "devPath": "http://localhost:8000",
+      "distDir": "../dist",
+      "withGlobalTauri": true
+    },
+    "package": {
+      "productName": "Proton",
+      "version": "0.1.0"
+    },
+    "tauri": {
+      "allowlist": {
+        "all": true,
+        "shell": {
+          "sidecar": true,
+          "scope": [
+          ]
+        }
+      },
+      "bundle": {
+        "active": true,
+        "targets": "all",
+        "identifier": "com.github.scattered-systems.proton",
+        "externalBin": [
+        ],
+        "icon": [
+        ],
+        "resources": [],
+        "copyright": "",
+        "category": "DeveloperTool",
+        "shortDescription": "",
+        "longDescription": "",
+        "deb": {
+          "depends": []
+        },
+        "macOS": {
+          "frameworks": [],
+          "minimumSystemVersion": "",
+          "exceptionDomain": "localhost",
+          "signingIdentity": null,
+          "providerShortName": null,
+          "entitlements": null
+        },
+        "windows": {
+          "certificateThumbprint": null,
+          "digestAlgorithm": "sha256",
+          "timestampUrl": ""
+        }
+      },
+      "security": {
+        "csp": null
+      },
+      "updater": {
+        "active": false
+      },
+      "windows": [
+        {
+          "fullscreen": false,
+          "resizable": true,
+          "title": "Proton",
+          "height": 600,
+          "width": 800
+        }
+      ]
+    }
+  }
