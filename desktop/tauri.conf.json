@@ -4,11 +4,11 @@
     "version": "0.1.0"
   },
   "build": {
-    "distDir": "../dist",
-    "devPath": "http://localhost:8000",
+    "devPath": "../proton",
+    "distDir": "../proton/dist",
     "beforeDevCommand": "trunk serve",
     "beforeBuildCommand": "trunk build",
-    "withGlobalTauri": true
+    "withGlobalTauri": false
   },
   "tauri": {
     "allowlist": {
@@ -17,7 +17,7 @@
     "bundle": {
       "active": true,
       "category": "DeveloperTool",
-      "copyright": "",
+      "copyright": "Scattered-Systems, DAO LLC",
       "deb": {
         "depends": []
       },
@@ -32,12 +32,12 @@
       ],
       "longDescription": "",
       "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "localhost",
         "frameworks": [],
         "minimumSystemVersion": "",
-        "exceptionDomain": "localhost",
-        "signingIdentity": null,
         "providerShortName": null,
-        "entitlements": null
+        "signingIdentity": null
       },
       "resources": [],
       "shortDescription": "",

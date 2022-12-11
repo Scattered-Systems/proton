@@ -1,9 +1,9 @@
 [build]
-dist = "proton/dist"
+dist = "dist"
 filehash = true
 public_url = "/"
 release = true
-target = "proton/index.html"
+target = "index.html"
 
 [clean]
 cargo = false

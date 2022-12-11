@@ -1,0 +1,18 @@
+{
+    "author": "FL03 <jo3mccain@icloud.com> (https://github.com/FL03)",
+    "bugs": "https://github.com/scattered-systems/proton/issues",
+    "dependencies": {},
+    "description": "Proton is a complete, cloud-native computational platform",
+    "keywords": [],
+    "homepage": "https://github.com/scattered-systems/proton/wiki",
+    "license": "Apache-2.0",
+    "name": "@scsys/proton",
+    "private": false,
+    "scripts": {
+      "test": "echo \"No test specified\""
+    },
+    "readme": "https://github.com/scattered-systems/proton/#README",
+    "repository": "https://github.com/scattered-systems/proton",
+    "version": "0.1.0",
+    "workspaces": []
+  }
