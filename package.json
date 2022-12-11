@@ -1,0 +1,21 @@
+{
+    "author": "FL03 <jo3mccain@icloud.com> (https://github.com/FL03)",
+    "bugs": "https://github.com/scattered-systems/proton/issues",
+    "keywords": [],
+    "homepage": "https://github.com/scattered-systems/proton/wiki",
+    "license": "Apache-2.0",
+    "name": "@proton/root",
+    "private": false,
+    "scripts": {
+      "build": "npm run build --workspace=@proton/desktop",
+      "dev": "npm run dev --workspace=@proton/desktop",
+      "start": ""
+    },
+    "readme": "https://github.com/scattered-systems/proton/#README",
+    "repository": "https://github.com/scattered-systems/proton",
+    "version": "0.1.0",
+    "workspaces": [
+      "desktop",
+      "proton"
+    ]
+  }

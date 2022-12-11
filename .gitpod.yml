@@ -8,4 +8,4 @@ tasks:
       rustup target add wasm32-unknown-unknown wasm32-wasi --toolchain nightly
       cargo install trunk wasm-bindgen-cli tauri-cli
       cp .env.example .env
-    command: cargo build --release --workspace
+    command: cargo build --release --workspace --target wasm32-unknown-unknown

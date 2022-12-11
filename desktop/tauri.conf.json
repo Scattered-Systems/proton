@@ -6,9 +6,9 @@
   "build": {
     "distDir": "../dist",
     "devPath": "http://localhost:8000",
-    "beforeDevCommand": "trunk serve",
+    "beforeDevCommand": "trunk serve --config ../Trunk.toml",
     "beforeBuildCommand": "trunk build",
-    "withGlobalTauri": true
+    "withGlobalTauri": false
   },
   "tauri": {
     "allowlist": {
