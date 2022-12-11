@@ -11,8 +11,13 @@ on:
     inputs:
       environment:
         description: 'Environment'
-        type: environment
         required: true
+        type: environment
+      release:
+        default: true
+        description: 'Release'
+        required: true
+        type: boolean
 
 jobs:
   create-release:
@@ -26,6 +31,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: get version
+        run: echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
       - name: create release
         id: create-release
         uses: actions/github-script@v6
@@ -58,39 +65,26 @@ jobs:
           node-version: 16
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
+      - name: configure environment
+        run: |
+          rustup default nightly
+          rustup target add wasm32-unknown-unknown wasm32-wasi --toolchain nightly
+          cargo install trunk wasm-bindgen-cli
       - name: install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-20.04'
         run: |
-          sudo apt-get update -y
+          sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
-          cargo install trunk wasm-bindgen-cli
+      - name: install app dependencies and build it
+        run: trunk build
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ needs.create-release.outputs.release_id }}
-  pre-release:
-    if: ${{ github.event.inputs.environment != 'production' }}
-    needs: [create-release, build-tauri]
-    runs-on: ubuntu-20.04
-    steps:
-      - name: publish pre-release
-        id: publish-release
-        uses: actions/github-script@v6
-        env:
-          release_id: ${{ needs.create-release.outputs.release_id }}
-        with:
-          script: |
-            github.rest.repos.updateRelease({
-              configPath: 'desktop/tauri.conf.json',
-              draft: false,
-              prerelease: true,
-              owner: context.repo.owner,
-              release_id: process.env.release_id,
-              repo: context.repo.repo
-            })
+
   publish-release:
-    if: ${{ github.event.inputs.environment == 'production' }}
+    if: ${{ github.event.inputs.release }}
     needs: [create-release, build-tauri]
     runs-on: ubuntu-20.04
     steps:
@@ -104,7 +98,7 @@ jobs:
             github.rest.repos.updateRelease({
               configPath: 'desktop/tauri.conf.json',
               draft: false,
-              prerelease: false,
+              prerelease: ${{ github.event.inputs.release }},
               owner: context.repo.owner,
               release_id: process.env.release_id,
               repo: context.repo.repo
