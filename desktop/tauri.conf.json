@@ -1,9 +1,9 @@
 {
     "build": {
-      "beforeBuildCommand": "trunk build --release",
+      "beforeBuildCommand": "trunk build",
       "beforeDevCommand": "trunk serve",
       "devPath": "http://localhost:8000",
-      "distDir": "../dist",
+      "distDir": "../proton/dist",
       "withGlobalTauri": true
     },
     "package": {
