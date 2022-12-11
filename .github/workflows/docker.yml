@@ -7,17 +7,10 @@ on:
   schedule:
     - cron: "30 9 * * 5"
   workflow_dispatch:
-    inputs:
-      publish:
-        default: true
-        description: 'Publish'
-        required: true
-        type: boolean
 
 env:
   IMAGE: scsys/proton
   IMAGE_TAG: latest
-
 
 jobs:
   build:
@@ -27,7 +20,6 @@ jobs:
       - name: Build the Docker image
         run: docker buildx build --tag ${{ env.IMAGE }} proton
   publish:
-    # if: ${{ github.event.inputs.publish }}
     needs: build
     runs-on: ubuntu-latest
     steps:
