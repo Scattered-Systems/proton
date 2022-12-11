@@ -28,15 +28,15 @@ jobs:
         run: docker buildx build --tag ${{ env.IMAGE }} .
   publish:
     # if: ${{ github.event.inputs.publish }}
-    # needs: build
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
-        dockerfile: ${{ env.IMAGE }}
-        name: ${{ matrix.image }}
+        dockerfile: Dockerfile
+        name: ${{ env.image }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         
