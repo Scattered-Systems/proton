@@ -13,11 +13,11 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: cargo
-    directory: /desktop
+    directory: /proton
     schedule:
       interval: daily
   - package-ecosystem: cargo
-    directory: /proton
+    directory: /docker
     schedule:
       interval: daily
   - package-ecosystem: cargo

@@ -15,7 +15,6 @@ on:
         type: boolean
 
 env:
-  DOCKERHUB_USERNAME: scsys
   IMAGE: scsys/proton
   IMAGE_TAG: latest
 
@@ -26,25 +25,30 @@ jobs:
     strategy:
       matrix:
         dockerfile:
-          - proton
+          - proton/Dockerfile
+        image:
+          - scsys/proton:${{ env.IMAGE_TAG }}
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker buildx build --tag ${{ env.IMAGE }} ${{ matrix.dockerfile }}
+        run: docker buildx build --tag ${{ matrix.image }} ${{ matrix.dockerfile }}
   publish:
     # if: ${{ github.event.inputs.publish }}
-    needs: build
+    # needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
         dockerfile:
-          - proton
+          - proton/Dockerfile
+        image:
+          - scsys/proton:${{ env.IMAGE_TAG }}
     steps:
     - uses: actions/checkout@v3
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
-        name: ${{ env.IMAGE }}
-        username: ${{ env.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
         dockerfile: ${{ matrix.dockerfile }}
+        name: ${{ matrix.image }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        
