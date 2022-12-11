@@ -2,7 +2,7 @@
 dist = "dist"
 filehash = true
 public_url = "/"
-release = false
+release = true
 target = "index.html"
 
 [watch]

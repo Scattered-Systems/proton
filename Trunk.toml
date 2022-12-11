@@ -1,8 +1,8 @@
 [build]
-dist = "proton/dist"
+dist = "dist"
 filehash = true
 public_url = "/"
-release = false
+release = true
 target = "proton/index.html"
 
 [watch]
