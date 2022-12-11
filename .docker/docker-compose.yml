@@ -2,16 +2,15 @@ version: "4"
 services:
   proton:
       build:
-        context: .
+        context: ../proton
         dockerfile: Dockerfile
       container_name: proton
       ports:
-        - "9000:9000"
+        - "8000:8000"
       restart: always
       volumes:
         - /config:/config
         - /data:/data
-
   cache:
     container_name: cache
     image: redis
