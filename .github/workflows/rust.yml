@@ -23,14 +23,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        toolchain:
-          - stable
-          - nightly
+        target:
+          - wasm32-unknown-unknown
+          - wasm32-wasi
     steps:
       - uses: actions/checkout@v3
-      - run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
-      - run: cargo build -v
-      - run: cargo test --all --all-features -v
+      - name: Setup
+        run: |
+          rustup default nightly
+          rustup target add ${{ matrix.target }} --toolchain nightly
+      - run: cargo build -v --release --workspace --target ${{ matrix.target }}
+      - run: cargo test --all --all-features -v --target ${{ matrix.target }}
   features:
     if: ${{ github.event.inputs.publish }}
     needs: [ build ]
@@ -40,11 +43,16 @@ jobs:
       matrix:
         package:
           - proton-core
-          - proton-runtime
+        target:
+          - wasm32-unknown-unknown
     steps:
       - uses: actions/checkout@v3
+      - name: Setup
+        run: |
+          rustup default nightly
+          rustup target add ${{ matrix.target }} --toolchain nightly
       - name: Publish (${{matrix.package}})
-        run: cargo publish --all-features -v --package ${{ matrix.package }} --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: cargo publish --all-features -v -p ${{ matrix.package }} --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
   sdk:
     if: ${{ github.event.inputs.publish }}
     name: Features
@@ -53,14 +61,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Publish (proton-sdk)
-        run: cargo publish --all-features -v --package proton-sdk --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
-  publish:
+        run: cargo publish --all-features -v -p proton-sdk --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+  apps:
     if: ${{ github.event.inputs.publish }}
     name: Publish
     needs: [ build, sdk ]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+          - proton-desktop
+          - proton
     steps:
       - uses: actions/checkout@v3
-      - name: Publish (proton)
-        run: cargo publish --all-features -v --package proton --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+      - name: Publish (${{ matrix.package }})
+        run: cargo publish --all-features -v -p ${{ matrix.package }} --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
   

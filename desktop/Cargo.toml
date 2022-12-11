@@ -1,0 +1,30 @@
+[package]
+authors = ["FL03 <jo3mccain@icloud.com> (https://github.com/FL03)", "Scattered-Systems <jo3mccain@scattered-systems.com> (https://github.com/scattered-systems)"]
+build = "build.rs"
+categories = []
+description = "Proton is a personal computing platform powered by the scsys ecosystem"
+edition = "2021"
+keywords = ["scsys"]
+license = "Apache-2.0"
+name = "proton-desktop"
+readme = "README.md"
+repository = "https://github.com/scattered-systems/proton"
+version = "0.1.0"
+
+[features]
+default = [ "custom-protocol" ]
+custom-protocol = [ "tauri/custom-protocol" ]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+test = true
+
+[build-dependencies]
+tauri-build = { features = [], version = "1.2" }
+
+[dev-dependencies]
+
+[dependencies]
+# proton-sdk = { features = ["full"], path = "../crates/sdk", version = "0.1.0" }
+tauri = {  features = ["api-all"], version = "1.2" }
+

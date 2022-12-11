@@ -1,9 +1,11 @@
 tasks:
   - init: |
-      sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt install -y protobuf-compiler
+      sudo apt upgrade -y && sudo apt update -y && sudo apt autoremove -y
+      sudo apt-get install -y libdbus-1-dev libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf protobuf-compiler
+      npm install -g wasm-pack
       rustup default nightly
-      rustup target add wasm32-unknown-unknown wasm32-wasi --toolchain nightly
       rustup component add clippy rustfmt --toolchain nightly
-    command: cargo run -- system --up
-
-
+      rustup target add wasm32-unknown-unknown wasm32-wasi --toolchain nightly
+      cargo install trunk wasm-bindgen-cli tauri-cli
+      cp .env.example .env
+    command: cargo build --release --workspace

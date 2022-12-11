@@ -1,12 +1,12 @@
 /*
-    Appellation: proton <library>
+    Appellation: curiosity <lib>
     Contrib: FL03 <jo3mccain@icloud.com>
-    Description: ... Summary ...
+    Description: Curiosity is a sandbox wasm environment
 */
-pub use self::{settings::*, states::*};
+#[doc(inline)]
+pub use self::{actors::*, components::*, core::*, data::*};
 
-pub(crate) mod settings;
-pub(crate) mod states;
-
-pub mod api;
-pub mod cli;
+pub(crate) mod actors;
+pub(crate) mod components;
+pub(crate) mod core;
+pub(crate) mod data;
