@@ -17,7 +17,7 @@
     "bundle": {
       "active": true,
       "category": "DeveloperTool",
-      "copyright": "",
+      "copyright": "Scattered-Systems, DAO LLC",
       "deb": {
         "depends": []
       },
@@ -32,12 +32,12 @@
       ],
       "longDescription": "",
       "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "localhost",
         "frameworks": [],
         "minimumSystemVersion": "",
-        "exceptionDomain": "localhost",
-        "signingIdentity": null,
         "providerShortName": null,
-        "entitlements": null
+        "signingIdentity": null
       },
       "resources": [],
       "shortDescription": "",
