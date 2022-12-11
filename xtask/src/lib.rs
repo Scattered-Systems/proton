@@ -4,9 +4,12 @@
     Description: ... Summary ...
 */
 #[doc(inline)]
-pub use self::utils::*;
+pub use self::{primitives::*, utils::*};
 
 pub(crate) mod utils;
 
+pub mod cli;
 pub mod wasm;
 pub mod workspace;
+
+pub(crate) mod primitives;

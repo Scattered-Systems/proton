@@ -4,23 +4,15 @@
     Description: ... Summary ...
 */
 use proton_sdk::prelude::BoxResult;
-use proton_xtask::project_root;
-use std::{
-    fs,
-    path::PathBuf,
-    process::Command,
-};
+use proton_xtask::{dist_dir, project_root};
+use std::{fs, process::Command};
 
 use duct::cmd;
 use man::prelude::*;
 
 fn main() -> BoxResult {
     tracing_subscriber::fmt::init();
-    println!("{:?}", project_root());
-    if let Err(e) = Xtask::default().run() {
-        eprintln!("{}", e);
-        std::process::exit(-1);
-    };
+    proton_xtask::cli::CommandLineInterface::default().handler()?;
     Ok(())
 }
 
@@ -29,7 +21,6 @@ pub trait BuildPipeline {
     fn handle(&self) -> BoxResult<&Self>;
     fn run(&mut self) -> BoxResult;
     fn stage(&self) -> String;
-
 }
 
 #[derive(Default)]
@@ -37,7 +28,10 @@ pub struct Xtask;
 
 impl Xtask {
     pub fn dev(&self) -> BoxResult {
-        let cmd = cmd!("trunk").dir(project_root()).pipe(cmd!("--config", "proton/Trunk.toml", "serve")).run()?;
+        let cmd = cmd!("trunk")
+            .dir(project_root())
+            .pipe(cmd!("--config", "proton/Trunk.toml", "serve"))
+            .run()?;
         tracing::info!("{:?}", cmd);
 
         Ok(())
@@ -45,47 +39,76 @@ impl Xtask {
     pub fn dist(&self) -> BoxResult {
         let _ = fs::remove_dir_all(&dist_dir());
         fs::create_dir_all(&dist_dir())?;
-    
+
         dist_binary()?;
         // dist_manpage()?;
-    
+
         Ok(())
     }
     pub fn start(&self) -> BoxResult {
         let mut args = std::collections::HashMap::<&str, Vec<Vec<&str>>>::new();
         args.insert(
-            "trunk", 
-            vec![
-                vec!["--config", "proton/Trunk.toml", "serve"],
-            ]);
+            "trunk",
+            vec![vec!["--config", "proton/Trunk.toml", "serve"]],
+        );
         self.execute_bundle(args)?;
         Ok(())
     }
     pub fn workspace(&self) -> BoxResult {
         let mut args = std::collections::HashMap::<&str, Vec<Vec<&str>>>::new();
         args.insert(
-            "sudo", 
+            "sudo",
             vec![
-                vec!["apt", "update", "-y"], 
+                vec!["apt", "update", "-y"],
                 vec!["apt", "upgrade", "-y"],
                 vec!["apt", "autoremove", "-y"],
-                vec!["apt", "install", "-y", "libgtk-3-dev", "libwebkit2gtk-4.0-dev", "libappindicator3-dev", "librsvg2-dev", "patchelf", "protobuf-compiler"]
-                ]
-            );
-        args.insert("cargo", vec![vec!["install", "tauri-cli", "trunk", "wasm-bindgen-cli"]]);
+                vec![
+                    "apt",
+                    "install",
+                    "-y",
+                    "libgtk-3-dev",
+                    "libwebkit2gtk-4.0-dev",
+                    "libappindicator3-dev",
+                    "librsvg2-dev",
+                    "patchelf",
+                    "protobuf-compiler",
+                ],
+            ],
+        );
         args.insert(
-            "rustup", 
+            "cargo",
+            vec![vec!["install", "tauri-cli", "trunk", "wasm-bindgen-cli"]],
+        );
+        args.insert(
+            "rustup",
             vec![
-                vec!["default", "nightly"], 
-                vec!["target", "add", "wasm32-unknown-unknown", "wasm32-wasi", "--toolchain", "nightly"], 
-                vec!["component", "add", "clippy", "rustfmt", "--toolchain", "nightly"]
-                ]
-            );
+                vec!["default", "nightly"],
+                vec![
+                    "target",
+                    "add",
+                    "wasm32-unknown-unknown",
+                    "wasm32-wasi",
+                    "--toolchain",
+                    "nightly",
+                ],
+                vec![
+                    "component",
+                    "add",
+                    "clippy",
+                    "rustfmt",
+                    "--toolchain",
+                    "nightly",
+                ],
+            ],
+        );
         //
         self.execute_bundle(args)?;
         Ok(())
     }
-    pub fn execute_bundle(&self, args: std::collections::HashMap<&str, Vec<Vec<&str>>>) -> BoxResult<&Self> {
+    pub fn execute_bundle(
+        &self,
+        args: std::collections::HashMap<&str, Vec<Vec<&str>>>,
+    ) -> BoxResult<&Self> {
         for k in args.keys() {
             // Step 1: Rustup
             for i in 0..args[k].len() {
@@ -114,19 +137,13 @@ impl Xtask {
     }
 }
 
-pub enum Pipeline {
-    Auto, // CI-CD
-    Compile, // Refined build commands
-    Run, // Quickstart a development environment
-}
-
 pub enum Stages {
     Before,
     During,
     After,
     Initialization,
     Startup,
-    Shutdown
+    Shutdown,
 }
 
 fn print_help() {
@@ -134,14 +151,17 @@ fn print_help() {
         "Tasks:
 dev             Bootstrap's the application with a development server
 dist            builds application
-setup              An automated workspace configuration pipeline
+setup           Automated setup procedures for ubuntu*
 "
     )
 }
 
 fn dist_binary() -> BoxResult {
     tracing::info!("{:?}", "Started building the binaries...");
-    let a = cmd!("trunk").dir(project_root()).pipe(cmd!("--config", "proton/Trunk.toml", "build", "--release")).run();
+    let a = cmd!("trunk")
+        .dir(project_root())
+        .pipe(cmd!("--config", "proton/Trunk.toml", "build", "--release"))
+        .run();
     let cmd = "trunk".to_string();
     let status = Command::new(cmd)
         .current_dir(project_root())
@@ -173,8 +193,4 @@ fn dist_manpage() -> BoxResult {
         .render();
     fs::write(dist_dir().join("proton.wasm"), &page.to_string())?;
     Ok(())
-}
-
-fn dist_dir() -> PathBuf {
-    project_root().join(".artifacts/dist")
 }

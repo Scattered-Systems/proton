@@ -17,6 +17,7 @@ test = true
 [build-dependencies]
 
 [dependencies]
+clap = { features = ["derive"], version = "4.0.29" }
 devx-cmd = "0.5.0"
 devx-pre-commit = "0.5.0" 
 duct = "0.13.6"

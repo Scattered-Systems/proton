@@ -9,23 +9,47 @@
 
 Proton is a cloud-native platform manifesting the active decentralized namespace into a unique experience empowering everyday users to make use of blockchain technologies.
 
-## Installation
+## Getting Started
+
+### Building from the Source
+
+Make sure you have rust installed on your host system
+
+#### *Clone the repository*
+
+```bash
+git clone https://github.com/scattered-systems/proton
+```
+
+#### *Setup the environment*
+
+```bash
+cargo xtask setup
+```
+
+#### *Start the application*
+
+```bash
+cargo xtask start
+```
+
+### Docker
 
 Make sure you have docker installed on the target system
 
-### *Pull the image*
+#### *Pull the image*
 
 ```bash
-docker pull jo3mccain/template-cli-rs:latest
+docker pull scsys/proton:latest
 ```
 
-### *Build the image locally (optional)*
+#### *Build the image locally (optional)*
 
 ```bash
 docker buildx build --tag proton:latest .
 ```
 
-### *Run the image*
+#### *Run the image*
 
 ```bash
 docker run -p 9000:9000 proton:latest

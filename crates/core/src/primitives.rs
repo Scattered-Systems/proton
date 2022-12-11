@@ -5,7 +5,6 @@
 */
 pub use self::types::*;
 
-
 pub(crate) mod types {
     ///
     pub type AsyncError = Box<dyn std::error::Error + Send + Sync + 'static>;
