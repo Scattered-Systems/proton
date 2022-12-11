@@ -3,12 +3,11 @@
     Contrib: FL03 <jo3mccain@icloud.com>
     Description: ... Summary ...
 */
-
 use proton_xtask::{project_root, BaseResult};
 use std::{
-    env, fs,
+    fs,
     path::PathBuf,
-    process::{Command, Stdio},
+    process::Command,
 };
 
 use man::prelude::*;
@@ -31,6 +30,7 @@ impl Xtask {
         tracing::info!("{:?}", "Starting the build");
         let task = std::env::args().nth(1);
         let _res = match task.as_ref().map(|it| it.as_str()) {
+            Some("dev") => dev()?,
             Some("dist") => dist()?,
             _ => print_help(),
         };
@@ -41,7 +41,7 @@ impl Xtask {
 fn print_help() {
     eprintln!(
         "Tasks:
-
+dev             Bootstrap's the application with a development server
 dist            builds application
 "
     )
@@ -59,7 +59,7 @@ fn dist() -> BaseResult {
 
 fn dist_binary() -> BaseResult {
     tracing::info!("{:?}", "Started building the binaries...");
-    let cmd = env::var("TRUNK").unwrap_or_else(|_| "trunk".to_string());
+    let cmd = "trunk".to_string();
     let status = Command::new(cmd)
         .current_dir(project_root())
         .args(&["--config", "proton/Trunk.toml", "build", "--release"])
@@ -93,5 +93,15 @@ fn dist_manpage() -> BaseResult {
 }
 
 fn dist_dir() -> PathBuf {
-    project_root().join("target/dist")
+    project_root().join(".artifacts/dist")
+}
+
+fn dev() -> BaseResult {
+    let cmd = Command::new("trunk")
+        .current_dir(project_root())
+        .args(&["--config", "proton/Trunk.toml", "serve"])
+        .status()?;
+    tracing::info!("{:?}", cmd);
+
+    Ok(())
 }
