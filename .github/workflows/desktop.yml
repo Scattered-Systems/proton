@@ -9,11 +9,10 @@ on:
     - cron: "30 9 * * 5"
   workflow_dispatch:
     inputs:
-      publish:
-        default: true
-        description: 'Publish'
+      environment:
+        description: 'Environment'
+        type: environment
         required: true
-        type: boolean
 
 jobs:
   create-release:
@@ -23,12 +22,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: setup node
+      - name: setup
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: get version
-        run: echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
       - name: create release
         id: create-release
         uses: actions/github-script@v6
@@ -73,9 +70,28 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ needs.create-release.outputs.release_id }}
-
+  prerelease:
+    if: ${{ github.event.inputs.environment != "production" }}
+    needs: [create-release, build-tauri]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: publish release
+        id: publish-release
+        uses: actions/github-script@v6
+        env:
+          release_id: ${{ needs.create-release.outputs.release_id }}
+        with:
+          script: |
+            github.rest.repos.updateRelease({
+              configPath: 'desktop/tauri.conf.json',
+              draft: false,
+              prerelease: true,
+              owner: context.repo.owner,
+              release_id: process.env.release_id,
+              repo: context.repo.repo
+            })
   publish-release:
-    if: ${{ github.event.inputs.publish }}
+    if: ${{ github.event.inputs.environment == "production" }}
     needs: [create-release, build-tauri]
     runs-on: ubuntu-20.04
     steps:
