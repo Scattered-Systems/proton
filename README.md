@@ -1,6 +1,7 @@
 # proton
 
 [![Clippy](https://github.com/scattered-systems/proton/actions/workflows/clippy.yml/badge.svg)](https://github.com/scattered-systems/proton/actions/workflows/clippy.yml)
+[![Desktop](https://github.com/scattered-systems/proton/actions/workflows/desktop.yml/badge.svg)](https://github.com/scattered-systems/proton/actions/workflows/desktop.yml)
 [![Docker](https://github.com/scattered-systems/proton/actions/workflows/docker.yml/badge.svg)](https://github.com/scattered-systems/proton/actions/workflows/docker.yml)
 [![Rust](https://github.com/scattered-systems/proton/actions/workflows/rust.yml/badge.svg)](https://github.com/scattered-systems/proton/actions/workflows/rust.yml)
 

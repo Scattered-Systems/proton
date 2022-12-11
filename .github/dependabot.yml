@@ -17,7 +17,7 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: cargo
-    directory: /docker
+    directory: /xtask
     schedule:
       interval: daily
   - package-ecosystem: cargo
