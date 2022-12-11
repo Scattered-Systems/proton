@@ -70,12 +70,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ needs.create-release.outputs.release_id }}
-  prerelease:
-    if: ${{ github.event.inputs.environment != "production" }}
+  pre-release:
+    if: ${{ github.event.inputs.environment != 'production' }}
     needs: [create-release, build-tauri]
     runs-on: ubuntu-20.04
     steps:
-      - name: publish release
+      - name: publish pre-release
         id: publish-release
         uses: actions/github-script@v6
         env:
@@ -91,7 +91,7 @@ jobs:
               repo: context.repo.repo
             })
   publish-release:
-    if: ${{ github.event.inputs.environment == "production" }}
+    if: ${{ github.event.inputs.environment == 'production' }}
     needs: [create-release, build-tauri]
     runs-on: ubuntu-20.04
     steps:
