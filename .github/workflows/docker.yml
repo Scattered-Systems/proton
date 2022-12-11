@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker buildx build --tag ${{ env.IMAGE }} proton/Dockerfile
+        run: docker buildx build --tag ${{ env.IMAGE }} proton
   publish:
     # if: ${{ github.event.inputs.publish }}
     needs: build
