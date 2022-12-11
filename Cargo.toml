@@ -3,9 +3,11 @@ default-members = [
     "proton"
 ]
 exclude = [ "desktop" ]
+
 members = [
     "crates/*",
-    "proton"
+    "proton",
+    "xtask"
 ]
 
 [profile.dev]
@@ -29,3 +31,4 @@ panic = "unwind"
 rpath = false
 opt-level = "z"
 overflow-checks = false
+

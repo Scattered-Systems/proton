@@ -1,7 +1,7 @@
 /*
-    Appellation: curiosity <lib>
+    Appellation: proton <library>
     Contrib: FL03 <jo3mccain@icloud.com>
-    Description: Curiosity is a sandbox wasm environment
+    Description: ... Summary ...
 */
 #[doc(inline)]
 pub use self::{actors::*, components::*, core::*, data::*};

@@ -20,19 +20,18 @@ on:
         type: boolean
 
 jobs:
-  create-release:
+  constructor:
     runs-on: ubuntu-20.04
     outputs:
-      release_id: ${{ steps.create-release.outputs.result }}
+      release_id: ${{ steps.constructor.outputs.result }}
     steps:
       - uses: actions/checkout@v3
       - name: setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: get version
-        run: echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
-      - name: create release
+      - run: echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+      - name: release
         id: create-release
         uses: actions/github-script@v6
         with:
@@ -48,13 +47,12 @@ jobs:
               prerelease: false
             })
             return data.id
-  build-tauri:
-    needs: create-release
+  builder:
+    needs: constructor
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-20.04, windows-latest]
-
+        platform: [ macos-latest, ubuntu-20.04, windows-latest ]
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v3
@@ -62,36 +60,34 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: install Rust stable
+      - name: rust (stable)
         uses: dtolnay/rust-toolchain@stable
-      - name: configure environment
+      - name: langspace
         run: |
           rustup default nightly
           rustup target add wasm32-unknown-unknown wasm32-wasi --toolchain nightly
           cargo install trunk wasm-bindgen-cli
-      - name: install dependencies (ubuntu only)
+      - name: configure environment (ubuntu only)
         if: matrix.platform == 'ubuntu-20.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
-      - name: install app dependencies and build it
-        run: trunk build
+      - run: trunk build
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          releaseId: ${{ needs.create-release.outputs.release_id }}
+          releaseId: ${{ needs.constructor.outputs.release_id }}
 
-  publish-release:
-#     if: ${{ github.event.inputs.release }}
-    needs: [create-release, build-tauri]
+  release:
+    needs: [ builder, constructor ]
     runs-on: ubuntu-20.04
     steps:
       - name: publish release
         id: publish-release
         uses: actions/github-script@v6
         env:
-          release_id: ${{ needs.create-release.outputs.release_id }}
+          release_id: ${{ needs.constructor.outputs.release_id }}
         with:
           script: |
             github.rest.repos.updateRelease({
