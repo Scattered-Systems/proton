@@ -25,3 +25,7 @@ test = true
 
 [dependencies]
 proton-core = { features = [], optional = true, path = "../core", version = "0.1.0" }
+
+[target.wasm32-unknown-unknown]
+
+[target.wasm32-wasi]

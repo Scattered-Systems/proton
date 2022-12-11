@@ -10,6 +10,3 @@ pub(crate) mod utils;
 
 pub mod wasm;
 pub mod workspace;
-
-pub type BoxError = Box<dyn std::error::Error>;
-pub type BaseResult<T = ()> = Result<T, Box<dyn std::error::Error>>;
