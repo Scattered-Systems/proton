@@ -4,9 +4,9 @@
     "version": "0.1.0"
   },
   "build": {
-    "distDir": "../dist",
-    "devPath": "http://localhost:8000",
-    "beforeDevCommand": "trunk serve --config ../Trunk.toml",
+    "devPath": "../proton",
+    "distDir": "../proton/dist",
+    "beforeDevCommand": "trunk serve",
     "beforeBuildCommand": "trunk build",
     "withGlobalTauri": false
   },

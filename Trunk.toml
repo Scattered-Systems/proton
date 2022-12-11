@@ -1,5 +1,5 @@
 [build]
-dist = "dist"
+dist = "proton/dist"
 filehash = true
 public_url = "/"
 release = true
