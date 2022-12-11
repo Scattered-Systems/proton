@@ -4,20 +4,15 @@
     "version": "0.1.0"
   },
   "build": {
-    "beforeBuildCommand": "trunk build",
-    "beforeDevCommand": "trunk serve",
-    "devPath": "http://localhost:8000",
     "distDir": "../dist",
+    "devPath": "http://localhost:8000",
+    "beforeDevCommand": "trunk serve",
+    "beforeBuildCommand": "trunk build",
     "withGlobalTauri": true
   },
-  
   "tauri": {
     "allowlist": {
-      "all": true,
-      "shell": {
-        "sidecar": true,
-        "scope": []
-      }
+      "all": true
     },
     "bundle": {
       "active": true,
