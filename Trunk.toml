@@ -1,0 +1,30 @@
+[build]
+dist = "proton/dist"
+filehash = true
+public_url = "/"
+release = false
+target = "proton/index.html"
+
+[watch]
+watch = []
+ignore = []
+
+[serve]
+address = "127.0.0.1"
+no_autoreload = false
+open = false
+port = 8000
+
+[clean]
+cargo = false
+dist = "dist"
+
+[tools]
+sass = "1.54.9"
+wasm_bindgen = "0.2.83"
+wasm_opt = "version_110"
+
+[[hooks]]
+command = "echo"
+command_arguments = ["Hello", "Trunk!"]
+stage = "pre_build"

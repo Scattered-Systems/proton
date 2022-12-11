@@ -12,7 +12,8 @@ repository = "https://github.com/scattered-systems/proton"
 version = "0.1.0"
 
 [features]
-default = []
+default = [ "custom-protocol" ]
+custom-protocol = [ "tauri/custom-protocol" ]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -25,5 +26,5 @@ tauri-build = { features = [], version = "1.2" }
 
 [dependencies]
 # proton-sdk = { features = ["full"], path = "../crates/sdk", version = "0.1.0" }
-tauri = { version = "1.2", features = ["api-all"] }
+tauri = {  features = ["api-all"], version = "1.2" }
 

@@ -8,12 +8,12 @@ use yew::prelude::*;
 #[function_component(NavbarLogo)]
 pub fn navbar_logo() -> Html {
     let logo = "https://pzzld.eth.limo/_app/immutable/assets/favicon-7286b642.png";
-    let title = "Curiosity";
+    let title = "Proton";
     html! {
        <a class="flex max-w-sm px-3 py-1" href="/" >
            <button class="flex flex-auto nowrap hover:opacity-95 w-full">
                <img alt="#" class="mr-3 h-6 sm:h-9 rounded-full" src={logo} />
-               <span class="self-center text-xl font-semibold whitespace-nowrap prose text-white">
+               <span class="self-center font-semibold whitespace-nowrap prose prose-invert prose-2xl">
                    {title}
                </span>
            </button>
