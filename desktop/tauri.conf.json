@@ -3,7 +3,7 @@
       "beforeBuildCommand": "trunk build",
       "beforeDevCommand": "trunk serve",
       "devPath": "http://localhost:8000",
-      "distDir": "../proton/dist",
+      "distDir": "../dist",
       "withGlobalTauri": true
     },
     "package": {
@@ -15,8 +15,7 @@
         "all": true,
         "shell": {
           "sidecar": true,
-          "scope": [
-          ]
+          "scope": []
         }
       },
       "bundle": {

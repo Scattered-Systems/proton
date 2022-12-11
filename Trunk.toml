@@ -1,9 +1,13 @@
 [build]
-dist = "proton/dist"
+dist = "dist"
 filehash = true
 public_url = "/"
 release = true
 target = "proton/index.html"
+
+[clean]
+cargo = false
+dist = "dist"
 
 [watch]
 watch = []
@@ -14,10 +18,6 @@ address = "127.0.0.1"
 no_autoreload = false
 open = false
 port = 8000
-
-[clean]
-cargo = false
-dist = "dist"
 
 [tools]
 sass = "1.54.9"
