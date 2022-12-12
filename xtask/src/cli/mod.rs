@@ -25,6 +25,10 @@ pub(crate) mod interface {
         pub command: Option<Commands>,
         #[arg(action = clap::ArgAction::SetTrue, long, short)]
         pub debug: bool,
+        #[arg(action = clap::ArgAction::SetTrue, long)]
+        pub desktop: bool,
+        #[arg(action = clap::ArgAction::SetTrue, long, short)]
+        pub release: bool,
         #[arg(action = clap::ArgAction::SetTrue, long, short)]
         pub update: bool,
     }

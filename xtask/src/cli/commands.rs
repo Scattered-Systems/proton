@@ -3,7 +3,7 @@
     Contrib: FL03 <jo3mccain@icloud.com>
     Description: ... Summary ...
 */
-use crate::{copy_dir_all, dist_dir, execute_bundle, project_root};
+use crate::{copy_dir_all, dist_dir, execute_bundle, project_root, Bundle};
 use clap::{Args, Subcommand, ValueEnum};
 use duct::cmd;
 use proton_sdk::prelude::BoxResult;
@@ -12,6 +12,7 @@ use std::process::Command;
 #[derive(Clone, Copy, Debug, Hash, PartialEq, ValueEnum)]
 pub enum OperatingSystem {
     Debian,
+    MacOS,
     Ubuntu,
     Windows
 }
@@ -34,6 +35,8 @@ pub enum Setup {
 pub enum Commands {
     Compile {
         #[arg(action = clap::ArgAction::SetTrue, long, short)]
+        desktop: bool,
+        #[arg(action = clap::ArgAction::SetTrue, long, short)]
         workspace: bool,
     },
     Create {
@@ -48,6 +51,8 @@ pub enum Commands {
     },
     Start {
         #[arg(action = clap::ArgAction::SetTrue, long, short)]
+        desktop: bool,
+        #[arg(action = clap::ArgAction::SetTrue, long, short)]
         dev: bool,
     },
 }
@@ -56,10 +61,9 @@ impl Commands {
     pub fn handler(&self) -> BoxResult<&Self> {
         tracing::info!("Processing commands issued to the cli...");
         match self {
-            Self::Compile { workspace } => {
-                compile()?;
-
-                println!("{:?}", workspace.clone());
+            Self::Compile { desktop, workspace } => {
+                tracing::info!("Compiling the codebase...");
+                compile(desktop.clone(), workspace.clone())?;
             }
             Self::Create { name } => {
                 println!("{:?}", name.clone());
@@ -68,35 +72,40 @@ impl Commands {
                 tracing::info!("Setting up the environment...");
                 workspace(mode.clone(), os.clone())?;
             }
-            Self::Start { dev } => {
+            Self::Start { desktop, dev } => {
                 tracing::info!("Initializing the application server...");
-                start(dev.clone())?;
+                start(desktop.clone(), dev.clone())?;
             }
         };
         Ok(self)
     }
 }
 
-pub fn compile() -> BoxResult {
+pub fn compile(desktop: bool, workspace: bool) -> BoxResult {
     let _ = std::fs::remove_dir_all(&dist_dir());
     std::fs::create_dir_all(&dist_dir())?;
+    let mut cmds = Bundle::<&str>::new();
 
-    let cmd = cmd!("trunk")
-        .dir(project_root())
-        .pipe(cmd!("--config", "proton/Trunk.toml", "build", "--release"))
-        .run();
+    if desktop {
+        tracing::info!("Building for desktops...");
+        cmds.insert(
+            "cargo",
+            vec![vec!["tauri", "build", "--config", "proton/Trunk.toml"]]
+        );
+        let dst = project_root().join("desktop/target/release/bundle/");
 
-    if !cmd.is_err() {
-        tracing::info!("{:?}", "Failed to complete the build...");
-        Err("Build failed")?;
+        copy_dir_all(&dst, dist_dir().join("bundle"))?;
+    } else {
+        cmds.insert(
+            "trunk",
+            vec![vec!["--config", "proton/Trunk.toml", "build", "--release"]]
+        );
+        let dst = project_root().join("proton/dist/");
+
+        copy_dir_all(&dst, dist_dir().join("proton/"))?;
     }
 
-    let dst = project_root().join("proton/dist/");
-
-    copy_dir_all(&dst, dist_dir().join("proton"))?;
-
-    eprintln!("Cleaning up binaries");
-    let tmp = dist_dir().join("proton").display().to_string();
+    let tmp = dist_dir().display().to_string();
     // List the contents of the recently created bundle
     Command::new("ls")
         .current_dir(project_root())
@@ -106,20 +115,39 @@ pub fn compile() -> BoxResult {
     Ok(())
 }
 
-pub fn start(dev: bool) -> BoxResult {
-    let mut args = std::collections::HashMap::<&str, Vec<Vec<&str>>>::new();
-    args.insert(
-        "trunk",
-        vec![vec!["--config", "proton/Trunk.toml", "serve"]],
-    );
+///
+pub fn start(desktop: bool, dev: bool) -> BoxResult {
+    let mut args = Bundle::<&str>::new();
+    if desktop {
+        args.insert(
+            "cargo",
+            vec![vec!["tauri", "dev", "--config", "desktop/tauri.conf.json"]]
+        );
+    } else {
+        if dev {
+            args.insert(
+                "trunk",
+                vec![vec!["--config", "proton/Trunk.toml", "serve"]],
+            );
+        } else {
+            args.insert(
+                "trunk",
+                vec![vec!["--config", "proton/Trunk.toml", "serve", "--release"]],
+            );
+        };
+    };
+    
+    
     execute_bundle(args)?;
     Ok(())
 }
+/// Handler for configuring the workspace
 pub fn workspace(mode: Option<Setup>, os: Option<OperatingSystem>) -> BoxResult {
     let mut args = crate::Bundle::new();
     if os.is_some() {
         match os.unwrap().clone() {
-            OperatingSystem::Debian => {}
+            OperatingSystem::Debian => {},
+            OperatingSystem::MacOS => {},
             OperatingSystem::Ubuntu => {
                 args.insert(
                     "sudo",
@@ -140,7 +168,7 @@ pub fn workspace(mode: Option<Setup>, os: Option<OperatingSystem>) -> BoxResult 
                         ],
                     ],
                 );
-            }
+            },
             OperatingSystem::Windows => {}
         };
     }
