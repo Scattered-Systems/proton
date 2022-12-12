@@ -10,11 +10,16 @@ use proton_sdk::prelude::BoxResult;
 use std::process::Command;
 
 #[derive(Clone, Copy, Debug, Hash, PartialEq, ValueEnum)]
-pub enum OperatingSystem {
+pub enum Linux {
     Debian,
-    MacOS,
-    Ubuntu,
-    Windows
+    Ubuntu
+}
+
+#[derive(Clone, Copy, Debug, Hash, PartialEq, ValueEnum)]
+pub enum OperatingSystem {
+    Linux(Linux) = 0,
+    MacOS = 1,
+    Windows = 2
 }
 
 impl Default for OperatingSystem {
