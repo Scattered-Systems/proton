@@ -1,0 +1,25 @@
+
+
+pipelines:
+  rustup:
+    default: nightly
+    flags:
+    commands:
+      component:
+        add:
+          - clippy
+          - rustfmt
+      target:
+        add:
+          - nightly
+  sudo:
+    flags: 
+      - -y
+    commands: 
+      install:
+        - libgtk-3-dev
+        - libwebkit2gtk-4.0-dev
+        - libappindicator3-dev
+        - librsvg2-dev-
+        - patchelf
+        - protobuf-compiler

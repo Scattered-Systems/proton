@@ -27,12 +27,12 @@ jobs:
           - wasm32-unknown-unknown
     steps:
       - uses: actions/checkout@v3
-      - name: Setup
-        run: |
-          rustup default nightly
-          rustup target add ${{ matrix.target }} --toolchain nightly
-      - run: cargo build -v --release --workspace --target ${{ matrix.target }}
-      - run: cargo test --all --all-features -v --target ${{ matrix.target }}
+      - name: setup
+        run: rustup default nightly && rustup target add ${{ matrix.target }} --toolchain nightly
+      - name: build
+        run: cargo build -v --release --workspace --target ${{ matrix.target }}
+      - name: test
+        run: cargo test --all --all-features -v --target ${{ matrix.target }}
   features:
     if: ${{ github.event.inputs.publish }}
     needs: [ build ]

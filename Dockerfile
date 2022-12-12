@@ -1,3 +1,12 @@
+FROM scratch as cache
+
+RUN mkdir config cache data workspace
+
+VOLUME [ "/config" ]
+VOLUME [ "/cache"]
+VOLUME [ "/data" ]
+VOLUME [ "/workspace" ]
+
 FROM rust:latest as base
 
 RUN apt-get update -y && apt-get upgrade -y
@@ -13,8 +22,8 @@ RUN cargo install trunk wasm-bindgen-cli
 
 FROM trunkrs-base as builder
 
-ADD . /app
-WORKDIR /app
+ADD . /workspace
+WORKDIR /workspace
 
 COPY . .
 RUN trunk build --release
@@ -26,5 +35,5 @@ ENV PORT=8000
 EXPOSE 80
 EXPOSE ${PORT}
 
-ENTRYPOINT [ "trunk" ]
-CMD [ "serve", "--release" ]
+ENTRYPOINT [ "cargo", "xtask" ]
+CMD [ "start", "--release" ]

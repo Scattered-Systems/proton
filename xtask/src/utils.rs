@@ -3,8 +3,25 @@
     Contrib: FL03 <jo3mccain@icloud.com>
     Description: ... Summary ...
 */
+use proton_sdk::prelude::BoxResult;
 use std::path::{Path, PathBuf};
-use std::{fs, io};
+use std::{collections::HashMap, fs, io, process::Command};
+
+pub fn dist_dir() -> PathBuf {
+    project_root().join(".artifacts/dist")
+}
+
+pub fn execute_bundle(bundle: HashMap<&str, Vec<Vec<&str>>>) -> BoxResult {
+    for k in bundle.keys() {
+        // Step 1: Rustup
+        for i in 0..bundle[k].len() {
+            let mut cmd = Command::new(k);
+            cmd.current_dir(project_root());
+            cmd.args(bundle[k][i].clone().as_slice()).status()?;
+        }
+    }
+    Ok(())
+}
 
 /// Fetch the project root unless specified otherwise with a CARGO_MANIFEST_DIR env variable
 pub fn project_root() -> PathBuf {

@@ -3,8 +3,8 @@
     Contrib: FL03 <jo3mccain@icloud.com>
     Description: ... summary ...
 */
-use proton::App;
+include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
 
 fn main() {
-    yew::Renderer::<App>::new().render();
+    yew::Renderer::<proton_wasm::App>::new().render();
 }
