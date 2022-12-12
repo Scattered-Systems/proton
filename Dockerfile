@@ -40,4 +40,4 @@ EXPOSE 80
 EXPOSE ${PORT}
 
 ENTRYPOINT [ "cargo", "xtask" ]
-CMD [ "start", "--release" ]
+CMD [ "start" ]
