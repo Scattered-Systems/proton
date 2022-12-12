@@ -27,14 +27,20 @@ pub fn navbar() -> Html {
     html! {
         <nav class="bg-transparent text-white flex flex-nowrap items-center justify-between min-w-full max-w-screen sticky top-0 m-0 p-3 inset-x-0 z-50">
             <div class="flex flex-auto items-center justify-center">
-                <NavbarLogo/>
+                <div class="flex flex-auto sm:grow">
+                    <NavbarLogo/>
+                </div>
                 <div class="lg:flex grow items-center justify-start sm:hidden xs:hidden" id="main-menu">
                     <ul class="flex-inline list-none">
                         <li><a href="https://pzzld.eth.limo">{"Home"}</a></li>
                     </ul>
                 </div>
                 <div class="justify-end">
-                <slot/>
+                    <button
+                        class={"bg-gradient-to-br from-cyan-300 via-cyan-400 to-cyan-500 flex flex-auto items-center justify-center max-w-sm mx-auto px-3 py-1 rounded text-white"}
+                    >
+                        {"Control Panel"}
+                    </button>
                 </div>
             </div>
 

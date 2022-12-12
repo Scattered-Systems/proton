@@ -10,11 +10,11 @@ pipelines:
           - clippy
           - rustfmt
       target:
-        add:
-          - nightly
+        - wasm32-unknown-unknown
+        - wasm32-wasi
+      toolchain: [ "nightly" ]
   sudo:
-    flags: 
-      - -y
+    flags: [ "-y" ]
     commands: 
       install:
         - libgtk-3-dev
