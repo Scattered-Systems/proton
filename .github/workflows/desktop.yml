@@ -42,10 +42,10 @@ jobs:
             const { data } = await github.rest.repos.createRelease({
               body: 'View the assets bundled below to find a suitable installer for your host system',
               configPath: 'desktop/tauri.conf.json',
-              draft: ${{ github.event.inputs.release }},
+              draft: false,
               name: `Proton v${process.env.PACKAGE_VERSION}`,
               owner: context.repo.owner,
-              prerelease: ${{ github.event.inputs.release }},
+              prerelease: false,
               repo: context.repo.repo,
               tag_name: `proton-v${process.env.PACKAGE_VERSION}`
             })
@@ -76,11 +76,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ needs.constructor.outputs.release_id }}
-  release:
+  pre-release:
     needs: [ builder, constructor ]
     runs-on: ubuntu-20.04
     steps:
-      - name: publish release
+      - name: publish pre-release
         id: publish-release
         uses: actions/github-script@v6
         env:
@@ -90,7 +90,7 @@ jobs:
             github.rest.repos.updateRelease({
               configPath: 'desktop/tauri.conf.json',
               draft: false,
-              prerelease: ${{ github.event.inputs.release }},
+              prerelease: true,
               owner: context.repo.owner,
               release_id: process.env.release_id,
               repo: context.repo.repo
