@@ -63,10 +63,7 @@ jobs:
       - name: rust (stable)
         uses: dtolnay/rust-toolchain@stable
       - name: langspace
-        run: |
-          rustup default nightly
-          rustup target add wasm32-unknown-unknown wasm32-wasi --toolchain nightly
-          cargo install trunk wasm-bindgen-cli
+        run: cargo xtask langspace
       - name: configure environment (ubuntu only)
         if: matrix.platform == 'ubuntu-20.04'
         run: |

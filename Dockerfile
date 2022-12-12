@@ -2,10 +2,10 @@ FROM scratch as cache
 
 RUN mkdir config cache data workspace
 
-VOLUME [ "/config" ]
+VOLUME [ "/artifacts" ]
 VOLUME [ "/cache"]
+VOLUME [ "/config" ]
 VOLUME [ "/data" ]
-VOLUME [ "/workspace" ]
 
 FROM rust:latest as base
 
@@ -26,7 +26,11 @@ ADD . /workspace
 WORKDIR /workspace
 
 COPY . .
-RUN trunk build --release
+RUN cargo xtask compile
+
+FROM cache as cache-build
+
+COPY --from=builder /workspace/target/dist /dist
 
 FROM builder as development
 

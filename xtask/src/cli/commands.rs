@@ -4,13 +4,29 @@
     Description: ... Summary ...
 */
 use crate::{copy_dir_all, dist_dir, execute_bundle, project_root};
-use clap::Subcommand;
+use clap::{Args, Subcommand, ValueEnum};
 use duct::cmd;
 use proton_sdk::prelude::BoxResult;
 use std::process::Command;
 
+#[derive(Clone, Copy, Debug, Hash, PartialEq, ValueEnum)]
+pub enum OperatingSystem {
+    Debian,
+    Ubuntu,
+    Windows
+}
+
+impl Default for OperatingSystem {
+    fn default() -> Self {
+        Self::Ubuntu
+    }
+}
+
+#[derive(Clone, Copy, Debug, Default, Hash, PartialEq, ValueEnum)]
 pub enum Setup {
     Desktop,
+    Extras,
+    #[default]
     Langspace,
 }
 
@@ -25,8 +41,10 @@ pub enum Commands {
         name: String,
     },
     Setup {
-        #[arg(action = clap::ArgAction::SetTrue, long, short)]
-        linux: bool,
+        #[clap(value_enum)]
+        mode: Option<Setup>,
+        #[clap(value_enum)]
+        os: Option<OperatingSystem>,
     },
     Start {
         #[arg(action = clap::ArgAction::SetTrue, long, short)]
@@ -46,9 +64,9 @@ impl Commands {
             Self::Create { name } => {
                 println!("{:?}", name.clone());
             }
-            Self::Setup { linux } => {
+            Self::Setup { mode, os } => {
                 tracing::info!("Setting up the environment...");
-                workspace(linux.clone())?;
+                workspace(mode.clone(), os.clone())?;
             }
             Self::Start { dev } => {
                 tracing::info!("Initializing the application server...");
@@ -97,55 +115,84 @@ pub fn start(dev: bool) -> BoxResult {
     execute_bundle(args)?;
     Ok(())
 }
-pub fn workspace(linux: bool) -> BoxResult {
-    let mut args = std::collections::HashMap::<&str, Vec<Vec<&str>>>::new();
-    if linux {
-        args.insert(
-            "sudo",
-            vec![
-                vec!["apt", "update", "-y"],
-                vec!["apt", "upgrade", "-y"],
-                vec!["apt", "autoremove", "-y"],
-                vec![
-                    "apt",
-                    "install",
-                    "-y",
-                    "libgtk-3-dev",
-                    "libwebkit2gtk-4.0-dev",
-                    "libappindicator3-dev",
-                    "librsvg2-dev",
-                    "patchelf",
-                    "protobuf-compiler",
-                ],
-            ],
-        );
+pub fn workspace(mode: Option<Setup>, os: Option<OperatingSystem>) -> BoxResult {
+    let mut args = crate::Bundle::new();
+    if os.is_some() {
+        match os.unwrap().clone() {
+            OperatingSystem::Debian => {}
+            OperatingSystem::Ubuntu => {
+                args.insert(
+                    "sudo",
+                    vec![
+                        vec!["apt", "update", "-y"],
+                        vec!["apt", "upgrade", "-y"],
+                        vec!["apt", "autoremove", "-y"],
+                        vec![
+                            "apt",
+                            "install",
+                            "-y",
+                            "libgtk-3-dev",
+                            "libwebkit2gtk-4.0-dev",
+                            "libappindicator3-dev",
+                            "librsvg2-dev",
+                            "patchelf",
+                            "protobuf-compiler",
+                        ],
+                    ],
+                );
+            }
+            OperatingSystem::Windows => {}
+        };
     }
-    args.insert(
-        "cargo",
-        vec![vec!["install", "tauri-cli", "trunk", "wasm-bindgen-cli"]],
-    );
-    args.insert(
-        "rustup",
-        vec![
-            vec!["default", "nightly"],
-            vec![
-                "target",
-                "add",
-                "wasm32-unknown-unknown",
-                "wasm32-wasi",
-                "--toolchain",
-                "nightly",
-            ],
-            vec![
-                "component",
-                "add",
-                "clippy",
-                "rustfmt",
-                "--toolchain",
-                "nightly",
-            ],
-        ],
-    );
+    if mode.is_some() {
+        match mode.unwrap().clone() {
+            Setup::Desktop => {
+                args.insert(
+                    "cargo",
+                    vec![vec!["install", "tauri-cli"]],
+                );
+            },
+            Setup::Extras => {
+                args.insert(
+                    "rustup",
+                    vec![
+                        vec!["default", "nightly"],
+                        vec![
+                            "target",
+                            "add",
+                            "wasm32-unknown-unknown",
+                            "wasm32-wasi",
+                            "--toolchain",
+                            "nightly",
+                        ],
+                    ],
+                );
+            },
+            Setup::Langspace => {
+                args.insert(
+                    "rustup",
+                    vec![
+                        vec!["default", "nightly"],
+                        vec![
+                            "target",
+                            "add",
+                            "wasm32-unknown-unknown",
+                            "wasm32-wasi",
+                            "--toolchain",
+                            "nightly",
+                        ],
+                    ],
+                );
+                args.insert(
+                    "cargo",
+                    vec![vec!["install", "trunk", "wasm-bindgen-cli"]],
+                );
+            }
+        };
+    }
+    
+    
+    
     //
     execute_bundle(args)?;
     Ok(())

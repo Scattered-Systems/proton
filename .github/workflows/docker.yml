@@ -30,5 +30,7 @@ jobs:
         dockerfile: Dockerfile
         name: ${{ env.image }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+        snapshot: true
+        tags: latest, ${{ process.env.PACKAGE_VERSION }}
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         
