@@ -6,8 +6,8 @@
   "build": {
     "devPath": "../proton",
     "distDir": "../proton/dist",
-    "beforeDevCommand": "trunk serve",
-    "beforeBuildCommand": "trunk build",
+    "beforeDevCommand": "cargo xtask start",
+    "beforeBuildCommand": "cargo xtask compile",
     "withGlobalTauri": false
   },
   "tauri": {
@@ -16,7 +16,7 @@
     },
     "bundle": {
       "active": true,
-      "category": "DeveloperTool",
+      "category": "Productivity",
       "copyright": "Scattered-Systems, DAO LLC",
       "deb": {
         "depends": []
