@@ -35,5 +35,5 @@ ENV PORT=8000
 EXPOSE 80
 EXPOSE ${PORT}
 
-ENTRYPOINT [ "trunk" ]
-CMD [ "serve", "--release" ]
+ENTRYPOINT [ "cargo", "xtask" ]
+CMD [ "start", "--release" ]

@@ -46,19 +46,21 @@ docker pull scsys/proton:latest
 #### *Build the image locally (optional)*
 
 ```bash
-docker buildx build --tag proton:latest .
+docker buildx build --tag scsys/proton:latest .
 ```
 
 #### *Run the image*
 
 ```bash
-docker run -p 9000:9000 proton:latest
+docker run -p 9000:9000 scsys/proton:latest
 ```
 
 ## Usage
 
+### Builder (xtask)
+
 ```bash
-    cli -h 
+    cargo xtask -h 
 ```
 
 ## Contributors
@@ -69,5 +71,5 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-* [Apache-2.0](https://choosealicense.com/licenses/apache-2.0/)
-* [MIT](https://choosealicense.com/licenses/mit/)
+- [Apache-2.0](https://choosealicense.com/licenses/apache-2.0/)
+- [MIT](https://choosealicense.com/licenses/mit/)

@@ -1,12 +1,13 @@
 [package]
 authors = ["FL03 <jo3mccain@icloud.com> (https://github.com/FL03)"]
+build = "build.rs"
 categories = []
 description = "proton"
 edition = "2021"
 homepage = "https://github.com/scattered-systems/proton/wiki"
 keywords = ["wasm"]
 license = "Apache-2.0"
-name = "proton"
+name = "proton-wasm"
 repository = "https://github.com/scattered-systems/proton"
 version = "0.1.0"
 
@@ -17,8 +18,12 @@ default = []
 crate-type = ["cdylib", "rlib"]
 test = true
 
+[[bin]]
+name = "proton"
+path = "src/bin/main.rs"
+
 [build-dependencies]
-yew = "0.20.0"
+substrate-wasm-builder = "4.0.0"
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3.33"

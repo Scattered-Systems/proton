@@ -9,6 +9,11 @@ use duct::cmd;
 use proton_sdk::prelude::BoxResult;
 use std::process::Command;
 
+pub enum Setup {
+    Desktop,
+    Langspace,
+}
+
 #[derive(Clone, Debug, Hash, PartialEq, Subcommand)]
 pub enum Commands {
     Compile {
