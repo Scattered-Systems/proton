@@ -21,16 +21,11 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        target:
-          - wasm32-unknown-unknown
     steps:
       - uses: actions/checkout@v3
-      - name: setup
-        run: rustup default nightly && rustup target add ${{ matrix.target }} --toolchain nightly
+      - run: cargo xtask setup langspace ubuntu
       - name: build
-        run: cargo build -v --release --workspace --target ${{ matrix.target }}
+        run: cargo xtask compile
       - name: test
         run: cargo test --all --all-features -v --target ${{ matrix.target }}
   features:

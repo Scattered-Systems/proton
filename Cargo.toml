@@ -2,12 +2,14 @@
 default-members = [
     "proton"
 ]
-exclude = [ "desktop" ]
+exclude = [ 
+    "desktop",
+    "xtask"
+]
 
 members = [
     "crates/*",
     "proton",
-    "xtask"
 ]
 
 [profile.dev]
