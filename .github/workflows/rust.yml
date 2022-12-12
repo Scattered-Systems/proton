@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: cargo xtask setup langspace
+      - run: cargo xtask setup
       - name: build
         run: cargo xtask compile
       - name: test
@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Setup
-        run: cargo xtask setup langspace
+        run: cargo xtask setup
       - name: Publish (${{matrix.package}})
         run: cargo publish --all-features -v -p ${{ matrix.package }} --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
   sdk:
@@ -51,7 +51,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Setup
-        run: cargo xtask setup langspace
+        run: cargo xtask setup
       - name: Publish (proton-sdk)
         run: cargo publish --all-features -v -p proton-sdk --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
   apps:
@@ -66,7 +66,7 @@ jobs:
           - proton
     steps:
       - uses: actions/checkout@v3
-      - run: cargo xtask setup langspace
+      - run: cargo xtask setup
       - name: Publish (${{ matrix.package }})
         run: cargo publish --all-features -v -p ${{ matrix.package }} --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
   
