@@ -10,6 +10,12 @@ use proton_sdk::prelude::BoxResult;
 use std::process::Command;
 
 #[derive(Clone, Copy, Debug, Default, Hash, PartialEq, ValueEnum)]
+pub enum Target {
+    #[default]
+    Wasm32UnknownUnknown = 0
+}
+
+#[derive(Clone, Copy, Debug, Default, Hash, PartialEq, ValueEnum)]
 pub enum Linux {
     Debian,
     #[default]
@@ -49,8 +55,8 @@ pub enum Commands {
         linux: Option<Linux>,
     },
     Start {
-        #[arg(action = clap::ArgAction::SetTrue, long, short)]
-        dev: bool,
+        #[clap(value_enum)]
+        target: Option<Target>,
     },
 }
 
@@ -60,7 +66,7 @@ impl Commands {
         match self {
             Self::Compile { workspace } => {
                 tracing::info!("Compiling the codebase...");
-                compile(desktop, *workspace)?;
+                handle_compile(desktop, *workspace)?;
             }
             Self::Create { name } => {
                 println!("{:?}", name.clone());
@@ -69,16 +75,16 @@ impl Commands {
                 tracing::info!("Setting up the environment...");
                 handle_setup(desktop, extras.clone(), linux.clone())?;
             }
-            Self::Start { dev } => {
+            Self::Start { target } => {
                 tracing::info!("Initializing the application server...");
-                start(desktop, *dev)?;
+                handle_start(desktop, release, target.clone())?;
             }
         };
         Ok(self)
     }
 }
 
-pub fn compile(desktop: bool, workspace: bool) -> BoxResult {
+pub fn handle_compile(desktop: bool, workspace: bool) -> BoxResult {
     let _ = std::fs::remove_dir_all(&dist_dir());
     std::fs::create_dir_all(&dist_dir())?;
     let mut cmds = Bundle::<&str>::new();
@@ -117,7 +123,7 @@ pub fn compile(desktop: bool, workspace: bool) -> BoxResult {
 }
 
 ///
-pub fn start(desktop: bool, dev: bool) -> BoxResult {
+pub fn handle_start(desktop: bool, release: bool, target: Option<Target>) -> BoxResult {
     let mut args = Bundle::<&str>::new();
     if desktop {
         args.insert(
@@ -125,17 +131,14 @@ pub fn start(desktop: bool, dev: bool) -> BoxResult {
             vec![vec!["tauri", "dev", "--config", "desktop/tauri.conf.json"]]
         );
     } else {
-        if dev {
-            args.insert(
-                "trunk",
-                vec![vec!["--config", "proton/Trunk.toml", "serve"]],
-            );
-        } else {
-            args.insert(
-                "trunk",
-                vec![vec!["--config", "proton/Trunk.toml", "serve", "--release"]],
-            );
-        };
+        let mut tmp = vec!["--config", "proton/Trunk.toml", "serve"];
+        if release {
+            tmp.push("--release");
+        }
+        args.insert(
+            "trunk",
+            vec![tmp.clone()],
+        );
     };
     
     

@@ -5,12 +5,12 @@
 */
 use yew::prelude::*;
 
-#[derive(Properties, Clone, PartialEq, Eq)]
+#[derive(Clone, Eq, PartialEq, Properties)]
 pub struct Props {
     pub tag: Option<String>,
 }
 
-#[derive(PartialEq, Eq, Clone)]
+#[derive(Clone, Eq, PartialEq)]
 pub enum Tab {
     All,
     Feed,
