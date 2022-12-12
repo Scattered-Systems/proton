@@ -30,7 +30,7 @@ RUN cargo xtask compile
 
 FROM cache as cache-build
 
-COPY --from=builder /workspace/target/dist /dist
+COPY --from=builder /workspace/.artifacts/dist /dist
 
 FROM builder as development
 

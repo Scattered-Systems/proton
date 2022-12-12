@@ -31,13 +31,13 @@ impl Component for Model {
     fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::Loaded(file_name, data) => {
-                let info = format!("file_name: {}, data: {:?}", file_name, data);
+                let info = format!("file_name: {file_name}, data: {data:?}");
                 self.files.push(info);
                 self.readers.remove(&file_name);
                 true
             }
             Msg::LoadedBytes(file_name, data) => {
-                let info = format!("file_name: {}, data: {:?}", file_name, data);
+                let info = format!("file_name: {file_name}, data: {data:?}");
                 self.files.push(info);
                 self.readers.remove(&file_name);
                 true

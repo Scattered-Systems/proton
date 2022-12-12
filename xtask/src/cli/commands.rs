@@ -35,8 +35,6 @@ pub enum Setup {
 pub enum Commands {
     Compile {
         #[arg(action = clap::ArgAction::SetTrue, long, short)]
-        desktop: bool,
-        #[arg(action = clap::ArgAction::SetTrue, long, short)]
         workspace: bool,
     },
     Create {
@@ -51,19 +49,17 @@ pub enum Commands {
     },
     Start {
         #[arg(action = clap::ArgAction::SetTrue, long, short)]
-        desktop: bool,
-        #[arg(action = clap::ArgAction::SetTrue, long, short)]
         dev: bool,
     },
 }
 
 impl Commands {
-    pub fn handler(&self) -> BoxResult<&Self> {
+    pub fn handler(&self, desktop: bool, release: bool) -> BoxResult<&Self> {
         tracing::info!("Processing commands issued to the cli...");
         match self {
-            Self::Compile { desktop, workspace } => {
+            Self::Compile { workspace } => {
                 tracing::info!("Compiling the codebase...");
-                compile(desktop.clone(), workspace.clone())?;
+                compile(desktop, *workspace)?;
             }
             Self::Create { name } => {
                 println!("{:?}", name.clone());
@@ -72,9 +68,9 @@ impl Commands {
                 tracing::info!("Setting up the environment...");
                 workspace(mode.clone(), os.clone())?;
             }
-            Self::Start { desktop, dev } => {
+            Self::Start { dev } => {
                 tracing::info!("Initializing the application server...");
-                start(desktop.clone(), dev.clone())?;
+                start(desktop, *dev)?;
             }
         };
         Ok(self)

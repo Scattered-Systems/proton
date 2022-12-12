@@ -14,6 +14,13 @@ pub(crate) mod application;
 pub(crate) mod primitives;
 pub(crate) mod requests;
 
+/// Quickstart the application
+pub fn start() -> proton_sdk::prelude::BoxResult {
+    yew::Renderer::<App>::new().render();
+
+    Ok(())
+}
+
 pub(crate) mod utils {
     use wasm_bindgen::prelude::*;
 

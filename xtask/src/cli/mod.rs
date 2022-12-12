@@ -19,7 +19,7 @@ pub(crate) mod interface {
 
     #[derive(Clone, Debug, Hash, Parser, PartialEq)]
     #[clap(about, author, version)]
-    #[clap(long_about = "")]
+    #[clap(long_about = None)]
     pub struct CommandLineInterface {
         #[clap(subcommand)]
         pub command: Option<Commands>,
@@ -38,7 +38,7 @@ pub(crate) mod interface {
             match self.command.clone() {
                 None => {}
                 Some(v) => {
-                    v.handler()?;
+                    v.handler(self.desktop.clone(), self.release.clone())?;
                 }
             }
             Ok(self)

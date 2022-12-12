@@ -37,7 +37,7 @@ where
     B: Serialize + std::fmt::Debug,
 {
     let allow_body = method.to_string() == *"POST" || method.to_string() == *"PUT";
-    let url = format!("{}{}", API_ROOT, url);
+    let url = format!("{API_ROOT}{url}");
     let mut builder = Request::new(url.as_str())
         .method(method)
         .header("Content-Type", "application/json");
@@ -120,5 +120,5 @@ where
 /// Set limit for pagination
 pub fn limit(count: u32, p: u32) -> String {
     let offset = if p > 0 { p * count } else { 0 };
-    format!("limit={}&offset={}", count, offset)
+    format!("limit={count}&offset={offset}")
 }
