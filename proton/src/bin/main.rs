@@ -5,6 +5,8 @@
 */
 include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
 
-fn main() {
-    yew::Renderer::<proton_wasm::App>::new().render();
+fn main() -> proton_sdk::prelude::BoxResult {
+    proton_wasm::start()?;
+
+    Ok(())
 }

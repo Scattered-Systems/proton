@@ -6,18 +6,18 @@
 use super::routes::router::*;
 use crate::contexts::provider::UserContextProvider;
 use crate::nav::{navbar::Navbar, toolbar::Toolbar};
+use yew::prelude::{html, Component, Context, Html};
+use yew_router::prelude::{BrowserRouter, Switch};
 
-use yew::prelude::*;
-use yew_router::prelude::*;
-
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub enum Msg {
-    OpenSidebar,
-    CloseSidebar,
+    OpenSidebar = 0,
+    #[default]
+    CloseSidebar = 1,
 }
 
 pub struct App {
     sidebar: bool,
-    value: i64,
 }
 
 impl Component for App {
@@ -25,18 +25,18 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self {
-            sidebar: false,
-            value: 0,
-        }
+        Self { sidebar: false }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
-        match msg {
-            Msg::OpenSidebar => {
+        match msg as i32 {
+            0 => {
                 self.sidebar = true;
             }
-            Msg::CloseSidebar => {
+            1 => {
+                self.sidebar = false;
+            }
+            _ => {
                 self.sidebar = false;
             }
         }
@@ -44,10 +44,11 @@ impl Component for App {
     }
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
+        let _bg = "";
         html! {
             <UserContextProvider>
                 <BrowserRouter>
-                    <div class="bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 flex flex-col m-0 py-3 z-0 min-h-screen min-w-full max-w-screen text-white">
+                    <div class={"bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 flex flex-col m-0 py-3 z-0 min-h-screen min-w-full max-w-screen text-white"}>
                         <Navbar/>
 
                         <div class="flex flex-auto grow nowrap scrollable m-0 p-0 min-h-full max-h-screen min-w-full max-w-screen">
