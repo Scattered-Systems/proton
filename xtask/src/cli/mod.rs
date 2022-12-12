@@ -35,11 +35,11 @@ pub(crate) mod interface {
 
     impl CommandLineInterface {
         pub fn handler(&self) -> BoxResult<&Self> {
-            match self.command.clone() {
-                None => {}
-                Some(v) => {
-                    v.handler(self.desktop.clone(), self.release.clone())?;
-                }
+            if self.debug {
+                
+            }
+            if let Some(cmds) = &self.command {
+                cmds.handler(self.desktop.clone(), self.release.clone())?;
             }
             Ok(self)
         }

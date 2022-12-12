@@ -50,7 +50,6 @@ impl Component for App {
                 <BrowserRouter>
                     <div class={"bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 flex flex-col m-0 py-3 z-0 min-h-screen min-w-full max-w-screen text-white"}>
                         <Navbar/>
-
                         <div class="flex flex-auto grow nowrap scrollable m-0 p-0 min-h-full max-h-screen min-w-full max-w-screen">
                             <main class="bg-zinc-700 container mx-auto p-3 prose prose-invert rounded min-h-full max-h-screen w-full">
                                 <Switch<Pages> render={switch} />
