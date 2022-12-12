@@ -4,28 +4,25 @@
     Description: ... Summary ...
 */
 use crate::{copy_dir_all, dist_dir, execute_bundle, project_root, Bundle};
-use clap::{Args, Subcommand, ValueEnum};
+use clap::{Args, ArgGroup, Subcommand, ValueEnum};
 use duct::cmd;
 use proton_sdk::prelude::BoxResult;
 use std::process::Command;
 
-#[derive(Clone, Copy, Debug, Hash, PartialEq, ValueEnum)]
+#[derive(Clone, Copy, Debug, Default, Hash, PartialEq, ValueEnum)]
 pub enum Linux {
     Debian,
+    #[default]
     Ubuntu
 }
 
-#[derive(Clone, Copy, Debug, Hash, PartialEq, ValueEnum)]
+#[derive(Clone, Copy, Debug, Default, Hash, PartialEq, ValueEnum)]
+#[repr(i32)]
 pub enum OperatingSystem {
-    Linux(Linux) = 0,
+    #[default]
+    Linux = 0,
     MacOS = 1,
     Windows = 2
-}
-
-impl Default for OperatingSystem {
-    fn default() -> Self {
-        Self::Ubuntu
-    }
 }
 
 #[derive(Clone, Copy, Debug, Default, Hash, PartialEq, ValueEnum)]
@@ -47,10 +44,13 @@ pub enum Commands {
         name: String,
     },
     Setup {
+
         #[clap(value_enum)]
         mode: Option<Setup>,
         #[clap(value_enum)]
         os: Option<OperatingSystem>,
+        #[clap(value_enum)]
+        linux: Option<Linux>,
     },
     Start {
         #[arg(action = clap::ArgAction::SetTrue, long, short)]
@@ -69,9 +69,9 @@ impl Commands {
             Self::Create { name } => {
                 println!("{:?}", name.clone());
             }
-            Self::Setup { mode, os } => {
+            Self::Setup { mode, os, linux } => {
                 tracing::info!("Setting up the environment...");
-                workspace(mode.clone(), os.clone())?;
+                workspace(mode.clone(), os.clone(), linux.clone())?;
             }
             Self::Start { dev } => {
                 tracing::info!("Initializing the application server...");
@@ -143,34 +143,41 @@ pub fn start(desktop: bool, dev: bool) -> BoxResult {
     Ok(())
 }
 /// Handler for configuring the workspace
-pub fn workspace(mode: Option<Setup>, os: Option<OperatingSystem>) -> BoxResult {
+pub fn workspace(mode: Option<Setup>, os: Option<OperatingSystem>, linux: Option<Linux>) -> BoxResult {
     let mut args = crate::Bundle::new();
     if os.is_some() {
-        match os.unwrap().clone() {
-            OperatingSystem::Debian => {},
-            OperatingSystem::MacOS => {},
-            OperatingSystem::Ubuntu => {
-                args.insert(
-                    "sudo",
-                    vec![
-                        vec!["apt", "update", "-y"],
-                        vec!["apt", "upgrade", "-y"],
-                        vec!["apt", "autoremove", "-y"],
-                        vec![
-                            "apt",
-                            "install",
-                            "-y",
-                            "libgtk-3-dev",
-                            "libwebkit2gtk-4.0-dev",
-                            "libappindicator3-dev",
-                            "librsvg2-dev",
-                            "patchelf",
-                            "protobuf-compiler",
-                        ],
-                    ],
-                );
-            },
-            OperatingSystem::Windows => {}
+        match os.unwrap().clone() as i32 {
+            0 => {
+                match linux.unwrap_or_default().clone() as i32 {
+                    0 => {},
+                    1 => {
+                        args.insert(
+                            "sudo",
+                            vec![
+                                vec!["apt", "update", "-y"],
+                                vec!["apt", "upgrade", "-y"],
+                                vec!["apt", "autoremove", "-y"],
+                                vec![
+                                    "apt",
+                                    "install",
+                                    "-y",
+                                    "libgtk-3-dev",
+                                    "libwebkit2gtk-4.0-dev",
+                                    "libappindicator3-dev",
+                                    "librsvg2-dev",
+                                    "patchelf",
+                                    "protobuf-compiler",
+                                ],
+                            ],
+                        );
+                    },
+                    _ => {} 
+                }
+                
+            }
+            1 => {},
+            2 => {},
+            _ => {}
         };
     }
     if mode.is_some() {

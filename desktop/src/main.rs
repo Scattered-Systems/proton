@@ -4,6 +4,9 @@
     description:
         Proton is a unique runtime environment capable of engaging a myriad of providers
 */
+#[cfg(feature = "hypervisor")]
+pub use proton_hypervisor as hypervisor;
+
 #![cfg_attr(
     all(not(debug_assertions), target_os = "windows"),
     windows_subsystem = "windows"
