@@ -8,6 +8,10 @@ updates:
     directory: /
     schedule:
       interval: daily
+  - package-ecosystem: npm
+    directory: /client
+    schedule:
+      interval: daily
   - package-ecosystem: cargo
     directory: /desktop
     schedule:

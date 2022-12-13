@@ -4,8 +4,7 @@
     Description: ... Summary ...
 */
 use crate::{copy_dir_all, dist_dir, execute_bundle, project_root, Bundle};
-use clap::{Args, ArgGroup, Subcommand, ValueEnum};
-use duct::cmd;
+use clap::{Subcommand, ValueEnum};
 use proton_sdk::prelude::BoxResult;
 use std::process::Command;
 
@@ -57,12 +56,19 @@ impl Commands {
         match self {
             Self::Compile { workspace } => {
                 tracing::info!("Compiling the codebase...");
-                clean_dir(&dist_dir())?;
+
+                
+                if std::fs::create_dir_all(&dist_dir()).is_err() {
+                    tracing::info!("Clearing out the previous build");
+                    std::fs::remove_dir_all(&dist_dir())?;
+                    std::fs::create_dir_all(&dist_dir())?;
+                }
+
                 if desktop {
                     compile_desktop(None)?;
                 } else {
-                    handle_wasm_pack()?;
-                    compile_js()?
+                    compile_wasm(None)?;
+                    compile_js(None)?
                 }
             }
             Self::Create { name } => {
@@ -88,6 +94,10 @@ impl Commands {
     }
 }
 
+pub fn program(program: &str) -> Command {
+    Command::new(program)
+}
+
 pub fn command(program: &str, args: Vec<&str>) -> BoxResult {
     let mut cmd = Command::new(program);
     cmd.current_dir(project_root());
@@ -95,49 +105,46 @@ pub fn command(program: &str, args: Vec<&str>) -> BoxResult {
     Ok(())
 }
 
-pub fn handle_wasm_pack() -> BoxResult {
-    command("wasm-pack", vec!["build", "proton"])?;
-
-    copy_dir_all(
-        &project_root().join("proton/pkg"), 
-        dist_dir().join("proton/")
-    )?;
-
-    Ok(())
-}
-
 pub fn npm(args: Vec<&str>) -> BoxResult {
-    
-    command("npm", args)?;
+    let mut cmd = Command::new("npm");
+    cmd.current_dir(project_root());
+    cmd.args(args.as_slice()).status()?;
     Ok(())
 }
 
-pub fn compile_js() -> BoxResult {
-    npm(vec!["run", "build"])?;
-    copy_dir_all(
-        &project_root().join("app/build/"), 
-        dist_dir().join("build")
-    )?;
-    Ok(())
-}
-
+///
 pub fn compile_desktop(save_as: Option<&str>) -> BoxResult {
     tracing::info!("Building for desktops...");
     command("cargo", vec!["tauri", "build", "--config", "desktop/tauri.conf.json"])?;
 
     copy_dir_all(
-        &project_root().join("desktop/target/release/bundle/"), 
-        dist_dir().join(save_as.unwrap_or("bundle"))
+        &project_root().join("desktop/target/release/bundle"), 
+        project_root().join(save_as.unwrap_or(".artifacts/dist/bundle"))
     )?;
     Ok(())
 }
-
-pub fn clean_dir(path: &std::path::PathBuf) -> BoxResult {
-    tracing::debug!("Clearing out the previous build");
-    let _ = std::fs::remove_dir_all(path);
-    std::fs::create_dir_all(path)?;
+///
+pub fn compile_js(save_as: Option<&str>) -> BoxResult {
+    npm(vec!["run", "build"])?;
+    copy_dir_all(
+        &project_root().join("client/build"), 
+        project_root().join(save_as.unwrap_or(".artifacts/dist/build"))
+    )?;
     Ok(())
 }
+///
+pub fn compile_wasm(save_as: Option<&str>) -> BoxResult {
+    command("wasm-pack", vec!["build", "proton"])?;
+
+    copy_dir_all(
+        &project_root().join("proton/pkg"), 
+        project_root().join(save_as.unwrap_or(".artifacts/dist/wasm"))
+    )?;
+
+    Ok(())
+}
+
+
 
 pub fn start_application() -> BoxResult {
     let mut cmd = Command::new("npm");
