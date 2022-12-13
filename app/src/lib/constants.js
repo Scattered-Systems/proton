@@ -1,3 +1,16 @@
+
+export default {
+    
+    
+    origin: "pzzld.eth",
+    theme: {
+        colors: {
+            primary: "",
+            secondary: ""
+        }
+    }
+}
+
 export let info = {
     homepage: "/",
     metadata: {

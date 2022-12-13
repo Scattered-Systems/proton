@@ -23,15 +23,6 @@ pub enum Linux {
 }
 
 #[derive(Clone, Copy, Debug, Default, Hash, PartialEq, ValueEnum)]
-#[repr(i32)]
-pub enum OperatingSystem {
-    #[default]
-    Linux = 0,
-    MacOS = 1,
-    Windows = 2
-}
-
-#[derive(Clone, Copy, Debug, Default, Hash, PartialEq, ValueEnum)]
 pub enum Setup {
     Extras,
     #[default]
@@ -69,7 +60,7 @@ impl Commands {
                 clean_dir(&dist_dir())?;
                 // handle_compile(desktop, *workspace)?;
                 if desktop {
-                    compile_desktop()?;
+                    compile_desktop(None)?;
                 } else {
                     handle_wasm_pack()?;
                     compile_js()?
@@ -131,13 +122,13 @@ pub fn compile_js() -> BoxResult {
     Ok(())
 }
 
-pub fn compile_desktop() -> BoxResult {
+pub fn compile_desktop(save_as: Option<&str>) -> BoxResult {
     tracing::info!("Building for desktops...");
     command("cargo", vec!["tauri", "build", "--config", "desktop/tauri.conf.json"])?;
 
     copy_dir_all(
         &project_root().join("desktop/target/release/bundle/"), 
-        dist_dir().join("bundle")
+        dist_dir().join(save_as.unwrap_or("bundle"))
     )?;
     Ok(())
 }
@@ -146,21 +137,6 @@ pub fn clean_dir(path: &std::path::PathBuf) -> BoxResult {
     tracing::debug!("Clearing out the previous build");
     let _ = std::fs::remove_dir_all(path);
     std::fs::create_dir_all(path)?;
-    Ok(())
-}
-
-pub fn wasm_handle_trunkrs() -> BoxResult {
-    let mut cmds = Bundle::<&str>::new();
-    cmds.insert(
-        "trunk",
-        vec![vec!["--config", "proton/Trunk.toml", "build", "--release"]]
-    );
-    execute_bundle(cmds)?;
-
-    copy_dir_all(
-        &project_root().join("proton/dist/"), 
-        dist_dir().join("proton/")
-    )?;
     Ok(())
 }
 
@@ -181,17 +157,7 @@ pub fn start_desktop() -> BoxResult {
     Ok(())
 }
 
-///
-pub fn trunkrs_start(release: bool, target: Option<Target>) -> BoxResult {  
-    let mut tmp = vec!["--config", "proton/Trunk.toml", "serve"];
-    if release {
-        tmp.push("--release");
-    }
-    command("trunk", tmp.clone())?;
-    Ok(())
-}
-
-pub fn setup_langspace(extras: bool) -> BoxResult {
+pub fn setup_rust_nightly(extras: bool) -> BoxResult {
     let mut cmds = crate::Bundle::new();
     cmds.insert(
         "rustup",
@@ -215,7 +181,6 @@ pub fn setup_langspace(extras: bool) -> BoxResult {
         cmds.insert(
             "rustup",
             vec![
-                vec!["default", "nightly"],
                 vec![
                     "component",
                     "add",
@@ -227,7 +192,11 @@ pub fn setup_langspace(extras: bool) -> BoxResult {
             ],
         );
     }
-    execute_bundle(cmds)?;
+    execute_bundle(cmds)
+}
+
+pub fn setup_langspace(extras: bool) -> BoxResult {
+    setup_rust_nightly(extras)?;
     Ok(())
 }
 /// Handler for configuring the workspace
