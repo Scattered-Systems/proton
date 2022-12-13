@@ -15,7 +15,8 @@ version = "0.1.0"
 default = [ "custom-protocol", "hypervisor" ]
 custom-protocol = [ "tauri/custom-protocol" ]
 
-hypervisor = ["proton-hypervisor/default"]
+hypervisor = []
+# hypervisor = ["proton-hypervisor/default"]
 
 [build-dependencies]
 tauri-build = { features = [], version = "1.2" }
@@ -24,33 +25,5 @@ tauri-build = { features = [], version = "1.2" }
 
 [dependencies]
 # proton-sdk = { features = ["full"], path = "../crates/sdk", version = "0.1.0" }
-proton-hypervisor = { features = [], path = "../plugins/hypervisor", version = "0.1.0" }
+# proton-hypervisor = { features = [], path = "../plugins/hypervisor", version = "0.1.0" }
 tauri = {  features = ["api-all"], version = "1.2" }
-
-[workspace]
-members = [
-    "plugins/*",
-]
-
-[profile.dev]
-codegen-units = 256
-debug = true
-debug-assertions = true
-incremental = true
-lto = false
-panic = "unwind"
-rpath = false
-opt-level = 0
-overflow-checks = true
-
-[profile.release]
-codegen-units = 16
-debug = false
-debug-assertions = false
-incremental = false
-lto = true
-panic = "unwind"
-rpath = false
-opt-level = "z"
-overflow-checks = false
-

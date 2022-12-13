@@ -3,7 +3,7 @@ default-members = [
     "proton"
 ]
 exclude = [
-    "desktop/*",
+    "desktop",
     "xtask"
 ]
 members = [
