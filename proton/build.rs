@@ -1,5 +1,5 @@
 /*
-    Appellation: proton-wasm <build>
+    Appellation: pzzld <build>
     Contrib: FL03 <jo3mccain@icloud.com>
     Description:
         Create's a compact wasm binary file leveraging substrate_wasm_builder

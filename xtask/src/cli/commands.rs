@@ -66,7 +66,14 @@ impl Commands {
         match self {
             Self::Compile { workspace } => {
                 tracing::info!("Compiling the codebase...");
-                handle_compile(desktop, *workspace)?;
+                clean_dir(&dist_dir())?;
+                // handle_compile(desktop, *workspace)?;
+                if desktop {
+                    compile_desktop()?;
+                } else {
+                    handle_wasm_pack()?;
+                    compile_js()?
+                }
             }
             Self::Create { name } => {
                 println!("{:?}", name.clone());
@@ -84,22 +91,57 @@ impl Commands {
     }
 }
 
-pub fn handle_compile(desktop: bool, workspace: bool) -> BoxResult {
-    let _ = std::fs::remove_dir_all(&dist_dir());
-    std::fs::create_dir_all(&dist_dir())?;
-    let mut cmds = Bundle::<&str>::new();
+pub fn command(program: &str, args: Vec<&str>) -> BoxResult {
+    let mut cmd = Command::new(program);
+    cmd.current_dir(project_root());
+    cmd.args(args.as_slice()).status()?;
+    Ok(())
+}
 
-    if desktop {
-        tracing::info!("Building for desktops...");
-        cmds.insert(
-            "cargo",
-            vec![vec!["tauri", "build", "--config", "proton/Trunk.toml"]]
-        );
-        copy_dir_all(
-            &project_root().join("desktop/target/release/bundle/"), 
-            dist_dir().join("bundle")
-        )?;
-    } 
+pub fn handle_wasm_pack() -> BoxResult {
+    command("wasm-pack", vec!["build", "proton"])?;
+
+    copy_dir_all(
+        &project_root().join("proton/pkg"), 
+        dist_dir().join("proton/")
+    )?;
+
+    Ok(())
+}
+
+pub fn npm(args: Vec<&str>) -> BoxResult {
+    command("npm", args)?;
+    Ok(())
+}
+
+pub fn compile_js() -> BoxResult {
+    npm(vec!["run", "build"])?;
+    Ok(())
+}
+
+pub fn compile_desktop() -> BoxResult {
+    tracing::info!("Building for desktops...");
+    let mut cmds = Bundle::<&str>::new();
+    cmds.insert(
+        "cargo",
+        vec![vec!["tauri", "build", "--config", "proton/Trunk.toml"]]
+    );
+    copy_dir_all(
+        &project_root().join("desktop/target/release/bundle/"), 
+        dist_dir().join("bundle")
+    )?;
+    Ok(())
+}
+
+pub fn clean_dir(path: &std::path::PathBuf) -> BoxResult {
+    tracing::debug!("Clearing out the previous build");
+    let _ = std::fs::remove_dir_all(path);
+    std::fs::create_dir_all(path)?;
+    Ok(())
+}
+
+pub fn wasm_handle_trunkrs() -> BoxResult {
+    let mut cmds = Bundle::<&str>::new();
     cmds.insert(
         "trunk",
         vec![vec!["--config", "proton/Trunk.toml", "build", "--release"]]
@@ -110,6 +152,16 @@ pub fn handle_compile(desktop: bool, workspace: bool) -> BoxResult {
         &project_root().join("proton/dist/"), 
         dist_dir().join("proton/")
     )?;
+    Ok(())
+}
+
+pub fn handle_compile(desktop: bool, workspace: bool) -> BoxResult {
+    clean_dir(&dist_dir())?;
+    let mut cmds = Bundle::<&str>::new();
+    if desktop {
+        compile_desktop()?;
+    } 
+    
     
 
     let tmp = dist_dir().display().to_string();
@@ -165,6 +217,10 @@ pub fn handle_setup(desktop: bool, extras: bool, linux: Option<Linux>) -> BoxRes
     args.insert(
         "cargo",
         vec![vec!["install", "trunk", "wasm-bindgen-cli"]],
+    );
+    args.insert(
+        "npm",
+        vec![vec!["install", "-g", "wasm-pack"]],
     );
     if desktop {
         args.insert(

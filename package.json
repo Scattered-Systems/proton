@@ -10,10 +10,19 @@
     "name": "@scsys/proton",
     "private": false,
     "scripts": {
-      "test": "echo \"No test specified\""
+      "build": "npm run wasm:build && npm run client:build",
+      "test": "echo \"No test specified\"",
+      "client:build": "npm run build --workspace=@proton/app",
+      "client:dev": "npm run dev --workspace=@proton/app",
+      "client:install": "npm install --workspace=@proton/app",
+      "wasm:build": "npm run build --workspace=@proton/wasm",
+      "wasm:dev": "npm run dev --workspace=@proton/wasm"
     },
     "readme": "https://github.com/scattered-systems/proton/#README",
     "repository": "https://github.com/scattered-systems/proton",
     "version": "0.1.0",
-    "workspaces": []
+    "workspaces": [
+      "app",
+      "proton"
+    ]
   }
