@@ -42,9 +42,10 @@ RUN apt-get update -y && apt-get upgrade -y
 
 COPY --chown=55 --from=builder /workspace/.artifacts/dist ./dist
 VOLUME [ "dist" ]
+
 FROM runner
 
 ENV MODE="production"
 
 EXPOSE 3000
-CMD ["node", "build/index.js"]
+CMD ["node", "dist/build/index.js"]
