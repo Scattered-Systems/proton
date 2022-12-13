@@ -8,6 +8,8 @@ on:
     branches: [ "main" ]
     tags: [ "v*.*.*" ]
   pull_request:
+    branches: [ "main" ]
+    tags: [ "v*.*.*" ]
   schedule:
     - cron: "30 9 * * 5"
   workflow_dispatch:
@@ -16,11 +18,6 @@ on:
         description: 'Environment'
         required: true
         type: environment
-      release:
-        default: true
-        description: 'Release'
-        required: true
-        type: boolean
 
 jobs:
   constructor:
@@ -42,10 +39,10 @@ jobs:
             const { data } = await github.rest.repos.createRelease({
               body: 'View the assets bundled below to find a suitable installer for your host system',
               configPath: 'desktop/tauri.conf.json',
-              draft: false,
+              draft: true,
               name: `Proton v${process.env.PACKAGE_VERSION}`,
               owner: context.repo.owner,
-              prerelease: false,
+              prerelease: true,
               repo: context.repo.repo,
               tag_name: `proton-v${process.env.PACKAGE_VERSION}`
             })

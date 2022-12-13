@@ -58,7 +58,6 @@ impl Commands {
             Self::Compile { workspace } => {
                 tracing::info!("Compiling the codebase...");
                 clean_dir(&dist_dir())?;
-                // handle_compile(desktop, *workspace)?;
                 if desktop {
                     compile_desktop(None)?;
                 } else {

@@ -5,7 +5,7 @@
   },
   "build": {
     "devPath": "../proton",
-    "distDir": "../proton/pkg",
+    "distDir": "../.artifacts/dist/build",
     "beforeDevCommand": "cargo xtask start",
     "beforeBuildCommand": "cargo xtask compile",
     "withGlobalTauri": false
