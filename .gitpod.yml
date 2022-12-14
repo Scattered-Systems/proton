@@ -1,3 +1,3 @@
 tasks:
-  - init: cp .env.example .env && cargo xtask setup langspace ubuntu && cargo xtask setup desktop
-    command: cargo xtask compile && cargo xtask -h
+  - init: cp .env.example .env && cargo xtask --desktop setup ubuntu
+    command: cargo xtask start

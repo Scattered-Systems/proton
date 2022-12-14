@@ -7,20 +7,22 @@ edition = "2021"
 homepage = "https://github.com/scattered-systems/proton/wiki"
 keywords = ["wasm"]
 license = "Apache-2.0"
-name = "proton-wasm"
+name = "proton"
 repository = "https://github.com/scattered-systems/proton"
 version = "0.1.0"
 
 [features]
-default = []
+default = ["core"]
+full = ["core", "extras"]
+
+core = []
+extras = ["console_error_panic_hook"]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
-test = true
-
-[[bin]]
 name = "proton"
-path = "src/bin/main.rs"
+path = "src/lib.rs"
+test = true
 
 [build-dependencies]
 substrate-wasm-builder = "4.0.0"
@@ -29,44 +31,31 @@ substrate-wasm-builder = "4.0.0"
 wasm-bindgen-test = "0.3.33"
 
 [dependencies]
+cfg-if = "1.0.0"
 console_error_panic_hook = { optional = true, version = "0.1.7" }
 dotenv_codegen = "0.15.0"
 futures = "0.3.24"
-gloo = "0.8.0"
+gloo = { features = ["futures"], version = "0.8.0"}
 js-sys = "0.3.60"
 lazy_static = "1.4.0"
 log = "0.4.17"
 lru = "0.8.1"
 parking_lot = "0.12.1"
-proton-sdk = { features = ["full"], path = "../crates/sdk", version = "0.1.0" }
 plotters = { features = [], version = "0.3.4" }
 pulldown-cmark = "0.9.2"
 serde = { features = ["derive"], version = "1.0.147" }
 serde_json = "1.0.89"
-thiserror = "1.0.37"
-tokio = "1.22.0"
-tokio-stream = "0.1.11"
 wasm-bindgen = { features = ["serde-serialize"], version = "0.2.83" }
 wasm-bindgen-futures = "0.4.33"
 wasm-logger = "0.2.0"
 
-yew = "0.20.0"
-yew-hooks = "0.2.0"
-yew-router = "0.17.0"
+# [dependencies.proton-sdk]
+# features = ["full"]
+# path = "../crates/sdk"
+# version = "0.1.0"
 
 [dependencies.web-sys]
 features = [
-    "Client",
-    "Document",
-    "Element",
-    "HtmlElement",
-    "HtmlInputElement",
-    "Headers",
-    "Node",
-    "Request", 
-    "RequestInit", 
-    "RequestMode", 
-    "Response", 
     "Window",
     "console"
 ]
@@ -75,3 +64,7 @@ features = [
 [package.metadata.docs.rs]
 all-features = true
 rustc-args = ["--cfg", "docsrs"]
+
+[target.wasm32-unknown-unknown]
+
+[target.wasm32-wasi]

@@ -1,43 +1,51 @@
-FROM scratch as cache
-
-RUN mkdir config cache data workspace
-
-VOLUME [ "/artifacts" ]
-VOLUME [ "/cache"]
-VOLUME [ "/config" ]
-VOLUME [ "/data" ]
-
-FROM rust:latest as base
+FROM node:18.12.1 as base
 
 RUN apt-get update -y && apt-get upgrade -y
 
-FROM base as builder-base
+FROM base as langspace
+
+RUN apt-get install -y \
+    clang \
+    cmake \
+    git \
+    llvm \
+    wget
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+FROM langspace as builder-base
 
 RUN rustup default nightly && \
     rustup target add wasm32-unknown-unknown wasm32-wasi --toolchain nightly
 
-FROM builder-base as trunkrs-base
+RUN npm install -g wasm-pack
 
-RUN cargo install trunk wasm-bindgen-cli
-
-FROM trunkrs-base as builder
+FROM builder-base as builder
 
 ADD . /workspace
 WORKDIR /workspace
 
 COPY . .
-RUN cargo xtask compile
-
-FROM cache as cache-build
-
-COPY --from=builder /workspace/.artifacts/dist /dist
+RUN npm install && npm run build
 
 FROM builder as development
 
-ENV PORT=8000
+ENV MODE="production"
 
-EXPOSE 80
-EXPOSE ${PORT}
+EXPOSE 3000
+CMD [ "npm", "run", "start" ]
 
-ENTRYPOINT [ "cargo", "xtask" ]
-CMD [ "start" ]
+FROM node:lts-alpine as runner
+
+RUN apt-get update -y && apt-get upgrade -y
+
+COPY --chown=55 --from=builder /workspace/.artifacts/dist ./dist
+VOLUME [ "dist" ]
+
+FROM runner
+
+ENV MODE="production"
+
+EXPOSE 3000
+CMD ["node", "dist/build/index.js"]

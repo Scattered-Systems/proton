@@ -2,8 +2,8 @@
 default-members = [
     "proton"
 ]
-exclude = [ 
-    "desktop/*",
+exclude = [
+    "desktop",
     "xtask"
 ]
 members = [
