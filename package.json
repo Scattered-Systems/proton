@@ -10,7 +10,7 @@
     "name": "@scsys/proton",
     "private": false,
     "scripts": {
-      "preinstall": "npm run rust:install && npm run rust:setup",
+      "postinstall": "npm run rust:setup",
       "build": "npm run wasm:build && npm run client:build",
       "dev": "npm run client:dev",
       "start": "npm run client:start",
