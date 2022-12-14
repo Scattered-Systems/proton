@@ -3,6 +3,7 @@
     import { onMount } from 'svelte';
 
     onMount(() => {
+        console.log(fetch("https://google.com"));
         console.log('init wasm-pack');
         greet('From svelte-kit');
     })

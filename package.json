@@ -10,13 +10,20 @@
     "name": "@scsys/proton",
     "private": false,
     "scripts": {
+      "preinstall": "npm run rust:install && npm run rust:setup",
       "build": "npm run wasm:build && npm run client:build",
+      "dev": "npm run client:dev",
+      "start": "npm run client:start",
       "test": "echo \"No test specified\"",
       "client:build": "npm run build --workspace=@proton/app",
       "client:dev": "npm run dev --workspace=@proton/app",
       "client:install": "npm install --workspace=@proton/app",
+      "client:start": "npm run start --workspace=@proton/app",
       "wasm:build": "npm run build --workspace=@proton/wasm",
-      "wasm:dev": "npm run dev --workspace=@proton/wasm"
+      "wasm:dev": "npm run dev --workspace=@proton/wasm",
+      "rust:install": "curl https://sh.rustup.rs -sSf | bash -s -- -y && export PATH=\"/root/.cargo/bin:${PATH}\"",
+      "rust:setup": "rustup default nightly && rustup target add wasm32-unknown-unknown wasm32-wasi --toolchain nightly",
+      "wpack:install": "npm install -g wasm-pack"
     },
     "readme": "https://github.com/scattered-systems/proton/#README",
     "repository": "https://github.com/scattered-systems/proton",
