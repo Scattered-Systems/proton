@@ -28,7 +28,6 @@
         <div class="px-3 items-center hidden sm:flex">
             <SidebarToggle bind:open={sidebar}/>
         </div>
-        
         <div class="px-3 items-center hidden lg:flex">
             <ToolbarLinks links={linktree}/>
         </div>
