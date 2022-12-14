@@ -65,6 +65,7 @@ impl Commands {
                 }
 
                 if desktop {
+                    tracing::info!("Bundling the application for desktop distribution...");
                     compile_desktop(None)?;
                 } else {
                     compile_wasm(None)?;
@@ -143,16 +144,14 @@ pub fn compile_wasm(save_as: Option<&str>) -> BoxResult {
 
     Ok(())
 }
-
-
-
+///
 pub fn start_application() -> BoxResult {
     let mut cmd = Command::new("npm");
-    cmd.current_dir(project_root().join("app"));
-    cmd.args(&["run", "start"]).status()?;
+    cmd.current_dir(project_root());
+    cmd.args(&["run", "dev"]).status()?;
     Ok(())
 }
-
+///
 pub fn start_desktop() -> BoxResult {
     let mut cmds = Bundle::<&str>::new();
     cmds.insert(
@@ -162,7 +161,7 @@ pub fn start_desktop() -> BoxResult {
     execute_bundle(cmds)?;
     Ok(())
 }
-
+///
 pub fn setup_rust_nightly(extras: bool) -> BoxResult {
     let mut cmds = crate::Bundle::new();
     cmds.insert(
@@ -200,7 +199,7 @@ pub fn setup_rust_nightly(extras: bool) -> BoxResult {
     }
     execute_bundle(cmds)
 }
-
+///
 pub fn setup_langspace(extras: bool) -> BoxResult {
     setup_rust_nightly(extras)?;
     Ok(())
@@ -215,7 +214,6 @@ pub fn setup_desktop(linux: Option<Linux>) -> BoxResult {
     //
     if linux.is_some() {
         match linux.unwrap_or_default().clone() as i32 {
-            0 => {},
             1 => {
                 args.insert(
                     "sudo",
@@ -240,10 +238,9 @@ pub fn setup_desktop(linux: Option<Linux>) -> BoxResult {
                     ],
                 );
             },
-            _ => {} 
+            _ => {}
         }
-    }
-    
+    } 
     //
     execute_bundle(args)?;
     Ok(())
