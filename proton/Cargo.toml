@@ -25,7 +25,7 @@ path = "src/lib.rs"
 test = true
 
 [build-dependencies]
-substrate-wasm-builder = "4.0.0"
+substrate-wasm-builder = "5.0.0"
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3.33"
