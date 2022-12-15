@@ -1,4 +1,4 @@
-FROM node:18.12.1 as base
+FROM node:19.3.0 as base
 
 RUN apt-get update -y && apt-get upgrade -y
 
