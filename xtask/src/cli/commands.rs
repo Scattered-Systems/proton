@@ -135,10 +135,10 @@ pub fn compile_js(save_as: Option<&str>) -> Result<()> {
 }
 ///
 pub fn compile_wasm(save_as: Option<&str>) -> Result<()> {
-    command("wasm-pack", vec!["build", "proton"])?;
+    command("wasm-pack", vec!["build", "client/wasm"])?;
 
     copy_dir_all(
-        &project_root().join("proton/pkg"), 
+        &project_root().join("client/wasm/pkg"), 
         project_root().join(save_as.unwrap_or(".artifacts/dist/wasm"))
     )?;
 
