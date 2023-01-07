@@ -27,7 +27,7 @@ jobs:
       - name: build
         run: cargo xtask compile
       - name: test
-        run: cargo test --all --all-features -v --target ${{ matrix.target }}
+        run: cargo test --all --all-features -v
   features:
     if: ${{ github.event.inputs.publish }}
     needs: [ build ]
@@ -37,6 +37,7 @@ jobs:
       matrix:
         package:
           - proton-core
+          - proton-wallets
     steps:
       - uses: actions/checkout@v3
       - name: Setup
