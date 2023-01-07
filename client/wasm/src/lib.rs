@@ -3,7 +3,6 @@
     Contrib: FL03 <jo3mccain@icloud.com>
     Description: ... Summary ...
 */
-include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
 #[doc(inline)]
 pub use self::utils::*;
 
@@ -39,3 +38,4 @@ pub fn greet(name: &str) {
 pub fn coinbase_api() {
 
 }
+

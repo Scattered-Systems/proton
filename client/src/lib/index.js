@@ -1,5 +1,3 @@
-import { Banner } from './banners/index.js';
-import { Button } from './buttons/index.js';
 import { Card, CardBody, CardHeader, CardFooter, ProfileCard } from './cards/index.js';
 import { Box, Flex, Grid, } from './cont/index.js';
 import { Form } from './forms/index.js';
@@ -11,7 +9,7 @@ import { Text } from './text/index.js';
 import { WalletToggle } from './wallet/index.js';
 
 export { CardBody, CardHeader, CardFooter, ProfileCard, SearchBtn }
-export { Banner, Button, Box, Card, Flex, Form, Grid, List, Section, Table, Text }
+export { Box, Card, Flex, Form, Grid, List, Section, Table, Text }
 export { Navbar, Navlink, NavLogo, Sidebar, SidebarToggle, Toolbar, ToolbarLinks }
 
 export { WalletToggle }

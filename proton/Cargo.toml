@@ -1,65 +1,49 @@
 [package]
 authors = ["FL03 <jo3mccain@icloud.com> (https://github.com/FL03)"]
-build = "build.rs"
 categories = []
 description = "proton"
 edition = "2021"
 homepage = "https://github.com/scattered-systems/proton/wiki"
-keywords = ["wasm"]
+keywords = []
 license = "Apache-2.0"
 name = "proton"
 repository = "https://github.com/scattered-systems/proton"
 version = "0.1.0"
 
-[features]
-default = ["core"]
-full = ["core", "extras"]
-
-core = []
-extras = ["console_error_panic_hook"]
-
-[lib]
-crate-type = ["cdylib", "rlib"]
+[[bin]]
+bench = true
 name = "proton"
-path = "src/lib.rs"
-test = true
+path = "src/main.rs"
+test = false
 
 [build-dependencies]
-substrate-wasm-builder = "4.0.0"
-
-[dev-dependencies]
-wasm-bindgen-test = "0.3.33"
 
 [dependencies]
-cfg-if = "1.0.0"
-console_error_panic_hook = { optional = true, version = "0.1.7" }
-dotenv_codegen = "0.15.0"
-futures = "0.3.24"
-gloo = { features = ["futures"], version = "0.8.0"}
-js-sys = "0.3.60"
-lazy_static = "1.4.0"
-log = "0.4.17"
-lru = "0.8.1"
-parking_lot = "0.12.1"
-plotters = { features = [], version = "0.3.4" }
-pulldown-cmark = "0.9.2"
-serde = { features = ["derive"], version = "1.0.147" }
-serde_json = "1.0.89"
-wasm-bindgen = { features = ["serde-serialize"], version = "0.2.83" }
-wasm-bindgen-futures = "0.4.33"
-wasm-logger = "0.2.0"
+acme = { features = ["net"], git = "https://github.com/FL03/acme", branch = "v0.2.5", version = "0.2.5" }
+proton-sdk = { features = ["full"], path = "../crates/sdk", version = "0.1.0" }
+scsys = { features = [], version = "0.1.40" }
 
-# [dependencies.proton-sdk]
-# features = ["full"]
-# path = "../crates/sdk"
-# version = "0.1.0"
+async-session = "3.0.0"
+async-trait = "0.1.60"
+axum = { features = ["headers", "http2", "macros", "ws"], version = "0.6" }
+clap = { features = ["derive"], version = "4" }
+futures = "0.3"
+http = "0.2"
+hyper = { features = [], version = "0.14" }
+oauth2 = "4.3.0"
+redis = { features = ["tokio"], version = "0.22.1" }
+reqwest = { features = ["json", "rustls-tls", "stream"], version = "0.11.13" }
+serde = { features = ["derive"], version = "1" }
+serde_json = "1"
+siwe = "0.5"
+strum = { features = ["derive"], version = "0.24.1" }
+tokio = { features = ["full"], version = "1" }
+tower = "0.4.13"
+tower-http = { features = ["full"], version = "0.3" }
+tracing = "0.1.37"
+tracing-subscriber = { features = ["env-filter"], version = "0.3" }
 
-[dependencies.web-sys]
-features = [
-    "Window",
-    "console"
-]
- version = "0.3.60"
+[dev-dependencies]
 
 [package.metadata.docs.rs]
 all-features = true

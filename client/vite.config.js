@@ -4,7 +4,7 @@ import wasmPack from 'vite-plugin-wasm-pack';
 const config = {
 	plugins: [
 		sveltekit(),
-		wasmPack('../proton')
+		wasmPack('./wasm')
 	]
 };
 

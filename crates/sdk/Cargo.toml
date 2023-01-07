@@ -1,19 +1,23 @@
 [package]
-authors = ["FL03 <jo3mccain@icloud.com>"]
+authors = ["FL03 <jo3mccain@icloud.com> (https://github.com/FL03)"]
 categories = []
-description = "Proton is a personal computing platform powered by the scsys ecosystem"
+description = "proton-sdk"
 edition = "2021"
-keywords = ["wasm"]
+homepage = "https://github.com/scattered-systems/proton/wiki"
+keywords = []
 license = "Apache-2.0"
 name = "proton-sdk"
 repository = "https://github.com/scattered-systems/proton"
 version = "0.1.0"
 
 [features]
-default = ["core"]
-full = ["core"]
+default = [ "core", "services" ]
+full = [ "core", "services" ]
+
+services = ["wallets"]
 
 core = ["proton-core/default"]
+wallets = ["proton-wallets/default"]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -25,7 +29,8 @@ test = true
 
 [dependencies]
 proton-core = { features = [], optional = true, path = "../core", version = "0.1.0" }
+proton-wallets = { features = [], optional = true, path = "../wallets", version = "0.1.0" }
 
-[target.wasm32-unknown-unknown]
-
-[target.wasm32-wasi]
+[package.metadata.docs.rs]
+all-features = true
+rustc-args = ["--cfg", "docsrs"]

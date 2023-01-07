@@ -14,7 +14,6 @@
 		"@neoconfetti/svelte": "latest",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-node": "next",
-		"@sveltejs/adapter-vercel": "next",
 		"@sveltejs/kit": "next",
 		"@sveltejs/package": "next",
 		"@tailwindcss/forms": "latest",
@@ -38,10 +37,11 @@
 		"build": "npm run wasm:build && vite build",
 		"check": "svelte-kit sync && svelte-check",
 		"check:watch": "svelte-kit sync && svelte-check --watch",
-		"dev": "npm run wasm:build && vite dev",
+		"dev": "npm run wasm:build && vite dev --host --port 3000",
 		"package": "svelte-kit package",
+		
 		"prestart": "npm run wasm:build",
-		"preview": "vite preview",
+		"preview": "vite preview --host --port 3000",
 		"start": "node build/index.js",
 		"wasm:build": "npm run build --workspace=@proton/wasm",
 		"wasm:install": "npm install --workspace=@proton/wasm"
@@ -49,5 +49,6 @@
 	"type": "module",
 	"version": "0.1.0",
 	"workspaces": [
+		"wasm"
 	]
 }

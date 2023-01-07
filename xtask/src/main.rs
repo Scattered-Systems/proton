@@ -14,17 +14,29 @@ pub mod workspace;
 
 pub(crate) mod primitives;
 
-use proton_sdk::prelude::BoxResult;
-
-fn main() -> BoxResult {
+fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt::init();
     cli::CommandLineInterface::default().handler()?;
+    // cli()?;
+
     Ok(())
 }
 
-pub trait BuildPipeline {
-    fn init() -> Self;
-    fn handle(&self) -> BoxResult<&Self>;
-    fn run(&mut self) -> BoxResult;
-    fn stage(&self) -> String;
+use clap::{command, Arg, ArgAction, Command, arg};
+
+fn cli() -> anyhow::Result<()> {
+    
+    let matches = command!() // requires `cargo` feature
+        .arg(arg!(-r --release "Optionally run application in release").action(ArgAction::SetTrue))
+        .subcommand(
+            Command::new("test")
+                .about("does testing things")
+                .arg(arg!(-l --list "lists test values").action(ArgAction::SetTrue)),
+        )
+        .get_matches();
+    
+
+
+    println!("wilds: {:?}", matches);
+    Ok(())
 }

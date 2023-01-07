@@ -2,7 +2,7 @@
     export let open = false;
     export let title = "Controls";
 
-    import { List, ProfileCard } from "$lib";
+    import { ProfileCard } from "$lib";
 	
 </script>
 
@@ -14,13 +14,13 @@
                 {title}
             </div>
             <div class="flex p-3 mx-auto items-center justify-start">
-                <List props="flex flex-col lg:flex-row list-none">
+                <ul class="flex flex-col lg:flex-row list-none">
                     <li>
                         <a class="" href="/settings" sveltekit:prefetch>
                             Settings
                         </a>
                     </li>
-                </List>
+                </ul>
             </div>
             <div class="flex p-3">
                 <ProfileCard/>

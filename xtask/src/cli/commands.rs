@@ -4,8 +4,8 @@
     Description: ... Summary ...
 */
 use crate::{copy_dir_all, dist_dir, execute_bundle, project_root, Bundle};
+use anyhow::Result;
 use clap::{Subcommand, ValueEnum};
-use proton_sdk::prelude::BoxResult;
 use std::process::Command;
 
 #[derive(Clone, Copy, Debug, Default, Hash, PartialEq, ValueEnum)]
@@ -51,7 +51,7 @@ pub enum Commands {
 }
 
 impl Commands {
-    pub fn handler(&self, desktop: bool, release: bool) -> BoxResult<&Self> {
+    pub fn handler(&self, desktop: bool, release: bool) -> Result<&Self> {
         tracing::info!("Processing commands issued to the cli...");
         match self {
             Self::Compile { workspace } => {
@@ -65,6 +65,7 @@ impl Commands {
                 }
 
                 if desktop {
+                    tracing::info!("Bundling the application for desktop distribution...");
                     compile_desktop(None)?;
                 } else {
                     compile_wasm(None)?;
@@ -98,14 +99,14 @@ pub fn program(program: &str) -> Command {
     Command::new(program)
 }
 
-pub fn command(program: &str, args: Vec<&str>) -> BoxResult {
+pub fn command(program: &str, args: Vec<&str>) -> Result<()> {
     let mut cmd = Command::new(program);
     cmd.current_dir(project_root());
     cmd.args(args.as_slice()).status()?;
     Ok(())
 }
 
-pub fn npm(args: Vec<&str>) -> BoxResult {
+pub fn npm(args: Vec<&str>) -> Result<()> {
     let mut cmd = Command::new("npm");
     cmd.current_dir(project_root());
     cmd.args(args.as_slice()).status()?;
@@ -113,7 +114,7 @@ pub fn npm(args: Vec<&str>) -> BoxResult {
 }
 
 ///
-pub fn compile_desktop(save_as: Option<&str>) -> BoxResult {
+pub fn compile_desktop(save_as: Option<&str>) -> Result<()> {
     tracing::info!("Building for desktops...");
     command("cargo", vec!["tauri", "build", "--config", "desktop/tauri.conf.json"])?;
 
@@ -124,7 +125,7 @@ pub fn compile_desktop(save_as: Option<&str>) -> BoxResult {
     Ok(())
 }
 ///
-pub fn compile_js(save_as: Option<&str>) -> BoxResult {
+pub fn compile_js(save_as: Option<&str>) -> Result<()> {
     npm(vec!["run", "build"])?;
     copy_dir_all(
         &project_root().join("client/build"), 
@@ -133,7 +134,7 @@ pub fn compile_js(save_as: Option<&str>) -> BoxResult {
     Ok(())
 }
 ///
-pub fn compile_wasm(save_as: Option<&str>) -> BoxResult {
+pub fn compile_wasm(save_as: Option<&str>) -> Result<()> {
     command("wasm-pack", vec!["build", "proton"])?;
 
     copy_dir_all(
@@ -143,17 +144,15 @@ pub fn compile_wasm(save_as: Option<&str>) -> BoxResult {
 
     Ok(())
 }
-
-
-
-pub fn start_application() -> BoxResult {
+///
+pub fn start_application() -> Result<()> {
     let mut cmd = Command::new("npm");
-    cmd.current_dir(project_root().join("app"));
-    cmd.args(&["run", "start"]).status()?;
+    cmd.current_dir(project_root());
+    cmd.args(&["run", "dev"]).status()?;
     Ok(())
 }
-
-pub fn start_desktop() -> BoxResult {
+///
+pub fn start_desktop() -> Result<()> {
     let mut cmds = Bundle::<&str>::new();
     cmds.insert(
         "cargo",
@@ -162,8 +161,8 @@ pub fn start_desktop() -> BoxResult {
     execute_bundle(cmds)?;
     Ok(())
 }
-
-pub fn setup_rust_nightly(extras: bool) -> BoxResult {
+///
+pub fn setup_rust_nightly(extras: bool) -> Result<()> {
     let mut cmds = crate::Bundle::new();
     cmds.insert(
         "rustup",
@@ -200,13 +199,13 @@ pub fn setup_rust_nightly(extras: bool) -> BoxResult {
     }
     execute_bundle(cmds)
 }
-
-pub fn setup_langspace(extras: bool) -> BoxResult {
+///
+pub fn setup_langspace(extras: bool) -> Result<()> {
     setup_rust_nightly(extras)?;
     Ok(())
 }
 /// Handler for configuring the workspace
-pub fn setup_desktop(linux: Option<Linux>) -> BoxResult {
+pub fn setup_desktop(linux: Option<Linux>) -> Result<()> {
     let mut args = crate::Bundle::new();
     args.insert(
         "cargo",
@@ -215,7 +214,6 @@ pub fn setup_desktop(linux: Option<Linux>) -> BoxResult {
     //
     if linux.is_some() {
         match linux.unwrap_or_default().clone() as i32 {
-            0 => {},
             1 => {
                 args.insert(
                     "sudo",
@@ -240,10 +238,9 @@ pub fn setup_desktop(linux: Option<Linux>) -> BoxResult {
                     ],
                 );
             },
-            _ => {} 
+            _ => {}
         }
-    }
-    
+    } 
     //
     execute_bundle(args)?;
     Ok(())

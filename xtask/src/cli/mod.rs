@@ -8,14 +8,16 @@ pub use self::{commands::*, interface::*};
 
 pub(crate) mod commands;
 
+use clap::Parser;
+
 pub fn new() -> CommandLineInterface {
-    CommandLineInterface::default()
+    CommandLineInterface::parse()
 }
 
 pub(crate) mod interface {
     use super::Commands;
+    use anyhow::Result;
     use clap::Parser;
-    use proton_sdk::prelude::BoxResult;
 
     #[derive(Clone, Debug, Hash, Parser, PartialEq)]
     #[clap(about, author, version)]
@@ -34,7 +36,7 @@ pub(crate) mod interface {
     }
 
     impl CommandLineInterface {
-        pub fn handler(&self) -> BoxResult<&Self> {
+        pub fn handler(&self) -> Result<&Self> {
             if self.debug {
                 
             }

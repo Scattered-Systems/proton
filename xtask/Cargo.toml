@@ -13,12 +13,12 @@ version = "0.1.0"
 [build-dependencies]
 
 [dependencies]
-clap = { features = ["derive"], version = "4.0.29" }
+anyhow = "1"
+clap = { features = ["cargo", "derive", "env"], version = "4" }
 devx-cmd = "0.5.0"
 devx-pre-commit = "0.5.0" 
 duct = "0.13.6"
 man = "0.3.0"
-proton-sdk = { features = [], path = "../crates/sdk", version = "0.1.0" }
 tracing = "0.1.37"
 tracing-subscriber = "0.3.16"
 wild = "2.1.0"
