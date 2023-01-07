@@ -1,9 +1,10 @@
 [package]
-authors = ["FL03 <jo3mccain@icloud.com>"]
+authors = ["FL03 <jo3mccain@icloud.com> (https://github.com/FL03)"]
 categories = []
-description = "Proton is a personal computing platform powered by the scsys ecosystem"
+description = "Puzzled"
 edition = "2021"
-keywords = ["wasm"]
+homepage = "https://github.com/scattered-systems/proton/wiki"
+keywords = []
 license = "Apache-2.0"
 name = "proton-core"
 repository = "https://github.com/scattered-systems/proton"
@@ -18,17 +19,17 @@ test = true
 
 [build-dependencies]
 
+[dependencies]
+acme = { features = [], git = "https://github.com/FL03/acme", branch = "v0.2.5", version = "0.2.5" }
+axum-core = "0.3.0"
+reqwest = { features = ["json", "rustls-tls", "stream"], version = "0.11" }
+scsys = { features = [], version = "0.1.40" }
+serde = { features = ["derive"], version = "1" }
+serde_json = "1"
+strum = { features = ["derive"], version = "0.24" }
+
 [dev-dependencies]
 
-[dependencies]
-gloo = "0.8.0"
-js-sys = { features = [], version = "0.3.60" }
-serde = { features = ["derive"], version = "1.0.149" }
-serde_json = "1.0.89"
-strum = { features = ["derive"], version = "0.24.1" }
-wasm-bindgen = { features = ["serde-serialize"], version = "0.2.83" }
-wasm-bindgen-futures = "0.4.33"
-
-[dependencies.web-sys]
-features = []
-version = "0.3.60"
+[package.metadata.docs.rs]
+all-features = true
+rustc-args = ["--cfg", "docsrs"]

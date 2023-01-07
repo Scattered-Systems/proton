@@ -19,7 +19,7 @@ extras = ["console_error_panic_hook"]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
-name = "wasm"
+name = "proton"
 path = "src/lib.rs"
 test = true
 

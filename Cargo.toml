@@ -3,6 +3,7 @@ default-members = [
     "proton"
 ]
 exclude = [
+    "client/wasm",
     "desktop",
     "xtask"
 ]

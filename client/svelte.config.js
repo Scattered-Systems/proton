@@ -1,19 +1,14 @@
-// import adapter from '@sveltejs/adapter-auto';
-import * as cloudflare from '@sveltejs/adapter-cloudflare';
-import adapter from '@sveltejs/adapter-node';
-import * as vercel from '@sveltejs/adapter-vercel';
+import adapter from '@sveltejs/adapter-auto';
+import * as noded from '@sveltejs/adapter-node';
 import preprocess from "svelte-preprocess";
 
 
 const config = {
 	kit: {
-		...(process.env.MODE === "cloudflare") && {
-			adapter: cloudflare()
+		...(process.env.MODE === "production") && {
+			adapter: noded()
 		},
-		...(process.env.MODE === "vercel") && {
-			adapter: vercel()
-		},
-		...(process.env.MODE !== "vercel" && process.env.MODE !=="cloudflare") && {
+		...(process.env.MODE !== "production") && {
 			adapter: adapter()
 		}
 	},

@@ -1,51 +1,43 @@
-FROM node:18.12.1 as base
+FROM rust:latest as base
 
 RUN apt-get update -y && apt-get upgrade -y
 
-FROM base as langspace
+FROM base as builder-base
 
 RUN apt-get install -y \
-    clang \
-    cmake \
-    git \
-    llvm \
-    wget
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
-
-ENV PATH="/root/.cargo/bin:${PATH}"
-
-FROM langspace as builder-base
-
-RUN rustup default nightly && \
-    rustup target add wasm32-unknown-unknown wasm32-wasi --toolchain nightly
-
-RUN npm install -g wasm-pack
+    protobuf-compiler
 
 FROM builder-base as builder
 
-ADD . /workspace
-WORKDIR /workspace
+ENV CARGO_TERM_COLOR=always
+
+ADD . /app
+WORKDIR /app
 
 COPY . .
-RUN npm install && npm run build
+RUN cargo build --release -v --workspace
 
-FROM builder as development
+FROM debian:buster-slim as runner-base
 
-ENV MODE="production"
+RUN apt-get update -y && apt-get upgrade -y 
 
-EXPOSE 3000
-CMD [ "npm", "run", "start" ]
+RUN apt-get install -y libssl-dev protobuf-compiler
 
-FROM node:lts-alpine as runner
+FROM runner-base as runner
 
-RUN apt-get update -y && apt-get upgrade -y
+ENV RUST_LOG="info" \
+    SERVER_PORT=8080 
 
-COPY --chown=55 --from=builder /workspace/.artifacts/dist ./dist
-VOLUME [ "dist" ]
+COPY --chown=55 .config /config
+VOLUME ["/config"]
+
+COPY --from=builder /app/target/release/proton /bin/proton
 
 FROM runner
 
-ENV MODE="production"
+EXPOSE 80
+EXPOSE ${SERVER_PORT}
+EXPOSE 6379
 
-EXPOSE 3000
-CMD ["node", "dist/build/index.js"]
+ENTRYPOINT [ "proton" ]
+CMD [ "system", "--up" ]

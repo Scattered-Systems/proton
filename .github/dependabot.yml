@@ -13,6 +13,10 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: cargo
+    directory: /client/wasm
+    schedule:
+      interval: daily
+  - package-ecosystem: cargo
     directory: /desktop
     schedule:
       interval: daily

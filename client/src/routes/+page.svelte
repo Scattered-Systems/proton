@@ -1,5 +1,5 @@
 <script>
-    import { fetch } from 'proton/proton';
+    import { fetch } from 'wasm/proton';
     import { onMount } from 'svelte';
 
     onMount(() => {
