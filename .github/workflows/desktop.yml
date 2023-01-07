@@ -4,14 +4,14 @@ env:
   NODE_VERSION: 18
 
 on:
-  push:
-    branches: [ "main" ]
-    tags: [ "v*.*.*" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "master", "prod*" ]
+    tags: [ "v*.*.*" ]
+  push:
+    branches: [ "main", "master", "prod*" ]
     tags: [ "v*.*.*" ]
   schedule:
-    - cron: "30 9 * * 5"
+    - cron: "30 9 * * *"
   workflow_dispatch:
     inputs:
       environment:

@@ -1,11 +1,14 @@
 name: Docker
 
 on:
+  pull_request:
+    branches: [ "main", "master", "prod*" ]
+    tags: [ "v*.*.*" ]
   push:
-    branches: [ "main" ]
+    branches: [ "main", "master", "prod*" ]
     tags: [ "v*.*.*" ]
   schedule:
-    - cron: "30 9 * * 5"
+    - cron: "30 9 * * *"
   workflow_dispatch:
 
 env:
@@ -18,8 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker buildx build --tag ${{ env.IMAGE }} .
-
+        run: docker buildx build --tag proton:latest .
   publish:
     needs: build
     runs-on: ubuntu-latest
@@ -29,7 +31,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         dockerfile: Dockerfile
-        name: ${{ env.image }}
+        name: scsys/proton
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         snapshot: true
         tags: latest
