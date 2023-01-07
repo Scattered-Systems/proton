@@ -6,7 +6,7 @@ edition = "2021"
 homepage = "https://github.com/scattered-systems/proton/wiki"
 keywords = ["wasm"]
 license = "Apache-2.0"
-name = "proton"
+name = "proton-wasm"
 repository = "https://github.com/scattered-systems/proton"
 version = "0.1.0"
 
@@ -19,7 +19,7 @@ extras = ["console_error_panic_hook"]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
-name = "proton"
+name = "wasm"
 path = "src/lib.rs"
 test = true
 
