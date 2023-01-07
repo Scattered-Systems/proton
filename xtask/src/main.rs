@@ -12,7 +12,7 @@ pub mod cli;
 pub mod workspace;
 
 ///
-pub type Bundle<T = &str> = std::collections::HashMap<T, Vec<Vec<T>>>;
+pub type Bundle<T = &'static str> = std::collections::HashMap<T, Vec<Vec<T>>>;
 
 fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt::init();
