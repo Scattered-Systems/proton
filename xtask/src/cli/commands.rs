@@ -3,7 +3,7 @@
     Contrib: FL03 <jo3mccain@icloud.com>
     Description: ... Summary ...
 */
-use crate::{copy_dir_all, dist_dir, execute_bundle, project_root, Bundle};
+use crate::{copy_dir_all, dist_dir, execute_bundle, program, project_root, Bundle};
 use anyhow::Result;
 use clap::{Subcommand, ValueEnum};
 use std::process::Command;
@@ -56,8 +56,6 @@ impl Commands {
         match self {
             Self::Compile { workspace } => {
                 tracing::info!("Compiling the codebase...");
-
-                
                 if std::fs::create_dir_all(&dist_dir()).is_err() {
                     tracing::info!("Clearing out the previous build");
                     std::fs::remove_dir_all(&dist_dir())?;
@@ -95,17 +93,6 @@ impl Commands {
     }
 }
 
-pub fn program(program: &str) -> Command {
-    Command::new(program)
-}
-
-pub fn command(program: &str, args: Vec<&str>) -> Result<()> {
-    let mut cmd = Command::new(program);
-    cmd.current_dir(project_root());
-    cmd.args(args.as_slice()).status()?;
-    Ok(())
-}
-
 pub fn npm(args: Vec<&str>) -> Result<()> {
     let mut cmd = Command::new("npm");
     cmd.current_dir(project_root());
@@ -116,7 +103,7 @@ pub fn npm(args: Vec<&str>) -> Result<()> {
 ///
 pub fn compile_desktop(save_as: Option<&str>) -> Result<()> {
     tracing::info!("Building for desktops...");
-    command("cargo", vec!["tauri", "build", "--config", "desktop/tauri.conf.json"])?;
+    program("cargo", &["tauri", "build", "--config", "desktop/tauri.conf.json"])?;
 
     copy_dir_all(
         &project_root().join("desktop/target/release/bundle"), 
@@ -135,7 +122,7 @@ pub fn compile_js(save_as: Option<&str>) -> Result<()> {
 }
 ///
 pub fn compile_wasm(save_as: Option<&str>) -> Result<()> {
-    command("wasm-pack", vec!["build", "client/wasm"])?;
+    program("wasm-pack", &["build", "client/wasm"])?;
 
     copy_dir_all(
         &project_root().join("client/wasm/pkg"), 

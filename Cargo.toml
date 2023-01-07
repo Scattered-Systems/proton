@@ -5,11 +5,12 @@ default-members = [
 exclude = [
     "client/wasm",
     "desktop",
-    "xtask"
+    # "xtask"
 ]
 members = [
     "crates/*",
     "proton",
+    "xtask"
 ]
 
 [profile.dev]

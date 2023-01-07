@@ -6,7 +6,7 @@
 use crate::Bundle;
 use anyhow::Result;
 use std::path::{Path, PathBuf};
-use std::{collections::HashMap, fs, io, process::Command};
+use std::{fs, io, process::Command};
 
 pub fn program(program: &str, args: &[&str]) -> Result<()> {
     let mut cmd = Command::new(program);

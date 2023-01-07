@@ -9,7 +9,6 @@ pub use self::utils::*;
 pub(crate) mod utils;
 
 pub mod cli;
-pub mod workspace;
 
 ///
 pub type Bundle<T = &'static str> = std::collections::HashMap<T, Vec<Vec<T>>>;
@@ -22,21 +21,34 @@ fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
-use clap::{command, Arg, ArgAction, Command, arg};
+use clap::{command, Arg, ArgAction, Command, arg, value_parser};
+use std::path::PathBuf;
 
-fn cli() -> anyhow::Result<()> {
+pub fn cli() -> anyhow::Result<()> {
     
     let matches = command!() // requires `cargo` feature
-        .arg(arg!(-r --release "Optionally run application in release").action(ArgAction::SetTrue))
         .subcommand(
-            Command::new("test")
+            Command::new("action")
                 .about("does testing things")
                 .arg(arg!(-l --list "lists test values").action(ArgAction::SetTrue)),
         )
+        .arg(
+            arg!(-p --port <PORT> "Configure the port")
+                .value_parser(value_parser!(u16))
+                .default_value("8080"),
+        )
+        .arg(arg!(config: -c --config <CONFIG>).value_parser(value_parser!(PathBuf)).default_value("/xtask.yml"))
+        .arg(Arg::new("debug").long("debug").short('d').action(ArgAction::SetTrue))
+        .arg(Arg::new("release").long("release").short('r').action(ArgAction::SetTrue))
+        .arg(Arg::new("verbose").long("verbose").short('v').action(ArgAction::SetTrue))
         .get_matches();
     
+    let args = matches
+        .get_many::<String>("cmd")
+        .unwrap_or_default()
+        .map(|v| v.as_str())
+        .collect::<Vec<_>>();
 
-
-    println!("wilds: {:?}", matches);
+    println!("wilds: {:?}", args);
     Ok(())
 }
