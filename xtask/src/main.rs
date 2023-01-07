@@ -4,15 +4,15 @@
     Description: ... Summary ...
 */
 #[doc(inline)]
-pub use self::{primitives::*, utils::*};
+pub use self::utils::*;
 
 pub(crate) mod utils;
 
 pub mod cli;
-pub mod wasm;
 pub mod workspace;
 
-pub(crate) mod primitives;
+///
+pub type Bundle<T = String> = std::collections::HashMap<T, Vec<Vec<T>>>;
 
 fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt::init();

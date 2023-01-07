@@ -182,6 +182,10 @@ pub fn setup_rust_nightly(extras: bool) -> Result<()> {
         "npm",
         vec![vec!["install", "-g", "wasm-pack"]],
     );
+    cmds.insert(
+        "npm",
+        vec![vec!["install"]],
+    );
     if extras {
         cmds.insert(
             "rustup",
