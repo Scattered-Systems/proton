@@ -4,10 +4,10 @@
    Description: ... Summary ...
 */
 use super::Settings;
-use scsys::prelude::{Configurable, Contextual, Hash, Hashable};
+use scsys::prelude::{Configurable, Contextual, Hash, Hashable, SerdeDisplay};
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, Default, Deserialize, Eq, Hash, PartialEq, Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Eq, Hash, PartialEq, SerdeDisplay, Serialize)]
 pub struct Context {
     pub cnf: Settings,
 }
@@ -32,11 +32,5 @@ impl Contextual for Context {
 
     fn context(&self) -> &Self::Ctx {
         self
-    }
-}
-
-impl std::fmt::Display for Context {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", serde_json::to_string(&self.cnf).unwrap())
     }
 }
