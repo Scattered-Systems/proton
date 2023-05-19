@@ -1,5 +1,9 @@
 {
-    "author": "FL03 <jo3mccain@icloud.com> (https://github.com/FL03)",
+    "author": {
+      "name": "Scattered-Systems",
+      "email": "jo3mccain@scattered-systems.com",
+      "url": "https://github.com/scattered-systems"
+    },
     "bugs": "https://github.com/scattered-systems/proton/issues",
     "dependencies": {},
     "description": "Proton is a complete, cloud-native computational platform",

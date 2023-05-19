@@ -1,0 +1,28 @@
+[application]
+asset_dir = "static"
+default_platform = "web"
+name = "Proton"
+out_dir = "dist"
+
+[web.app]
+title = "Proton"
+
+[web.watcher]
+index_on_404 = true
+watch_path = ["src"]
+
+[web.resource]
+style = [
+    "static/app.css",
+    "static/tailwind.css",
+]
+script = [
+    "static/js/app.js",
+]
+
+[web.resource.dev]
+script = []
+
+[application.plugins]
+available = true
+required = []

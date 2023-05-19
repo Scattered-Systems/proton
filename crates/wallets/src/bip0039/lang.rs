@@ -3,10 +3,8 @@
     Contrib: FL03 <jo3mccain@icloud.com>
     Description: ... Summary ...
 */
-use scsys::fnl_remove;
 use serde::{Deserialize, Serialize};
-use std::convert::From;
-use strum::{EnumString, EnumVariantNames};
+use strum::{Display, EnumString, EnumVariantNames};
 
 #[derive(
     Clone,
@@ -14,6 +12,7 @@ use strum::{EnumString, EnumVariantNames};
     Debug,
     Default,
     Deserialize,
+    Display,
     EnumString,
     EnumVariantNames,
     Eq,
@@ -30,16 +29,6 @@ pub enum Language {
 impl From<&Self> for Language {
     fn from(data: &Self) -> Self {
         *data
-    }
-}
-
-impl std::fmt::Display for Language {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{}",
-            fnl_remove(&serde_json::to_string(&self).unwrap()).to_ascii_lowercase()
-        )
     }
 }
 

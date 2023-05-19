@@ -5,7 +5,6 @@
 */
 use crate::SecpKeypair;
 use rand::rngs::OsRng;
-use scsys::Timestamp;
 use secp256k1::Secp256k1;
 use serde::{Deserialize, Serialize};
 
@@ -13,7 +12,7 @@ use serde::{Deserialize, Serialize};
 pub struct WalletKey {
     pub public: String,
     pub secret: String,
-    pub timestamp: Timestamp,
+    pub timestamp: i64,
 }
 
 impl WalletKey {
@@ -21,7 +20,7 @@ impl WalletKey {
         Self {
             public,
             secret,
-            timestamp: Timestamp::default(),
+            timestamp: chrono::Utc::now().timestamp(),
         }
     }
     pub fn generate_keypair(&mut self) -> &Self {

@@ -5,9 +5,8 @@
 */
 use super::{Language, BIP0039_ENDPOINT};
 use crate::{extract_file_from_path, try_collect_files};
-use scsys::AsyncResult;
+use anyhow::Result;
 use serde::{Deserialize, Serialize};
-use std::convert::From;
 
 #[derive(Clone, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
 pub struct BIP0039(Vec<String>);
@@ -19,7 +18,7 @@ impl BIP0039 {
     pub fn data(&self) -> &Vec<String> {
         &self.0
     }
-    pub async fn fetch(lang: Option<Language>) -> AsyncResult<Self> {
+    pub async fn fetch(lang: Option<Language>) -> Result<Self> {
         let endpoint = format!("{}/{}.txt", BIP0039_ENDPOINT, lang.unwrap_or_default());
         let response = reqwest::get(endpoint.as_str()).await?.text().await?;
         Ok(Self::from(response.split('\n').collect::<Vec<_>>()))

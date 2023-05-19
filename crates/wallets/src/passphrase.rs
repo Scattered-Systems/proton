@@ -4,7 +4,6 @@
     Description: ... Summary ...
 */
 use serde::{Deserialize, Serialize};
-use std::convert::From;
 
 #[derive(Clone, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
 pub struct Passphrase(String);

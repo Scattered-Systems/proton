@@ -5,7 +5,7 @@
         ... Summary ...
 */
 use crate::WalletKey;
-use scsys::prelude::AsyncResult;
+use anyhow::Result;
 use secp256k1::{PublicKey, SecretKey};
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
@@ -26,19 +26,19 @@ impl Wallet {
             label,
         }
     }
-    pub fn from_file(file_path: &str) -> AsyncResult<Self> {
+    pub fn from_file(file_path: &str) -> Result<Self> {
         let file = std::fs::OpenOptions::new().read(true).open(file_path)?;
         let buf_reader = std::io::BufReader::new(file);
         let wallet: Wallet = serde_json::from_reader(buf_reader)?;
         Ok(wallet)
     }
-    pub fn public_key(&self) -> AsyncResult<PublicKey> {
+    pub fn public_key(&self) -> Result<PublicKey> {
         Ok(PublicKey::from_str(&self.key.public)?)
     }
-    pub fn save_to_file(&self, path: &str) -> AsyncResult<Self> {
+    pub fn save_to_file(&self, path: &str) -> Result<Self> {
         crate::save_to_file(self.clone(), path)
     }
-    pub fn secret_key(&self) -> AsyncResult<SecretKey> {
+    pub fn secret_key(&self) -> Result<SecretKey> {
         Ok(SecretKey::from_str(&self.key.secret)?)
     }
     pub fn set_label<T: std::string::ToString>(&mut self, label: T) -> &Self {

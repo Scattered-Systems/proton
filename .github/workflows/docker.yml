@@ -2,38 +2,38 @@ name: Docker
 
 on:
   pull_request:
-    branches: [ "main", "master", "prod*" ]
-    tags: [ "v*.*.*" ]
+    branches-ignore: [ "dev*", "next", "nightly*" ]
   push:
-    branches: [ "main", "master", "prod*" ]
+    branches-ignore: [ "dev*", "next", "nightly*" ]
     tags: [ "v*.*.*" ]
+  release:
+    types: [ published ]
+  repository_dispatch:
+    types: [ docker ]
   schedule:
-    - cron: "30 9 * * *"
+    - cron: "30 9 * * *" # 9:30 UTC
   workflow_dispatch:
 
 env:
-  IMAGE: scsys/proton
+  BASENAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
+  REGISTRY: hub.docker.com
   IMAGE_TAG: latest
+  WORKDIR: app
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build the Docker image
-        run: docker buildx build --tag proton:latest .
   publish:
-    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
-        dockerfile: Dockerfile
-        name: scsys/proton
+        context: ${{ env.WORKDIR }}
+        dockerfile: ${{ env.WORKDIR }}/Dockerfile
+        name: ${{ env.BASENAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
         snapshot: true
-        tags: latest
         username: ${{ secrets.DOCKERHUB_USERNAME }}
-        

@@ -1,14 +1,15 @@
 [package]
-authors = ["FL03 <jo3mccain@icloud.com> (https://github.com/FL03)"]
-categories = []
-description = "proton-sdk"
-edition = "2021"
-homepage = "https://github.com/scattered-systems/proton/wiki"
-keywords = []
-license = "Apache-2.0"
+authors.workspace = true
+categories.workspace = true
+description = "Proton "
+edition.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+license.workspace = true
 name = "proton-sdk"
-repository = "https://github.com/scattered-systems/proton"
-version = "0.1.0"
+readme.workspace = true
+repository.workspace = true
+version.workspace = true
 
 [features]
 default = [ "core", "services" ]

@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "dotenv": "latest"
+  },
+  "devDependencies": {
+    "@types/google.maps": "latest",
+    "firebase": "latest",
+    "firebase-admin": "latest",
+    "firebase-functions": "latest",
+    "tailwindcss": "latest",
+    "typescript": "latest",
+    "vite": "beta"
+  },
+  "name": "@scsys/proton-ui",
+  "scripts": {
+    "build": "",
+    "start": "",
+    "trunk:build": "trunk build"
+  },
+  "type": "module",
+  "version": "0.1.0"
+}

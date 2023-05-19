@@ -3,12 +3,12 @@
     Contrib: FL03 <jo3mccain@icloud.com>
     Description: ... Summary ...
 */
+use anyhow::Result;
 use rand::Rng;
-use scsys::AsyncResult;
 use serde::{Deserialize, Serialize};
 use std::io::Read;
 
-pub fn try_collect_files(pattern: &str) -> AsyncResult<Vec<String>> {
+pub fn try_collect_files(pattern: &str) -> Result<Vec<String>> {
     let res = glob::glob(pattern)?
         .map(|i| i.unwrap().display().to_string())
         .collect::<Vec<String>>();
@@ -49,7 +49,7 @@ pub fn generate_random_string(len: usize) -> String {
 pub fn save_to_file<'a, T: Clone + Deserialize<'a> + Serialize>(
     data: T,
     path: &str,
-) -> AsyncResult<T> {
+) -> Result<T> {
     let file = std::fs::OpenOptions::new()
         .write(true)
         .create(true)

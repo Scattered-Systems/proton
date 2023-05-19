@@ -1,38 +1,26 @@
 version: 2
 updates:
+  - package-ecosystem: cargo
+    directory: /
+    schedule:
+        interval: daily
   - package-ecosystem: docker
     directory: /
     schedule:
-      interval: daily
+        interval: daily
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: daily
-  - package-ecosystem: npm
-    directory: /client
-    schedule:
-      interval: daily
+        interval: daily
   - package-ecosystem: cargo
-    directory: /client/wasm
+    directory: /app
     schedule:
-      interval: daily
-  - package-ecosystem: cargo
-    directory: /desktop
-    schedule:
-      interval: daily
+        interval: daily
   - package-ecosystem: cargo
     directory: /proton
     schedule:
-      interval: daily
+        interval: daily
   - package-ecosystem: cargo
     directory: /xtask
     schedule:
-      interval: daily
-  - package-ecosystem: cargo
-    directory: /crates/core
-    schedule:
-      interval: daily
-  - package-ecosystem: cargo
-    directory: /crates/sdk
-    schedule:
-      interval: daily
+        interval: daily

@@ -1,0 +1,19 @@
+[build]
+dist = "dist"
+target = "public/index.html"
+
+[serve]
+address = "0.0.0.0"
+no_autoreload = false
+open = false
+port = 8080
+
+[tools]
+sass = "1.54.9"
+wasm_bindgen = "0.2.84"
+wasm_opt = "version_110"
+
+# [[hooks]]
+# stage = "pre_build"
+# command = "bash"
+# command_arguments = ["-c", "npm run webpack:build"]

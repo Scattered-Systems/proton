@@ -7,7 +7,7 @@ use crate::{
     bip0039::{Language, BIP0039},
     generate_collection_from_reference, Passphrase,
 };
-use scsys::AsyncResult;
+use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::convert::From;
 
@@ -25,7 +25,7 @@ impl Mnemonic {
         }
     }
     /// Generate a new mnemonic, optionally given a [Language] parameter
-    pub async fn generate(&mut self, lang: Option<Language>) -> AsyncResult<&Self> {
+    pub async fn generate(&mut self, lang: Option<Language>) -> Result<&Self> {
         self.mnemonic = generate_collection_from_reference(BIP0039::fetch(lang).await?.into(), 12);
         Ok(self)
     }

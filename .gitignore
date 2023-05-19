@@ -1,3 +1,18 @@
+# Artifacts
+**/.artifacts/data/
+**/.cache/
+**/.dist/
+**/.docker/data/
+**/.firebase/
+**/.pkg/
+
+**/artifacts/
+**/debug/
+**/dist/
+**/env/
+**/out/
+**/pkg/
+
 # Config
 **/config.*
 **/*.config.*
@@ -5,33 +20,32 @@
 **/*.env
 **/*.env.*
 
-# Directories
-**/__pycache__/
-**/__sapper__/
-
-**/.DS_STORE/
-**/.artifacts/data/
-**/.docker/data/
+# IDEs
 **/.idea/
-**/.pytest_cache/
-**/.svelte-kit/
 **/.vscode/
 
-**/artifacts/
+# Node
 **/build/
-**/debug/
-**/dist/
-**/env/
 **/node_modules/
-**/pkg/
-**/target/
-**/tmp/
+
+# Python
+**/__pycache__/
+**/.pytest_cache/
 **/venv/
 
-# File Extensions
+# Rust
+**/Cargo.lock
+**/target/
+
 **/*.bk
 **/*.bk.*
 
+# Svelte
+**/__sapper__/
+**/.DS_STORE/
+**/.svelte-kit/
+
+# File Extensions
 **/*.csv
 **/*.csv.*
 
@@ -42,8 +56,6 @@
 
 **/*.lock
 **/*.lock.*
-
-**/*-lock.*
 
 **/*.log
 **/*.log.*
@@ -59,3 +71,4 @@
 !**/*.env.example
 !**/*.config.js
 !**/*.config.cjs
+!**/flake.lock
