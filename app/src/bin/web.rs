@@ -6,7 +6,7 @@ use proton_ui::{app, ApplicationScope};
 
 fn main() -> anyhow::Result<()> {
     dotenv::dotenv().ok();
-    let scope = ApplicationScope::new().with_name("Gambit");
+    let scope = ApplicationScope::new().with_name("Proton");
     dioxus_web::launch_with_props(app, scope, dioxus_web::Config::new().hydrate(true));
     Ok(())
 }
