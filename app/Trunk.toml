@@ -10,7 +10,7 @@ port = 8080
 
 [tools]
 sass = "1.54.9"
-wasm_bindgen = "0.2.84"
+wasm_bindgen = "0.2.86"
 wasm_opt = "version_110"
 
 # [[hooks]]

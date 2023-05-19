@@ -1,20 +1,30 @@
 {
+  "author": {
+    "name": "Scattered-Systems",
+    "email": "jo3mccain@scattered-systems.com",
+    "url": "https://github.com/scattered-systems"
+  },
+  "bugs": "https://github.com/scattered-systems/proton/issues",
   "dependencies": {
     "dotenv": "latest"
   },
   "devDependencies": {
     "@types/google.maps": "latest",
-    "firebase": "latest",
-    "firebase-admin": "latest",
-    "firebase-functions": "latest",
     "tailwindcss": "latest",
+    "ts-node": "latest",
+    "tslib": "latest",
     "typescript": "latest",
     "vite": "beta"
   },
+  "homepage": "https://github.com/scattered-systems/proton/wiki",
+  "license": "Apache-2.0",
   "name": "@scsys/proton-ui",
+  "private": true,
+  "readme": "https://github.com/scattered-systems/proton/#README",
+  "repository": "https://github.com/scattered-systems/proton",
   "scripts": {
-    "build": "",
-    "start": "",
+    "build": "tsc && npm run trunk:build",
+    "start": "trunk serve",
     "trunk:build": "trunk build"
   },
   "type": "module",

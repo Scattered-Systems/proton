@@ -37,5 +37,5 @@ jobs:
             target/${{ matrix.target }}/release
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            ${{ runner.os }}-cargo-
+            ${{ runner.os }}-cargo-master
   
