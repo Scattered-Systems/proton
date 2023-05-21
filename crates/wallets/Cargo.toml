@@ -37,3 +37,7 @@ tokio = { features = ["macros"], version = "1" }
 [package.metadata.docs.rs]
 all-features = true
 rustc-args = ["--cfg", "docsrs"]
+
+[target.wasm32-unknown-unknown]
+
+[target.wasm32-wasi]

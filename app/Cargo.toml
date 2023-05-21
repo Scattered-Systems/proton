@@ -21,9 +21,26 @@ path = "src/bin/app.rs"
 test = false
 
 [features]
-default = []
+default = [
+    "web"
+]
 
-wasm = []
+desktop = [
+    "dioxus-desktop/default"
+]
+ssr = [
+
+]
+web = [
+    "dioxus-router/web",
+    "dioxus-web",
+    "wasm"
+]
+
+
+wasm = [
+    
+]
 wasm-ext = []
 
 [lib]
@@ -39,11 +56,9 @@ anyhow = "1"
 base64 = "0.21"
 bytes = "1.4"
 dioxus = { features = ["macro"], version = "0.3" }
-dioxus-router = { features = [], version = "0.3" }
-[target.'cfg(any(macos, unix, windows))'.dependencies]
-dioxus-desktop = "0.3"
-[target.'cfg(target_family = "wasm")'.dependencies]
-dioxus-web = { features = ["hydrate"], version = "0.3" }
+dioxus-router = { features = ["web"], version = "0.3" }
+dioxus-desktop = { optional = true, version = "0.3" }
+dioxus-web = { features = ["hydrate"], optional = true, version = "0.3" }
 dotenv = "0.15"
 futures = "0.3"
 gloo = { features = [ "futures" ], version = "0.8" }

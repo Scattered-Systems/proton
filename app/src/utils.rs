@@ -3,7 +3,7 @@
     Contrib: FL03 <jo3mccain@icloud.com> (https://github.com/FL03)
     Description: ... Summary ...
 */
-#[cfg(target_family = "wasm")]
+#[cfg(feature = "wasm")]
 pub use self::wasm::*;
 
 pub mod auth {
@@ -20,7 +20,7 @@ pub mod auth {
     }
 }
 
-#[cfg(target_family = "wasm")]
+#[cfg(feature = "wasm")]
 mod wasm {
     use crate::JsResult;
     use wasm_bindgen::prelude::*;

@@ -13,11 +13,10 @@ watch_path = ["src"]
 
 [web.resource]
 style = [
-    "static/app.css",
-    "static/tailwind.css",
+    "static/css/app.css",
+    "static/css/tailwind.css",
 ]
 script = [
-    "static/js/app.js",
 ]
 
 [web.resource.dev]
@@ -26,3 +25,5 @@ script = []
 [application.plugins]
 available = true
 required = []
+
+[application.tools]

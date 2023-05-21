@@ -13,9 +13,6 @@ pub fn Settings(cx: Scope<ApplicationScope>) -> Element {
             scope: cx.clone(),
             div {
                 h1 { class: "prose prose:dark", "Settings" }
-                form {
-
-                }
             }
         }
 

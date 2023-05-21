@@ -46,7 +46,6 @@ impl Subscope {
 pub struct ApplicationScope {
     pub name: String,
     pub content: String,
-    pub scope: Subscope,
 }
 
 impl ApplicationScope {
@@ -54,7 +53,6 @@ impl ApplicationScope {
         Self {
             name: env!("CARGO_PKG_NAME").to_string(),
             content: env!("CARGO_PKG_DESCRIPTION").to_string(),
-            scope: Subscope::new(),
         }
     }
     pub fn with_name(mut self, name: impl ToString) -> Self {

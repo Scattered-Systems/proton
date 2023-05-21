@@ -15,6 +15,9 @@ version.workspace = true
 default = [ "core", "services" ]
 full = [ "core", "services" ]
 
+wasi = []
+wasm = []
+
 services = ["wallets"]
 
 core = ["proton-core/default"]
@@ -35,3 +38,7 @@ proton-wallets = { features = [], optional = true, path = "../wallets", version 
 [package.metadata.docs.rs]
 all-features = true
 rustc-args = ["--cfg", "docsrs"]
+
+[target.wasm32-unknown-unknown]
+
+[target.wasm32-wasi]
