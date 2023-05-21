@@ -30,6 +30,5 @@
   "repository": "https://github.com/scattered-systems/proton",
   "version": "0.1.0",
   "workspaces": [
-    "app"
   ]
 }
