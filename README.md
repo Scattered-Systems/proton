@@ -12,6 +12,16 @@
 
 Proton is a cloud-native platform manifesting the active decentralized namespace into a unique experience empowering everyday users to make use of blockchain technologies.
 
+## About
+
+Proton integrates with the [Scattered Systems](https://github.com/scattered-systems) ecosystem serving as a gateway to the future of internet-based experiences. 
+
+## Features
+
+Proton works closely with the nix ecosystem to provide a consistent and reliable experience across all supported platforms. This enables proton
+to be deployed on a wide range of devices and operating systems without the need for additional configuration. Moreover, proton is designed to be
+web-accessible, allowing users to access their platform and resources from anywhere in the world.
+
 ## Getting Started
 
 ### Building from the Source

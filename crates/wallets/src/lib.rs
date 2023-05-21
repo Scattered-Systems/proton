@@ -4,16 +4,16 @@
     Description: ... Summary ...
 */
 #[doc(inline)]
-pub use self::{keys::*, mnemonic::*, passphrase::*, primitives::*, utils::*, wallet::*};
+pub use self::{keys::*, mnemonic::*, passphrase::*, primitives::*, utils::*};
 
-pub(crate) mod keys;
-pub(crate) mod mnemonic;
-pub(crate) mod passphrase;
-pub(crate) mod utils;
-pub(crate) mod wallet;
+mod keys;
+mod mnemonic;
+mod passphrase;
+mod utils;
 
 pub mod authorize;
 pub mod bip0039;
+pub mod wallet;
 
 pub(crate) mod primitives {
     use secp256k1::{PublicKey, SecretKey};

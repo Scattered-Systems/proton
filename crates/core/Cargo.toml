@@ -14,8 +14,13 @@ version.workspace = true
 [features]
 default = []
 
+wasm = []
+wasm-ext = []
+
 [lib]
+bench = false
 crate-type = ["cdylib", "rlib"]
+doctest = false
 test = true
 
 [build-dependencies]
