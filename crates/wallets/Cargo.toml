@@ -20,8 +20,6 @@ test = true
 
 [build-dependencies]
 
-[dev-dependencies]
-
 [dependencies]
 anyhow.workspace = true
 chrono = "0.4"
@@ -32,6 +30,9 @@ secp256k1 = { features = ["rand"], version = "0.26" }
 serde.workspace = true
 serde_json.workspace = true
 strum.workspace = true
+
+[dev-dependencies]
+tokio = { features = ["macros"], version = "1" }
 
 [package.metadata.docs.rs]
 all-features = true

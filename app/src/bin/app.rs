@@ -11,7 +11,7 @@ fn main() -> anyhow::Result<()> {
 
 fn starter(scope: ApplicationScope) -> anyhow::Result<()> {
     #[cfg(target_family = "wasm")]
-    dioxus_web::launch_with_props(app, scope, dioxus_web::Config::new());
+    dioxus_web::launch_with_props(app, scope, dioxus_web::Config::new().hydrate(true));
     #[cfg(any(macos, unix, windows))]
     dioxus_desktop::launch_with_props(app, scope, dioxus_desktop::Config::new());
     Ok(())

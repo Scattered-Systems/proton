@@ -1,5 +1,5 @@
 /*
-    Appellation: gambit-ui <lib>
+    Appellation: proton-ui <lib>
     Contrib: FL03 <jo3mccain@icloud.com> (https://github.com/FL03)
 */
 pub use self::{primitives::*, scope::*, utils::*};
@@ -20,10 +20,6 @@ pub fn app(cx: Scope<ApplicationScope>) -> Element {
     cx.render(rsx! {
         Router {
             Route { to: "/", self::routes::Homepage(cx.clone()) },
-            Route { to: "/dashboard", self::routes::dash::Dashboard(cx.clone()) },
-            Route { to: "/auth/login", self::routes::auth::Login(cx.clone()) },
-            Route { to: "/auth/register", self::routes::auth::Register(cx.clone()) },
-            Route { to: "/settings", self::routes::Settings(cx.clone()) }
         }
     })
 }

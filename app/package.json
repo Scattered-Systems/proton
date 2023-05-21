@@ -6,10 +6,12 @@
   },
   "bugs": "https://github.com/scattered-systems/proton/issues",
   "dependencies": {
+    "cookie": "latest",
     "dotenv": "latest"
   },
   "devDependencies": {
     "@types/google.maps": "latest",
+    "@types/node": "latest",
     "tailwindcss": "latest",
     "ts-node": "latest",
     "tslib": "latest",
