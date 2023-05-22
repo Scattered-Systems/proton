@@ -10,8 +10,11 @@
     "dotenv": "latest"
   },
   "devDependencies": {
+    "@popperjs/core": "latest",
     "@types/google.maps": "latest",
     "@types/node": "latest",
+    "classnames": "latest",
+    "flowbite": "latest",
     "tailwindcss": "latest",
     "ts-node": "latest",
     "tslib": "latest",

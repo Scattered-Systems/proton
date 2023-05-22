@@ -17,9 +17,11 @@ title = "Proton"
 style = [
     "css/app.css",
     "css/tailwind.css",
-    "https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css"
+    "https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css"
 ]
 script = [
+    "https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"
 ]
 
 [web.resource.dev]
