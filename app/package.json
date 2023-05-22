@@ -25,9 +25,13 @@
   "readme": "https://github.com/scattered-systems/proton/#README",
   "repository": "https://github.com/scattered-systems/proton",
   "scripts": {
-    "build": "tsc && npm run trunk:build",
+    "build": "tsc && npm run rust:build",
+    "dev": "npm run rust:dev",
     "start": "trunk serve",
-    "trunk:build": "trunk build"
+    "css:build": "tailwindcss -o static/css/tailwind.css --minify",
+    "css:dev": "tailwindcss -w -o static/css/tailwind.css",
+    "rust:build": "dioxus build",
+    "rust:dev": "dioxus serve"
   },
   "type": "module",
   "version": "0.1.0"
