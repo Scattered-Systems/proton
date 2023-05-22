@@ -1,12 +1,14 @@
 [package]
 authors = ["FL03 <jo3mccain@icloud.com> (https://github.com/FL03)"]
 categories = []
+default-run = "proton"
 description = "proton"
 edition = "2021"
 homepage = "https://github.com/scattered-systems/proton/wiki"
 keywords = []
 license = "Apache-2.0"
 name = "proton"
+readme.workspace = true
 repository = "https://github.com/scattered-systems/proton"
 version = "0.1.0"
 
@@ -17,15 +19,23 @@ path = "src/main.rs"
 test = false
 
 [features]
-default = []
-
-eth = [
+default = [
+    "std"
 ]
 
+eth = []
+
+std = [
+    "tokio/full"
+]
 wasi = [
     "tokio_wasi/full"
 ]
 wasm = []
+
+desktop = []
+ssr = []
+web = []
 
 [build-dependencies]
 

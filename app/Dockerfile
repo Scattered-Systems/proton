@@ -14,7 +14,7 @@ ENV TRUNK_SERVE_PORT=80
 
 EXPOSE ${TRUNK_SERVE_PORT}
 
-ENTRYPOINT [ "trunk" ]
+ENTRYPOINT [ "dioxus" ]
 CMD [ "serve" ]
 
 FROM nginx:alpine-slim as production

@@ -17,6 +17,14 @@ pub use self::{context::*, settings::*};
 mod context;
 mod settings;
 
+#[cfg(feature = "wasi")]
+#[tokio_wasi::main]
+async fn main() -> anyhow::Result<()> {
+    
+    Ok(())
+}
+
+#[cfg(not(feature = "wasi"))]
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     

@@ -21,6 +21,12 @@ name = "proton-api"
 path = "src/main.rs"
 test = true
 
+[features]
+default = []
+
+std = []
+wasi = []
+
 [build-dependencies]
 
 [dependencies]
