@@ -12,7 +12,7 @@ pub fn Settings(cx: Scope<ApplicationScope>) -> Element {
         DashboardLayout {
             scope: cx.clone(),
             div {
-                h1 { class: "prose prose:dark", "Settings" }
+                h1 { class: "prose dark:prose-invert", "Settings" }
             }
         }
 

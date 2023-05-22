@@ -15,7 +15,7 @@ pub struct DashboardProps<'a> {
 
 pub fn DashboardLayout<'a>(cx: Scope<'a, DashboardProps<'a>>) -> Element {
     cx.render(rsx!(
-        div { class: "bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 flex flex-col items-center justify-center m-0 p-0 z-0 min-h-screen min-w-full max-w-screen",
+        div { class: "flex flex-col items-center justify-center m-0 p-0 z-0 min-h-screen min-w-full",
             header { class: "flex min-w-full max-w-screen body-font prose prose-invert",
                 NavBar {
                     banner: cx.props.scope.props.name.clone()

@@ -4,18 +4,20 @@ default_platform = "web"
 name = "Proton"
 out_dir = "dist"
 
+[application.plugins]
+available = true
+required = []
+
+[application.tools]
+
 [web.app]
 title = "Proton"
-
-[web.watcher]
-index_on_404 = true
-reload_html = true
-watch_path = ["src", "static"]
 
 [web.resource]
 style = [
     "css/app.css",
     "css/tailwind.css",
+    "https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css"
 ]
 script = [
 ]
@@ -23,8 +25,7 @@ script = [
 [web.resource.dev]
 script = []
 
-[application.plugins]
-available = true
-required = []
-
-[application.tools]
+[web.watcher]
+index_on_404 = true
+reload_html = true
+watch_path = ["src", "static"]

@@ -17,14 +17,14 @@ use dioxus::prelude::*;
 use dioxus_router::{Route, Router};
 
 pub fn app(cx: Scope<ApplicationScope>) -> Element {
-    
     cx.render(rsx! {
-        head {
-            link { rel: "stylesheet", href: "https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" }
+        div { class: "bg-white text-black dark:text-white dark:bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 flex flex-col items-center justify-center m-0 p-0 z-0 min-h-screen min-w-full",
+            Router {
+                Route { to: "/", self::routes::Homepage(cx.clone()) },
+                Route { to: "/settings", self::routes::Settings(cx.clone()) },
+            }
         }
-        Router {
-            Route { to: "/", self::routes::Homepage(cx.clone()) },
-        }
+        
     })
 }
 
