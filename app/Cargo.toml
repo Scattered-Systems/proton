@@ -34,14 +34,20 @@ ssr = [
 web = [
     "dioxus-router/web",
     "dioxus-web",
-    "wasm"
+    "wasm",
+    "wasm-ext"
 ]
 
 
 wasm = [
-    
+    "js-sys",
+    "wasm-bindgen/serde-serialize",
+    "web-sys"
 ]
-wasm-ext = []
+wasm-ext = [
+    "wasm-bindgen-futures",
+    "wasm-logger"
+]
 
 [lib]
 bench = true
@@ -55,14 +61,13 @@ test = true
 anyhow = "1"
 base64 = "0.21"
 bytes = "1.4"
-dioxus = { features = ["macro"], version = "0.3" }
+dioxus = "0.3"
 dioxus-router = { features = ["web"], version = "0.3" }
 dioxus-desktop = { optional = true, version = "0.3" }
 dioxus-web = { features = ["hydrate"], optional = true, version = "0.3" }
-dotenv = "0.15"
 futures = "0.3"
 gloo = { features = [ "futures" ], version = "0.8" }
-js-sys = { features = [], version = "0.3" }
+js-sys = { features = [], optional = true, version = "0.3" }
 log = "0.4"
 oauth2 = "4.3"
 reqwest = "0.11"
@@ -70,11 +75,12 @@ serde = { features = ["derive"], version = "1" }
 serde_json = "1"
 strum = { features = ["derive"], version = "0.24" }
 smart-default = "0.7"
+tokio = { features = ["full"], optional = true, version = "1" }
 
 # WebAssembly (emscripten)
-wasm-bindgen = { features = [ "serde-serialize" ], version = "0.2" }
-wasm-bindgen-futures = "0.4"
-wasm-logger = "0.2"
+wasm-bindgen = { features = [ "serde-serialize" ], optional = true, version = "0.2" }
+wasm-bindgen-futures = { optional = true, version = "0.4"}
+wasm-logger = {optional = true, version = "0.2"}
 
 [dependencies.web-sys]
 features = [
@@ -88,6 +94,7 @@ features = [
     "ResponseInit",
     "Window"
 ]
+optional = true
 version = "0.3"
 
 [dev-dependencies]

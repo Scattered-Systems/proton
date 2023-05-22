@@ -1,4 +1,4 @@
-FROM jo3mccain/trunkrs:latest as builder
+FROM jo3mccain/dioxus:latest as builder
 
 ENV CARGO_TERM_COLOR=always
 
@@ -6,7 +6,7 @@ ADD . /workspace
 WORKDIR /workspace
 
 COPY . .
-RUN trunk build --release
+RUN dioxus build --release
 
 FROM builder as development
 

@@ -17,10 +17,14 @@ path = "src/main.rs"
 test = false
 
 [features]
+default = []
 
 eth = [
 ]
 
+wasi = [
+    "tokio_wasi/full"
+]
 wasm = []
 
 [build-dependencies]
@@ -33,7 +37,9 @@ serde = { features = ["derive"], version = "1" }
 serde_json = "1"
 smart-default = "0.7"
 strum = { features = ["derive"], version = "0.24" }
-tokio = { features = ["full"], version = "1" }
+tokio = { features = ["full"], optional = true, version = "1" }
+
+tokio_wasi = { features = ["full"], optional = true, version = "1" }
 
 [dev-dependencies]
 
