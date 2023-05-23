@@ -6,13 +6,15 @@
   },
   "bugs": "https://github.com/scattered-systems/proton/issues",
   "dependencies": {
-    "cookie": "latest",
-    "dotenv": "latest"
+    "cookie": "latest"
   },
   "devDependencies": {
     "@popperjs/core": "latest",
+    "@tailwindcss/forms": "latest",
+    "@tailwindcss/typography": "latest",
     "@types/google.maps": "latest",
     "@types/node": "latest",
+    "autoprefixer": "latest",
     "classnames": "latest",
     "flowbite": "latest",
     "tailwindcss": "latest",
@@ -28,13 +30,13 @@
   "readme": "https://github.com/scattered-systems/proton/#README",
   "repository": "https://github.com/scattered-systems/proton",
   "scripts": {
-    "build": "tsc && npm run rust:build",
-    "dev": "npm run rust:dev",
-    "start": "trunk serve",
-    "css:build": "tailwindcss -o static/css/tailwind.css --minify",
-    "css:dev": "tailwindcss -w -o static/css/tailwind.css",
-    "rust:build": "dioxus build",
-    "rust:dev": "dioxus serve"
+    "build": "tsc && npm run css:build && npm run rust:build",
+    "dev": "npm run rust:serve",
+    "start": "npm run rust:serve",
+    "css:build": "tailwindcss --minify -o static/css/tailwind.min.css",
+    "css:dev": "tailwindcss --minify -o static/css/tailwind.min.css -w ",
+    "rust:build": "dioxus build --release",
+    "rust:serve": "dioxus serve --release"
   },
   "type": "module",
   "version": "0.1.0"

@@ -10,7 +10,7 @@ use dioxus::prelude::*;
 /// The base application object to be launched
 pub fn Homepage(cx: Scope<ApplicationScope>) -> Element {
     cx.render(rsx!(
-        header { class: "flex min-w-full max-w-screen body-font prose dark:prose-invert",
+        header { class: "flex min-w-full max-w-screen body-font",
                 NavBar { banner: cx.props.name.clone() }
         }
         main { class: "flex flex-col grow items-center justify-center min-h-full max-h-screen min-w-full max-w-screen z-0",

@@ -11,12 +11,14 @@ required = []
 [application.tools]
 
 [web.app]
+
 title = "Proton"
 
 [web.resource]
+
 style = [
     "css/app.css",
-    "css/tailwind.css",
+    "css/tailwind.min.css",
     "https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css",
     "https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css"
 ]

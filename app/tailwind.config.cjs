@@ -9,6 +9,8 @@ const config = {
     darkMode: 'class', // or 'media' or 'class'
     mode: 'jit',
     plugins: [
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography'),
         require('flowbite/plugin')
     ],
     theme: {

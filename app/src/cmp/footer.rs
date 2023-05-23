@@ -16,7 +16,7 @@ pub fn Footer(cx: Scope) -> Element {
                     }
                 }
                 div { class: "flex grow items-center justify-center",
-                    "© 2023 Gambit. All rights reserved."
+                    "© 2023 Scattered-Systems, LLC. All rights reserved."
                 }
                 div { class: "flex items-center justify-end",
                     ul { class: "list-none", 
