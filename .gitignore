@@ -14,8 +14,8 @@
 **/pkg/
 
 # Config
-**/config.*
-**/*.config.*
+**/.config/config.*
+**/.config/*.config.*
 
 **/*.env
 **/*.env.*

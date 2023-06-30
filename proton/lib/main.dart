@@ -1,8 +1,28 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:url_strategy/url_strategy.dart';
+import 'proton.dart';
+import 'app.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  const AppSettings settings = AppSettings();
+
+  await setup(settings);
+  const Widget app = Proton(settings: settings);
+  runApp(
+      ChangeNotifierProvider(create: (_) => ThemeModeNotifier(), child: app));
 }
+
+Future<void> setup(AppSettings settings) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
+
+  if (kDebugMode) {
+    print('Running in debug mode');
+  }
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
