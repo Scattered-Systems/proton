@@ -1,16 +1,13 @@
 [workspace]
 default-members = [
-    "proton"
+    "crates/proton"
 ]
 exclude = [
-    "app",
-    "bin/*",
-    "examples/*",
     "xtask"
 ]
 members = [
-    "crates/*",
-    "proton"
+    "bin/api",
+    "crates/*"
 ]
 
 [workspace.package]

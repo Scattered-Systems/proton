@@ -30,8 +30,7 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
-        context: app
-        dockerfile: app/Dockerfile
+        dockerfile: bin/api/Dockerfile
         name: ${{ env.BASENAME }}-ui
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         platforms: linux/amd64,linux/arm64,linux/arm/v7

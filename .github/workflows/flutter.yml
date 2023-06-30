@@ -1,0 +1,56 @@
+name: Flutter
+
+env:
+  FLUTTER_CHANNEL: 'master'
+  FLUTTER_VERSION: '3.10.2'
+
+on:
+  pull_request:
+    branches: [main, master, prod*]
+  push:
+    branches: [main, master, prod*]
+    tags: [v*.*.*]
+  release:
+    types: [published]
+  repository_dispatch:
+    types: [dart-deploy]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+      - name: Install dependencies
+        id: flutter-deps
+        run: flutter pub get
+      - name: Cache dependencies
+        id: flutter-cache
+        uses: actions/cache@v3
+        with:
+          path: .pub-cache
+          key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-cache-master
+      - name: Build Android
+        id: flutter-andriod-build
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: flutter build apk --release
+      - uses: actions/upload-artifact@v2
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          name: android-release
+          path: build/app/outputs/apk/release/app-release.apk
+      - name: Build iOS
+        id: flutter-ios-build
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: flutter build ios --release --no-codesign
+      - uses: actions/upload-artifact@v2
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          name: ios-release
+          path: proton/build/ios/iphoneos/Runner.app

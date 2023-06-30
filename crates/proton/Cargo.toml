@@ -1,0 +1,44 @@
+[package]
+authors.workspace = true
+categories.workspace = true
+description = "Proton "
+edition.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+license.workspace = true
+name = "proton"
+readme.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[features]
+default = [ "core", "services" ]
+full = [ "core", "services" ]
+
+wasi = []
+wasm = []
+
+services = ["wallets"]
+
+core = ["proton-core/default"]
+wallets = ["proton-wallets/default"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+test = true
+
+[build-dependencies]
+
+[dev-dependencies]
+
+[dependencies]
+proton-core = { features = [], optional = true, path = "../core", version = "0.1.0" }
+proton-wallets = { features = [], optional = true, path = "../wallets", version = "0.1.0" }
+
+[package.metadata.docs.rs]
+all-features = true
+rustc-args = ["--cfg", "docsrs"]
+
+[target.wasm32-unknown-unknown]
+
+[target.wasm32-wasi]

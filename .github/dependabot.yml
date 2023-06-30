@@ -13,10 +13,14 @@ updates:
     schedule:
         interval: daily
   - package-ecosystem: cargo
-    directory: /app
+    directory: /crates/core
     schedule:
         interval: daily
   - package-ecosystem: cargo
+    directory: /crates/proton
+    schedule:
+        interval: daily
+  - package-ecosystem: dart
     directory: /proton
     schedule:
         interval: daily
