@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import 'proton.dart';
 
@@ -15,11 +16,37 @@ class Proton extends StatefulWidget {
 }
 
 class _ProtonState extends State<Proton> {
+  // Keys
+  final GlobalKey<NavigatorState> _rootNavKey = GlobalKey();
+  final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey = GlobalKey();
+  final GlobalKey<NavigatorState> _shellNavKey = GlobalKey();
+
+  ThemeMode _themeMode = ThemeMode.system;
+
+  set setTheme(ThemeMode themeMode) {
+    setState(() {
+      _themeMode = themeMode;
+    });
+  }
+
+  AppRouter get _router => AppRouter(settings: widget.settings);
+
   @override
   Widget build(BuildContext context) {
+    final themeModeNotifier = context.watch<ThemeModeNotifier>();
+    themeModeNotifier.addListener(() {
+      if (themeModeNotifier.themeMode != _themeMode) {
+        setTheme = themeModeNotifier.themeMode;
+      }
+    });
+
     return MaterialApp.router(
-      title: widget.settings.title,
+      darkTheme: widget.settings.darkTheme,
+      routerConfig: _router(rootNavkey: _rootNavKey, shellNavkey: _shellNavKey),
+      scaffoldMessengerKey: _scaffoldMessengerKey,
       theme: widget.settings.theme,
+      title: widget.settings.title,
+      themeMode: _themeMode,
     );
   }
 }
@@ -39,8 +66,6 @@ class AppRouter {
   GoRouter call(
       {GlobalKey<NavigatorState>? rootNavkey,
       GlobalKey<NavigatorState>? shellNavkey}) {
-    rootNavkey ??= GlobalKey<NavigatorState>();
-    shellNavkey ??= GlobalKey<NavigatorState>();
     return GoRouter(
       initialLocation: '/',
       navigatorKey: rootNavkey,
@@ -64,7 +89,6 @@ class AppRouter {
             navigatorKey: shellNavkey,
             parentNavigatorKey: rootNavkey,
             routes: [
-              
               HomeScreen.route(parentNavigatorKey: shellNavkey),
             ]),
       ],
