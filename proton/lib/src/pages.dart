@@ -5,10 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:proton/proton.dart' show TabEnumMixin;
 
 enum AppScreens with TabEnumMixin implements Comparable<AppScreens> {
-  home(),
-  feed(),
-  maps(),
-  settings();
+  home(path: '/');
+
+  const AppScreens({required this.path});
+
+  final String path;
 
   static AppScreens fromIndex(int index) {
     return values[index];
@@ -54,25 +55,10 @@ enum AppScreens with TabEnumMixin implements Comparable<AppScreens> {
     );
   }
 
-  String get path {
-    switch (this) {
-      case AppScreens.home:
-        return '/';
-      default:
-        return '/$name';
-    }
-  }
-
   IconData get icon {
     switch (this) {
-      case AppScreens.feed:
-        return Icons.rss_feed;
       case AppScreens.home:
         return Icons.home;
-      case AppScreens.maps:
-        return Icons.map_outlined;
-      case AppScreens.settings:
-        return Icons.settings;
     }
   }
 }

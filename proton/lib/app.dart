@@ -29,7 +29,8 @@ class _ProtonState extends State<Proton> {
     });
   }
 
-  AppRouter get _router => AppRouter(settings: widget.settings);
+  late final GoRouter _router = AppRouter(settings: widget.settings)(
+      rootNavkey: _rootNavKey, shellNavkey: _shellNavKey);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class _ProtonState extends State<Proton> {
 
     return MaterialApp.router(
       darkTheme: widget.settings.darkTheme,
-      routerConfig: _router(rootNavkey: _rootNavKey, shellNavkey: _shellNavKey),
+      routerConfig: _router,
       scaffoldMessengerKey: _scaffoldMessengerKey,
       theme: widget.settings.theme,
       title: widget.settings.title,
@@ -83,7 +84,7 @@ class AppRouter {
                         onTap: () => GoRouter.of(context).go('/'),
                         title: settings.title)),
                 body: child,
-                bottomNavigationBar: AppScreens.bottomNavigationBar(context),
+                // bottomNavigationBar: AppScreens.bottomNavigationBar(context),
               );
             },
             navigatorKey: shellNavkey,
