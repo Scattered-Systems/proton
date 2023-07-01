@@ -24,7 +24,7 @@ enum AppScreens with TabEnumMixin implements Comparable<AppScreens> {
   static BottomNavigationBar bottomNavigationBar(BuildContext context) {
     return BottomNavigationBar(
       items: values.map((t) => t.bottomNavItem).toList(),
-      currentIndex: locationToIndex(GoRouter.of(context).location),
+      currentIndex: locationToIndex(GoRouterState.of(context).location),
       onTap: (index) {
         GoRouter.of(context).go(values[index].path);
       },
